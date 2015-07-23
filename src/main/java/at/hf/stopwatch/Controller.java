@@ -25,7 +25,7 @@ public class Controller implements Serializable {
 
 	@PostConstruct
 	public void init() {
-
+		loadCompetitions();
 	}
 
 	public void loadCompetitions() {

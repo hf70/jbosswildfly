@@ -16,11 +16,9 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "competitions")
-@NamedQuery(name = Competition.FIND_All, query = "SELECT c FROM Competition c")
 public class Competition extends BaseEntity {
 
 	public static final String FIND_All = "Competiton.findAll";
-
 	@Temporal(TemporalType.DATE)
 	private Date date;
 
