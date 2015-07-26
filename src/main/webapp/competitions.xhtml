@@ -2,24 +2,43 @@
 <html xmlns="http://www.w3c.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
 <h:head></h:head>
-<p:toolbar>
-<f:facet name="left">
-<p:commandButton type="button" value="Neuer Wettkampf" icon="ui-icon-document" /> 
-</f:facet>
-</p:toolbar>
-<h:body>
+<b:navBar brand="Wettkampfauswertung" brandHref="#" inverse="false">
+	<b:navbarLinks>
+		<b:navLink value="Neuer Wettkampf" href="#"
+			onclick="PF('dlgNewCompetition').show();"></b:navLink>
+				<b:navLink value="Neuer Wettkampf" href="#"
+			onclick="$('.modalPseudoClass').modal();return false;" ></b:navLink>
+	
+	</b:navbarLinks>
+</b:navBar>
+
+<p:dialog header="Neuer Wettkampf" widgetVar="dlgNewCompetition"
+		modal="true" height="100">
+		<h:outputText value="This is a Modal Dialog." />
+	</p:dialog>
+	
+<b:modal id="amodal" title="Modal Example" styleClass="modalPseudoClass">
+	<p>Modal body</p>
+	<f:facet name="footer">
+		<b:button value="close" dismiss="modal" onclick="return false;" />
+		<b:button value="Ok" look="primary" dismiss="modal"
+			onclick="return false;" />
+	</f:facet>
+</b:modal>
+<b:container>
 	<p:dataTable var="competition" value="#{controller.competitions}">
 		<p:column headerText="Id">
 			<h:outputText value="#{competition.id}" />
 		</p:column>
-		<p:column headerText="Id">
+		<p:column headerText="Name">
 			<h:outputText value="#{competition.name}" />
 		</p:column>
-		<p:column headerText="Id">
+		<p:column headerText="Datum">
 			<h:outputText value="#{competition.date}" />
 		</p:column>
 	</p:dataTable>
-</h:body>
+</b:container>
+
 </html>
