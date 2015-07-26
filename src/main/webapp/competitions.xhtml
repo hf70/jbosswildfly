@@ -4,6 +4,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head></h:head>
+<p:toolbar>
+<f:facet name="left">
+<p:commandButton type="button" value="Neuer Wettkampf" icon="ui-icon-document" /> 
+</f:facet>
+</p:toolbar>
 <h:body>
 	<p:dataTable var="competition" value="#{controller.competitions}">
 		<p:column headerText="Id">
