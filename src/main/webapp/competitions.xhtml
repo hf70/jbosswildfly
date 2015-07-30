@@ -9,22 +9,15 @@
 		<b:navBar brand="Wettkampfauswertung" brandHref="#" inverse="true">
 			<b:navbarLinks>
 				<b:navLink value="Neuer Wettkampf" href="#"
-					onclick="PF('dlgNewCompetition').show();"></b:navLink>
-				<b:navLink value="Neuer Wettkampf" href="#"
 					onclick="$('.newCompetitionPseudoClass').modal();return false;"></b:navLink>
 
 			</b:navbarLinks>
 		</b:navBar>
 
-		<p:dialog header="Neuer Wettkampf" widgetVar="dlgNewCompetition"
-			modal="true" height="100">
-			<h:outputText value="This is a Modal Dialog." />
-		</p:dialog>
-
-		<b:modal id="newCompetition" title="Modal Example"
+		<b:modal id="newCompetition" title="Neuer Wettkampf"
 			styleClass="newCompetitionPseudoClass">
 			<b:panel>
-				<p>Modal body</p>
+				<p>Neuer Wettkampf</p>
 				<f:facet name="footer">
 					<b:button value="close" dismiss="modal" onclick="return false;" />
 					<b:button value="Ok" look="primary" dismiss="modal"
@@ -32,8 +25,9 @@
 				</f:facet>
 			</b:panel>
 		</b:modal>
-		<p:dataTable var="competition" value="#{controller.competitions}" reflow="true">
-			<p:column headerText="Id" >
+		<p:dataTable var="competition" value="#{controller.competitions}"
+			reflow="true">
+			<p:column headerText="Id">
 				<h:outputText value="#{competition.id}" />
 			</p:column>
 			<p:column headerText="Name">
