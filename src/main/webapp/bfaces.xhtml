@@ -1,26 +1,65 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:prime="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+
 <h:head>
-	<title>BootsFaces Basic Page</title>
+	<style>
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus
+	{
+	background-color: #ddd !important;
+}
+</style>
 </h:head>
 <h:body>
-	<b:navBar brand="Brand" brandHref="#" inverse="false">
-		<b:navbarLinks>
-			<b:navLink value="Home" href="#"></b:navLink>
-			<b:navLink value="Link" href="#"></b:navLink>
-			<b:navLink value="Link" href="#"></b:navLink>
-		</b:navbarLinks>
-	</b:navBar>
 	<b:container>
-		<b:row>
-			<b:column>
-				<h1>Hello, world!</h1>
-			</b:column>
-		</b:row>
+		<h:form id="formID">
+
+			<b:modal id="aboutModal" title="About"
+				styleClass="aboutModalPseudoClass">
+				<b:panel>
+					<p>This is a modal dialog.</p>
+					<p>It even contains a date picker.</p>
+					<p>
+						<b:datepicker></b:datepicker>
+					</p>
+					<p>Far far away, behind the word mountains, far from the
+						countries Vokalia and Consonantia, there live the blind texts.
+						Separated they live in Bookmarksgrove right at the coast of the
+						Semantics, a large language ocean. A small river named Duden flows
+						by their place and supplies it with the necessary regelialia. It
+						is a paradisematic country, in which roasted parts of sentences
+						fly into your mouth. Even the all-powerful Pointing has no control
+						about the blind texts it is an almost unorthographic life One day
+						however a small line of blind text by the name of Lorem Ipsum
+						decided to leave for the far World of Grammar. The Big Oxmox
+						advised her not to do so, because there were thousands of bad
+						Commas, wild Question Marks and devious Semikoli, but the Little
+						Blind Text didn't listen. She packed her seven versalia, put her
+						initial into the belt and made herself on the way. When she
+						reached the first hills of the Italic Mountains, she had a last
+						view back on the skyline of her hometown Bookmarksgrove, the
+						headline of Alphabet Village and the subline of her own road, the
+						Line Lane. Pityful a rethoric question ran over her cheek</p>
+				</b:panel>
+			</b:modal>
+
+			<b:navBar brand="Test" brandHref="/index.jsf" inverse="true"
+				fixed="true">
+				<b:navbarLinks>
+					<b:navLink value="About" 
+						onclick="$('.aboutModalPseudoClass').modal('show');return false;"></b:navLink>
+				</b:navbarLinks>
+			</b:navBar>
+
+			<b:button value="Click me to show the modal dialog."
+				onclick="$('.aboutModalPseudoClass').modal('show');return false;"></b:button>
+		</h:form>
 	</b:container>
 </h:body>
 </html>
