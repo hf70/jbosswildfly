@@ -3,11 +3,7 @@ package at.hf.stopwatch.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the competitions database table.
@@ -19,11 +15,18 @@ import javax.persistence.TemporalType;
 public class Competition extends BaseEntity {
 
 	public static final String FIND_All = "Competiton.findAll";
-	@Temporal(TemporalType.DATE)
 	private Date date;
 
-	@Lob
-	private String name;
+
+	private String subject;
+	
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
 
 	public Competition() {
 	}
@@ -36,12 +39,6 @@ public class Competition extends BaseEntity {
 		this.date = date;
 	}
 
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 
 }

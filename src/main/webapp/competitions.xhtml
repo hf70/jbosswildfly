@@ -10,9 +10,9 @@
 </h:head>
 <h:body>
 	<b:container>
-		<b:navBar brand="Wettkampfauswertung" brandHref="#" inverse="true">
+		<b:navBar brand="Wettkampfauswertung" brandHref="competitions.xhtml" inverse="true">
 			<b:navbarLinks>
-				<b:navLink value="Neuer Wettkampf" href="#"
+				<b:navLink value="Neuer Wettkampf" 
 					onclick="$('.newCompetitionPseudoClass').modal();return false;"></b:navLink>
 
 			</b:navbarLinks>
@@ -20,22 +20,39 @@
 
 		<b:modal id="newCompetition" title="Neuer Wettkampf"
 			styleClass="newCompetitionPseudoClass">
-			<b:panel>
-				<p>Neuer Wettkampf</p>
-				<f:facet name="footer">
-					<b:button value="close" dismiss="modal" onclick="return false;" />
-					<b:button value="Ok" look="primary" dismiss="modal"
-						onclick="return false;" />
-				</f:facet>
-			</b:panel>
+			<h:form id="newCompetitionForm">
+
+				<b:panel>
+					<p>Neuer Wettkampf</p>
+					<b:panelGrid colSpans="2,10">
+						<h:outputLabel value="Datum" />
+						<p:calendar id="date" span="5" required="true"
+							value="#{competitionController.newCompetition.date}"></p:calendar>
+						<h:outputLabel value="Bezeichnung" />
+						<b:inputText id="name" required="true"
+							value="#{competitionController.newCompetition.subject}"></b:inputText>
+						
+					</b:panelGrid>
+					<f:facet name="footer">
+						<b:button value="Abbrechen" dismiss="modal"
+							onclick="return false;" />
+						<b:commandButton id="saveNewCompetition" value="Ok" look="primary" dismiss="modal"
+							actionListener="#{competitionController.saveNewCompetition}" >
+							<p:ajax  update="competitonlist"/>
+							</b:commandButton>
+						<h:messages styleClass="messages" errorClass="invalid"
+							infoClass="valid" warnClass="warning" globalOnly="true" />
+					</f:facet>
+				</b:panel>
+			</h:form>
 		</b:modal>
-		<p:dataTable var="competition" value="#{controller.competitions}"
+		<p:dataTable id="competitionlist" var="competition" value="#{competitionController.competitions}"
 			reflow="true">
 			<p:column headerText="Id">
 				<h:outputText value="#{competition.id}" />
 			</p:column>
 			<p:column headerText="Name">
-				<h:outputText value="#{competition.name}" />
+				<h:outputText value="#{competition.subject}" />
 			</p:column>
 			<p:column headerText="Datum">
 				<h:outputText value="#{competition.date}" />
