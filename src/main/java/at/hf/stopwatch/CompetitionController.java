@@ -47,4 +47,10 @@ public class CompetitionController implements Serializable {
 		competitionService.save(newCompetition);
 		init();
 	}
+	 @Transactional
+	    public void removeCompetiton(Competition competition) {
+		 competitionService.delete(competition);
+		 loadCompetitions();
+	    }
+
 }

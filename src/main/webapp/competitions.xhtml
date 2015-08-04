@@ -5,14 +5,15 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
 <h:head>
 	<meta name="viewport"
-		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		content="width=device-width, initial-scale=1, maximum-scale=1">
 	</meta>
 </h:head>
 <h:body>
 	<b:container>
-		<b:navBar brand="Wettkampfauswertung" brandHref="competitions.xhtml" inverse="true">
+		<b:navBar brand="Wettkampfauswertung" brandHref="competitions.xhtml"
+			inverse="true">
 			<b:navbarLinks>
-				<b:navLink value="Neuer Wettkampf" 
+				<b:navLink value="Neuer Wettkampf"
 					onclick="$('.newCompetitionPseudoClass').modal();return false;"></b:navLink>
 
 			</b:navbarLinks>
@@ -31,34 +32,42 @@
 						<h:outputLabel value="Bezeichnung" />
 						<b:inputText id="name" required="true"
 							value="#{competitionController.newCompetition.subject}"></b:inputText>
-						
+
 					</b:panelGrid>
 					<f:facet name="footer">
 						<b:button value="Abbrechen" dismiss="modal"
 							onclick="return false;" />
-						<b:commandButton id="saveNewCompetition" value="Ok" look="primary" dismiss="modal"
-							actionListener="#{competitionController.saveNewCompetition}" >
-							<p:ajax  update="competitonlist"/>
-							</b:commandButton>
+						<b:commandButton id="saveNewCompetition" value="Ok" look="primary"
+							dismiss="modal"
+							actionListener="#{competitionController.saveNewCompetition}">
+							<p:ajax update="competitonlist" />
+						</b:commandButton>
 						<h:messages styleClass="messages" errorClass="invalid"
 							infoClass="valid" warnClass="warning" globalOnly="true" />
 					</f:facet>
 				</b:panel>
 			</h:form>
 		</b:modal>
-		<p:dataTable id="competitionlist" var="competition" value="#{competitionController.competitions}"
-			reflow="true">
-			<p:column headerText="Id">
-				<h:outputText value="#{competition.id}" />
-			</p:column>
-			<p:column headerText="Name">
-				<h:outputText value="#{competition.subject}" />
-			</p:column>
-			<p:column headerText="Datum">
-				<h:outputText value="#{competition.date}" />
-			</p:column>
+		<h:form id="remove">
 
-		</p:dataTable>
+			<p:dataTable id="competitionlist" var="competition"
+				value="#{competitionController.competitions}" reflow="true">
+				<p:column styleClass="col-md-1" headerText="Datum">
+					<h:outputText value="#{competition.date}">
+						<f:convertDateTime pattern="dd.MM.yy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column styleClass="col-md-10" headerText="Name">
+					<h:outputText value="#{competition.subject}" />
+				</p:column>
+				<p:column styleClass="col-md-1" headerText="Löschen">
+					<b:commandButton value="" iconAwesome="remove"
+						action="#{competitionController.removeCompetiton(competition)}" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
 	</b:container>
 </h:body>
 </html>
