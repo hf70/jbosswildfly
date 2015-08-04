@@ -7,6 +7,7 @@
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1, maximum-scale=1">
 	</meta>
+	<title>Wettkämpfe</title>
 </h:head>
 <h:body>
 	<b:container>
@@ -27,8 +28,7 @@
 					<p>Neuer Wettkampf</p>
 					<b:panelGrid colSpans="2,10">
 						<h:outputLabel value="Datum" />
-						<p:calendar id="date" span="5" required="true"
-							value="#{competitionController.newCompetition.date}"></p:calendar>
+						<p:calendar id="date" span="5" required="true" locale="de" showOn="button" pattern="dd.MM.yyyy"							value="#{competitionController.newCompetition.date}"></p:calendar>
 						<h:outputLabel value="Bezeichnung" />
 						<b:inputText id="name" required="true"
 							value="#{competitionController.newCompetition.subject}"></b:inputText>
@@ -52,16 +52,16 @@
 
 			<p:dataTable id="competitionlist" var="competition"
 				value="#{competitionController.competitions}" reflow="true">
-				<p:column styleClass="col-md-1" headerText="Datum">
+				<p:column styleClass="col-md-1 col-xs-1" headerText="Datum">
 					<h:outputText value="#{competition.date}">
-						<f:convertDateTime pattern="dd.MM.yy" />
+						<f:convertDateTime pattern="dd.MM.yyyy" />
 					</h:outputText>
 				</p:column>
 
-				<p:column styleClass="col-md-10" headerText="Name">
+				<p:column styleClass="col-md-10 col-xs-10" headerText="Name">
 					<h:outputText value="#{competition.subject}" />
 				</p:column>
-				<p:column styleClass="col-md-1" headerText="Löschen">
+				<p:column styleClass="col-md-1 col-xs-1" headerText="Löschen">
 					<b:commandButton value="" iconAwesome="remove"
 						action="#{competitionController.removeCompetiton(competition)}" />
 				</p:column>
