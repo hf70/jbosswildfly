@@ -1,25 +1,12 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3c.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
+<ui:composition template="/resources/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
-<h:head>
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1, maximum-scale=1">
-	</meta>
-	<title>Wettkämpfe</title>
-</h:head>
-<h:body>
-	<b:container>
-		<b:navBar brand="Wettkampfauswertung" brandHref="competitions.xhtml"
-			inverse="true">
-			<b:navbarLinks>
-				<b:navLink value="Neuer Wettkampf"
-					onclick="$('.newCompetitionPseudoClass').modal();return false;"></b:navLink>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" 
+	xmlns:p="http://primefaces.org/ui"	>
 
-			</b:navbarLinks>
-		</b:navBar>
-
+	<ui:define name="content">
 		<b:modal id="newCompetition" title="Neuer Wettkampf"
 			styleClass="newCompetitionPseudoClass">
 			<h:form id="newCompetitionForm">
@@ -28,7 +15,9 @@
 					<p>Neuer Wettkampf</p>
 					<b:panelGrid colSpans="2,10">
 						<h:outputLabel value="Datum" />
-						<p:calendar id="date" span="5" required="true" locale="de" showOn="button" pattern="dd.MM.yyyy"							value="#{competitionController.newCompetition.date}"></p:calendar>
+						<b:datepicker id="date"  mode="popup-icon" required="true" locale="de"
+							showOn="button" pattern="dd.MM.yyyy"
+							value="#{competitionController.newCompetition.date}"></b:datepicker>
 						<h:outputLabel value="Bezeichnung" />
 						<b:inputText id="name" required="true"
 							value="#{competitionController.newCompetition.subject}"></b:inputText>
@@ -52,13 +41,13 @@
 
 			<p:dataTable id="competitionlist" var="competition"
 				value="#{competitionController.competitions}" reflow="true">
-				<p:column styleClass="col-md-1 col-xs-3" headerText="Datum">
+				<p:column styleClass="col-md-2 col-xs-3" headerText="Datum">
 					<h:outputText value="#{competition.date}">
 						<f:convertDateTime pattern="dd.MM.yyyy" />
 					</h:outputText>
 				</p:column>
 
-				<p:column styleClass="col-md-10 col-xs-6" headerText="Name">
+				<p:column styleClass="col-md-9 col-xs-6" headerText="Name">
 					<h:outputText value="#{competition.subject}" />
 				</p:column>
 				<p:column styleClass="col-md-1 col-xs-3" headerText="Löschen">
@@ -68,6 +57,5 @@
 
 			</p:dataTable>
 		</h:form>
-	</b:container>
-</h:body>
-</html>
+	</ui:define>
+</ui:composition>

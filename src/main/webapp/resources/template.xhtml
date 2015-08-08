@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1">
+	</meta>
+	<title><ui:insert name="title">Wettkampfauswertung</ui:insert></title>
+</h:head>
+<h:body>
+	<b:container>
+		<ui:include src="/resources/navbar.xhtml" />
+		<ui:insert name="content"></ui:insert>
+		<footer>
+			<b:navBar fixed="bottom">
+				<p>Heinz Fröhlich 2015</p>
+			</b:navBar>
+		</footer>
+	</b:container>
+</h:body>
+</html>
