@@ -8,15 +8,11 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import at.hf.stopwatch.cdi.Controller;
-import at.hf.stopwatch.dao.CompetitionDao;
 import at.hf.stopwatch.model.Competition;
 import at.hf.stopwatch.service.CompetitionService;
 
 @Controller
 public class CompetitionController implements Serializable {
-	@Inject
-	CompetitionDao competitionDao;
-
 	@Inject
 	CompetitionService competitionService;
 
@@ -47,10 +43,11 @@ public class CompetitionController implements Serializable {
 		competitionService.save(newCompetition);
 		init();
 	}
-	 @Transactional
-	    public void removeCompetiton(Competition competition) {
-		 competitionService.delete(competition);
-		 loadCompetitions();
-	    }
+
+	@Transactional
+	public void removeCompetiton(Competition competition) {
+		competitionService.delete(competition);
+		loadCompetitions();
+	}
 
 }

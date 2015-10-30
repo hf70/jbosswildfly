@@ -1,11 +1,62 @@
 <ui:composition template="/resources/template.xhtml"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="content">
-        <h1>New content here</h1>
-        <p>Blah blah</p>
-    </ui:define>
+	<ui:define name="content">
+		<b:modal id="newCompetition" title="Neuer Wettkampf"
+			styleClass="newCompetitionPseudoClass">
+			<h:form id="newCompetitionForm">
+
+				<b:panel>
+					<p>Neuer Wettkampf</p>
+					<b:panelGrid colSpans="2,10">
+						<h:outputLabel value="Datum" />
+						<b:datepicker id="date" mode="popup-icon" required="true"
+							locale="de" showOn="button" pattern="dd.MM.yyyy"
+							value="#{competitionController.newCompetition.date}"></b:datepicker>
+						<h:outputLabel value="Bezeichnung" />
+						<b:inputText id="name" required="true"
+							value="#{competitionController.newCompetition.subject}"></b:inputText>
+
+					</b:panelGrid>
+					<f:facet name="footer">
+						<b:button value="Abbrechen" dismiss="modal"
+							onclick="return false;" />
+						<b:commandButton id="saveNewCompetition" value="Ok" look="primary"
+							dismiss="modal"
+							actionListener="#{competitionController.saveNewCompetition}">
+							<p:ajax update="competitonlist" />
+						</b:commandButton>
+						<h:messages styleClass="messages" errorClass="invalid"
+							infoClass="valid" warnClass="warning" globalOnly="true" />
+					</f:facet>
+				</b:panel>
+			</h:form>
+		</b:modal>
+		<h:form id="remove">
+
+			<p:dataTable id="competitionlist" var="competition"
+				value="#{competitionController.competitions}" reflow="true">
+				<p:column styleClass="col-md-2 col-xs-4" headerText="Datum">
+					<h:outputText value="#{competition.date}">
+						<f:convertDateTime pattern="dd.MM.yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column styleClass="col-md-8 col-xs-6" headerText="Name">
+					<h:outputText value="#{competition.subject}" />
+				</p:column>
+				<p:column styleClass="col-md-2 col-xs-2" headerText="Löschen">
+					<b:commandButton title="Löschen" value="" iconAwesome="trash"
+						action="#{competitionController.removeCompetiton(competition)}" />
+					<b:commandButton title="Öffnen" value="" iconAwesome="edit"
+						action="#{competitionController.removeCompetiton(competition)}" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
 </ui:composition>

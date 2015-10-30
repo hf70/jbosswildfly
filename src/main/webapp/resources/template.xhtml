@@ -11,14 +11,15 @@
 	<title><ui:insert name="title">Wettkampfauswertung</ui:insert></title>
 </h:head>
 <h:body>
+
 	<b:container>
 		<ui:include src="/resources/navbar.xhtml" />
 		<ui:insert name="content"></ui:insert>
-		<footer>
-			<b:navBar fixed="bottom">
-				<p>Heinz Fröhlich 2015</p>
-			</b:navBar>
-		</footer>
+		<b:navBar fixed="bottom" static="true">
+			<p>Heinz Fröhlich 2015</p>
+		</b:navBar>
 	</b:container>
+
+
 </h:body>
 </html>

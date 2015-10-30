@@ -27,7 +27,7 @@ public abstract class EntityService<T extends BaseEntity> implements Serializabl
         getDao().delete(entity);
     }
 
-    public T findById(long id) {
+    public T findById(int id) {
         return getDao().findById(id);
     }
 

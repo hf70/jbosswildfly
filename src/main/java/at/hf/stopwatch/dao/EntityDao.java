@@ -35,7 +35,7 @@ public abstract class EntityDao<T extends BaseEntity> implements Serializable {
         entityManager.remove(toDelete);
     }
 
-    public T findById(long id) {
+    public T findById(int id) {
         return entityManager.find(getResponseClass(), id);
     }
 
