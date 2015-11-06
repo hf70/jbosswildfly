@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	<b:container>
+		<b:modal id="newCompetition" title="Neuer Wettkampf"
+			styleClass="newCompetitionPseudoClass">
+			<h:form id="newCompetitionForm">
+				<b:panel>
+					<p>Neuer Wettkampf</p>
+					<b:panelGrid colSpans="2,10">
+						<h:outputLabel value="Datum" />
+						<b:datepicker id="date" mode="popup-icon" required="true"
+							locale="de" showOn="button" pattern="dd.MM.yyyy"
+							value="#{newCompetitionDialogController.newCompetition.date}"></b:datepicker>
+						<h:outputLabel value="Bezeichnung" />
+						<b:inputText id="name" required="true"
+							value="#{newCompetitionDialogController.newCompetition.subject}"></b:inputText>
+
+					</b:panelGrid>
+					<f:facet name="footer">
+						<b:button value="Abbrechen" dismiss="modal"
+							onclick="return false;" />
+						<b:commandButton  id="saveNewCompetition" value="Ok" look="primary"
+							dismiss="modal"
+							actionListener="#{newCompetitionDialogController.saveNewCompetition}"
+							action="index">
+					<p:ajax update="@all" />         
+						</b:commandButton>
+						<h:messages styleClass="messages" errorClass="invalid"
+							infoClass="valid" warnClass="warning" globalOnly="true" />
+					</f:facet>
+				</b:panel>
+			</h:form>
+		</b:modal>
+	</b:container>
+</ui:composition>

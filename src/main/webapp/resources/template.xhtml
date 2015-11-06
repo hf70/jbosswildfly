@@ -10,16 +10,16 @@
 	</meta>
 	<title><ui:insert name="title">Wettkampfauswertung</ui:insert></title>
 </h:head>
-<h:body>
-
+<h:body style="padding-top: 75px;padding-bottom: 75px;">
 	<b:container>
+
 		<ui:include src="/resources/navbar.xhtml" />
+		<ui:include src="/dialogs/NewCompetitionDialog.xhtml" />
+		<ui:include src="/dialogs/NewAthleteDialog.xhtml" />
+
 		<ui:insert name="content"></ui:insert>
-		<b:navBar fixed="bottom" static="true">
-			<p>Heinz Fröhlich 2015</p>
+		<b:navBar fixed="bottom" brand="Heinz Fröhlich" brandAlign="right">
 		</b:navBar>
 	</b:container>
-
-
 </h:body>
 </html>

@@ -6,43 +6,6 @@
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
-		<b:modal id="newAthlete" title="Neuer Athlet"
-			styleClass="newAthletePseudoClass">
-			<h:form id="newAthleteForm">
-
-				<b:panel>
-					<p>Neuer Athlet</p>
-					<b:panelGrid colSpans="2,10">
-						<h:outputLabel value="Geschlecht"/>
-						<b:selectOneMenu value ="#{athleteController.newAthlete.gender}"  >
-						     <f:selectItems value="#{athleteController.genderList}"/>
-						</b:selectOneMenu>
-						<h:outputLabel value="Vorname" />
-						<b:inputText id="firstName" required="true"
-							value="#{athleteController.newAthlete.firstName}"></b:inputText>
-						<h:outputLabel value="Nachname" />
-						<b:inputText id="lastName" required="true"
-							value="#{athleteController.newAthlete.lastName}"></b:inputText>
-						<h:outputLabel value="Geburtsjahr" />
-						<b:inputText id="yearOfBirth" required="true"
-							value="#{athleteController.newAthlete.yearOfBirth}"></b:inputText>
-						
-
-					</b:panelGrid>
-					<f:facet name="footer">
-						<b:button value="Abbrechen" dismiss="modal"
-							onclick="return false;" />
-						<b:commandButton id="saveNewAthlete" value="Ok" look="primary"
-							dismiss="modal"
-							actionListener="#{athleteController.saveNewAthlete}">
-							<p:ajax update="athleteslist" />
-						</b:commandButton>
-						<h:messages styleClass="messages" errorClass="invalid"
-							infoClass="valid" warnClass="warning" globalOnly="true" />
-					</f:facet>
-				</b:panel>
-			</h:form>
-		</b:modal>
 		<h:form id="remove">
 
 			<p:dataTable id="athleteslist" var="athlete"

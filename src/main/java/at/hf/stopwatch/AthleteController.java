@@ -20,17 +20,9 @@ public class AthleteController implements Serializable {
 
 	private List<Athlete> athletes;
 
-	private Athlete newAthlete;
- 
-	private Map<String, String> genderList;
-	
 	@PostConstruct
 	public void init() {
 		loadAthletes();
-		newAthlete = new Athlete();
-		genderList = new HashMap<String, String>();
-	        genderList.put("Mann","m");
-	        genderList.put("Frau","w");
 	}
 
 	public void loadAthletes() {
@@ -38,27 +30,13 @@ public class AthleteController implements Serializable {
 	}
 
 	@Transactional
-	public void saveNewAthlete() {
-		athleteService.save(newAthlete);
-		init();
-	}
-
-	@Transactional
 	public void removeAthlete(Athlete athlete) {
 		athleteService.delete(athlete);
 		loadAthletes();
-	}
-	public Athlete getNewAthlete() {
-		return newAthlete;
 	}
 
 	public List<Athlete> getAthletes() {
 		return athletes;
 	}
-
-	public Map<String, String> getGenderList() {
-		return genderList;
-	}
-
 
 }

@@ -18,12 +18,6 @@ public class CompetitionController implements Serializable {
 
 	private List<Competition> competitions;
 
-	private Competition newCompetition;
-
-	public Competition getNewCompetition() {
-		return newCompetition;
-	}
-
 	public List<Competition> getCompetitions() {
 		return competitions;
 	}
@@ -31,17 +25,10 @@ public class CompetitionController implements Serializable {
 	@PostConstruct
 	public void init() {
 		loadCompetitions();
-		newCompetition = new Competition();
 	}
 
 	public void loadCompetitions() {
 		competitions = competitionService.findAll();
-	}
-
-	@Transactional
-	public void saveNewCompetition() {
-		competitionService.save(newCompetition);
-		init();
 	}
 
 	@Transactional
