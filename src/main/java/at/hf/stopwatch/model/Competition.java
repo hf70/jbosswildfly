@@ -4,10 +4,13 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Proxy;
 
 
 
@@ -21,7 +24,7 @@ public class Competition extends BaseEntity {
 
 	private String subject;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "competition")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "competition" ,cascade = CascadeType.ALL)
 	private Set<Participant> participants = new HashSet<Participant>();
 	
 	

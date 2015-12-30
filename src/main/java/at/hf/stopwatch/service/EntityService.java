@@ -3,12 +3,12 @@ package at.hf.stopwatch.service;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
 
 import at.hf.stopwatch.dao.EntityDao;
 import at.hf.stopwatch.model.BaseEntity;
-
 
 public abstract class EntityService<T extends BaseEntity> implements Serializable {
 

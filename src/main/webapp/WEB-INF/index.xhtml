@@ -5,33 +5,26 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 	<ui:define name="content">
-		<b:well size="sm">
-			<h3>Wettkämpfe</h3>
-		</b:well>
+	<b:well size="sm">
+	<h3>Wettkämpfe</h3>
+	</b:well>
 		<h:form id="remove">
 			<p:dataTable id="competitionlist" var="competition"
-				value="#{competitionsController.competitions}" reflow="true">
+				value="#{competitionController.competitions}" reflow="true">
 				<p:column styleClass="col-md-2 col-xs-4" headerText="Datum">
 					<h:outputText value="#{competition.date}">
-						<f:convertDateTime pattern="dd.MM.yyyy" locale="de" />
+						<f:convertDateTime pattern="dd.MM.yyyy" />
 					</h:outputText>
 				</p:column>
 
 				<p:column styleClass="col-md-8 col-xs-4" headerText="Name">
 					<h:outputText value="#{competition.subject}" />
 				</p:column>
-				<p:column styleClass="col-md-2 col-xs-4">
-					<ul class="list-inline">
-						<li><h:link outcome="competition" includeViewParams="true">
-								<f:param name="id" value="#{competition.id}"></f:param>
-								<b:iconAwesome size="lg" name="edit" tooltip="Bearbeiten" />
-							</h:link></li>
-						<li><p:commandLink event="onclick"
-								actionListener="#{competitionsController.removeCompetiton(competition)}"
-								update="competitionlist">
-								<b:iconAwesome size="lg" name="trash" tooltip="Löschen" />
-							</p:commandLink></li>
-					</ul>
+				<p:column styleClass="col-md-2 col-xs-4" headerText="Löschen">
+					<b:commandButton title="Löschen" value="" iconAwesome="trash"
+						action="#{competitionController.removeCompetiton(competition)}" />
+					<b:commandButton title="Öffnen" value="" iconAwesome="edit"
+						/>
 				</p:column>
 			</p:dataTable>
 		</h:form>

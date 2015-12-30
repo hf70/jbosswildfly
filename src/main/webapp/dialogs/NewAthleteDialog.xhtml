@@ -1,3 +1,4 @@
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -25,17 +26,16 @@
 					<h:outputLabel value="Geburtsjahr" />
 					<b:inputText id="yearOfBirth" required="true"
 						value="#{newAthleteDialogController.newAthlete.yearOfBirth}"></b:inputText>
-
-
+					<h:outputLabel value="Verein" />
+					<b:inputText id="club" required="true"
+						value="#{newAthleteDialogController.newAthlete.club}"></b:inputText>
 				</b:panelGrid>
 				<f:facet name="footer">
 					<b:button value="Abbrechen" dismiss="modal" onclick="return false;" />
-					<b:commandButton id="saveNewAthlete" value="Ok" look="primary"
-						dismiss="modal"
-						actionListener="#{newAthleteDialogController.saveNewAthlete}"
-						action="athletes">
-						<p:ajax update="athleteslist" />
-					</b:commandButton>
+					<p:remoteCommand name="saveNewAthlete"
+						actionListener="#{newAthleteDialogController.saveNewAthlete()}" />
+					<b:button value="Ok" look="primary" outcome="athletes"
+						dismiss="modal" onclick="saveNewAthlete();" />
 					<h:messages styleClass="messages" errorClass="invalid"
 						infoClass="valid" warnClass="warning" globalOnly="true" />
 				</f:facet>

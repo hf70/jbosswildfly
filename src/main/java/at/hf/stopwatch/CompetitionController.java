@@ -1,9 +1,7 @@
 package at.hf.stopwatch;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
@@ -13,28 +11,38 @@ import at.hf.stopwatch.service.CompetitionService;
 
 @Controller
 public class CompetitionController implements Serializable {
+
 	@Inject
 	CompetitionService competitionService;
-
-	private List<Competition> competitions;
-
-	public List<Competition> getCompetitions() {
-		return competitions;
+	@Inject
+	NewParticipantDialogController newParticipantDialogController;
+	
+	
+	private int id;
+	private Competition competition;
+	
+	public void loadCompetition(){
+		competition=competitionService.findById(id);
+		
+		newParticipantDialogController.setCompetitionId(id);
+		newParticipantDialogController.assignCompetition();
 	}
 
-	@PostConstruct
-	public void init() {
-		loadCompetitions();
+	public Competition getCompetition() {
+		return competition;
 	}
-
-	public void loadCompetitions() {
-		competitions = competitionService.findAll();
-	}
-
+	
 	@Transactional
-	public void removeCompetiton(Competition competition) {
-		competitionService.delete(competition);
-		loadCompetitions();
+	public void saveCompetition(){
+		competitionService.save(competition);
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

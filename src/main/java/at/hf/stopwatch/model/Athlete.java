@@ -2,6 +2,8 @@ package at.hf.stopwatch.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -15,7 +17,7 @@ public class Athlete extends BaseEntity {
 	private String lastName;
 	private String club;
 	private int yearOfBirth;
-
+	
 	public String getGender() {
 		return gender;
 	}

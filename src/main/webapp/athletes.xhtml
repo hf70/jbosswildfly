@@ -6,21 +6,34 @@
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
-		<h:form id="remove">
+		<b:well size="sm">
+			<h3>Athleten</h3>
+		</b:well>
+
+		<h:form id="athletesoverview">
 
 			<p:dataTable id="athleteslist" var="athlete"
 				value="#{athleteController.athletes}" reflow="true">
-				<p:column styleClass="col-md-4 col-xs-4" headerText="Vorname">
+				<p:column styleClass="col-md-3 col-xs-3" headerText="Vorname">
 					<h:outputText value="#{athlete.firstName}">
 					</h:outputText>
 				</p:column>
-				<p:column styleClass="col-md-4 col-xs-4" headerText="Nachname">
+				<p:column styleClass="col-md-3 col-xs-3" headerText="Nachname">
 					<h:outputText value="#{athlete.lastName}">
 					</h:outputText>
 				</p:column>
-				<p:column styleClass="col-md-4 col-xs-4" headerText="Geburtsjahr">
+				<p:column styleClass="col-md-1 col-xs-1" headerText="Geburtsjahr">
 					<h:outputText value="#{athlete.yearOfBirth}">
 					</h:outputText>
+				</p:column>
+				<p:column styleClass="col-md-3 col-xs-3" headerText="Verein">
+					<h:outputText value="#{athlete.club}">
+					</h:outputText>
+				</p:column>
+				<p:column styleClass="col-md-2 col-xs-2">
+					<b:commandButton title="Löschen" value="" iconAwesome="trash"
+						action="#{athleteController.removeAthlete(athlete)}"
+						update="@form" />
 				</p:column>
 			</p:dataTable>
 		</h:form>

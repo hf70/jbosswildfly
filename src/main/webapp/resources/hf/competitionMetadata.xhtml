@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+
+<composite:interface>
+	<composite:attribute name="competition"
+		type="at.hf.stopwatch.model.Competition"></composite:attribute>
+</composite:interface>
+
+<composite:implementation>
+
+	<b:panelGrid colSpans="2,10">
+		<h:outputLabel value="Datum" />
+		<b:datepicker id="date" mode="popup-icon" required="true" showOn="button" pattern="dd.MM.yyyy"
+			value="#{cc.attrs.competition.date}"></b:datepicker>
+		<h:outputLabel value="Bezeichnung" />
+		<b:inputText id="name" required="true"
+			value="#{cc.attrs.competition.subject}"></b:inputText>
+
+	</b:panelGrid>
+
+</composite:implementation>
+
+</html>

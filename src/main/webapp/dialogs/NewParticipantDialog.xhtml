@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:hf="http://java.sun.com/jsf/composite/hf">
+	<b:container>
+		<b:modal id="newParticipant" title="Neuer Teilnehmer"
+			styleClass="newParticipantPseudoClass">
+			<h:form id="newParticipantForm">
+				<b:panel>
+				
+					<b:panelGrid colSpans="2,10">
+						<h:outputLabel value="Wettkampf:" />
+						<h:outputLabel
+							value="#{newParticipantDialogController.newParticipant.competition.subject}" />
+
+						<h:outputLabel value="Teilnehmer:" />
+						<p:selectOneListbox filter="true" filterMatchMode="contains"
+							var="a" style="width:auto" converter="#{athleteConverter}"
+							value="#{newParticipantDialogController.newParticipant.athlete}" >
+							<f:selectItems value="#{newParticipantDialogController.athletes}"
+								var="athlete"
+								itemLabel="#{athlete.lastName} #{athlete.firstName} #{athlete.yearOfBirth} #{athlete.club}"
+								itemValue="#{athlete}"
+								 />
+							<p:column>
+								<h:outputText value="#{a.firstName}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{a.lastName}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{a.yearOfBirth}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{a.club}" />
+							</p:column>
+						</p:selectOneListbox>
+					</b:panelGrid>
+
+
+					<f:facet name="footer">
+						<b:button value="Abbrechen" dismiss="modal"
+							onclick="return false;" />
+						<b:commandButton id="savenewParticipant" value="Ok" look="primary"
+							dismiss="modal"
+							actionListener="#{newParticipantDialogController.saveNewParticipant}"
+							>
+							</b:commandButton>
+						<h:messages styleClass="messages" errorClass="invalid"
+							infoClass="valid" warnClass="warning" globalOnly="true" />
+					</f:facet>
+				</b:panel>
+			</h:form>
+		</b:modal>
+	</b:container>
+</ui:composition>
