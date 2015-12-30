@@ -13,13 +13,12 @@ import javax.persistence.Table;
 public class Participant extends BaseEntity {
 
 	private int number;
-	
-	@OneToOne(optional = false)
-	@JoinColumn(name = "athleteid", unique = true, nullable = false, updatable = false)
-	private Athlete athlete;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "competitionid", nullable = false, insertable = false, updatable = false)
 
+	@OneToOne()
+	private Athlete athlete;
+
+	@ManyToOne()
+	@JoinColumn(name = "competitionid", nullable = false, updatable = false)
 	private Competition competition;
 
 	public int getNumber() {
