@@ -13,12 +13,12 @@
 		<h:form id="athletesoverview">
 
 			<p:dataTable id="athleteslist" var="athlete"
-				value="#{athleteController.athletes}" reflow="true">
-				<p:column styleClass="col-md-3 col-xs-3" headerText="Vorname">
+				value="#{athleteController.athletes}" reflow="true" sortBy="#{athlete.lastName}">
+				<p:column styleClass="col-md-3 col-xs-3" headerText="Vorname"  sortBy="#{athlete.firstName}">
 					<h:outputText value="#{athlete.firstName}">
 					</h:outputText>
 				</p:column>
-				<p:column styleClass="col-md-3 col-xs-3" headerText="Nachname">
+				<p:column styleClass="col-md-3 col-xs-3" headerText="Nachname" sortBy="#{athlete.lastName}">
 					<h:outputText value="#{athlete.lastName}">
 					</h:outputText>
 				</p:column>
@@ -26,8 +26,8 @@
 					<h:outputText value="#{athlete.yearOfBirth}">
 					</h:outputText>
 				</p:column>
-				<p:column styleClass="col-md-3 col-xs-3" headerText="Verein">
-					<h:outputText value="#{athlete.club}">
+				<p:column styleClass="col-md-3 col-xs-3" headerText="Verein" sortBy="#{athlete.club}">
+					<h:outputText value="#{athlete.club}" >
 					</h:outputText>
 				</p:column>
 				<p:column styleClass="col-md-2 col-xs-2">

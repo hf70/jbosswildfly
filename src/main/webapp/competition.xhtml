@@ -24,8 +24,10 @@
 					</h:outputText>
 				</h5>
 			</b:well>
-			<b:tabView activeIndex="1" contentStyle="margin-top:10px">
+			<b:tabView activeIndex="1" >
+			
 				<b:tab title="Allgemein">
+					<p:spacer height="5" />		
 					<hf:competitionMetadata
 						competition="#{competitionController.competition}">
 					</hf:competitionMetadata>
@@ -37,24 +39,45 @@
 
 				</b:tab>
 				<b:tab title="Teilnehmer">
+					<p:spacer height="5" />					
 					<b:row>
 						<b:column span="10"></b:column>
 						<b:column span="2">
-							<b:commandButton id="addParticipant" value="Neuer Teilnehmner"
+							<b:commandButton id="addParticipant" value="Neuer Teilnehmer"
 								iconAwesome="plus"
 								onclick="$('.newParticipantPseudoClass').modal();return false;" />
 						</b:column>
 					</b:row>
-					<p:dataTable id="participants" var="participant"
-						value="#{competitionController.competition.participants}"
-						reflow="true">
-						<p:column styleClass="col-md-2 col-xs-4" headerText="Vorname">
-							<h:outputText value="#{participant.athlete.firstName}">
-							</h:outputText>
-						</p:column>
-					</p:dataTable>
+					<b:row>
+						<b:column span="12">
+							<p:dataTable id="participants" var="participant"
+								value="#{competitionController.competition.participants}"
+								sortBy="#{participant.athlete.lastName}" 
+								style="margin-top:5px"
+								>
+								<p:column styleClass="col-md-3 col-xs-3" headerText="Vorname"
+									priority="2" sortBy="#{participant.athlete.firstName}">
+									<h:outputText value="#{participant.athlete.firstName}" />
+								</p:column>
+								<p:column styleClass="col-md-3 col-xs-3" headerText="Nachname"
+									priority="1" sortBy="#{participant.athlete.lastName}">
+									<h:outputText value="#{participant.athlete.lastName}" />
+								</p:column>
+								<p:column styleClass="col-md-1 col-xs-1" headerText="Jahrgang"
+									priority="1">
+									<h:outputText value="#{participant.athlete.yearOfBirth}" />
+								</p:column>
+								<p:column styleClass="col-md-5 col-xs-5" headerText="Verein"
+									priority="2">
+									<h:outputText value="#{participant.athlete.club}" />
+								</p:column>
+							</p:dataTable>
+						</b:column>
+					</b:row>
 				</b:tab>
 				<b:tab title="Ergebnisse">
+					<p:spacer height="5" />		
+				
 					<p>This is the second tab.</p>
 				</b:tab>
 			</b:tabView>
