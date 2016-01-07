@@ -9,31 +9,51 @@
 		<b:well size="sm">
 			<h3>Athleten</h3>
 		</b:well>
-
 		<h:form id="athletesoverview">
 
-			<p:dataTable id="athleteslist" var="athlete"
-				value="#{athleteController.athletes}" reflow="true" sortBy="#{athlete.lastName}">
-				<p:column styleClass="col-md-3 col-xs-3" headerText="Vorname"  sortBy="#{athlete.firstName}">
-					<h:outputText value="#{athlete.firstName}">
-					</h:outputText>
+			<p:dataTable id="athleteslist" var="athlete" widgetVar="athletes"
+				value="#{athleteController.athletes}" sortBy="#{athlete.lastName}"
+				rowIndexVar="rowIndex" rowKey="#{athlete.id}"
+				styleClass="athletesListPseudoClass"
+				emptyMessage="Keine Einträge vorhanden" reflow="true">
+				<f:facet name="header">
+					<b:panelGrid colSpans="10,2">
+						<b:inputText id="globalFilter" onkeyup="PF('athletes').filter()">
+							<f:facet name="append">
+								<b:icon name="search" />
+							</f:facet>
+						</b:inputText>
+						<b:commandButton id="addAthlete" value="Neuer Athlet"
+							iconAwesome="plus"
+							onclick="$('.newAthletePseudoClass').modal();return false;" />
+					</b:panelGrid>
+				</f:facet>
+				<p:column filterBy="#{athlete.firstName}" filterStyle="display:none" headerText="Vorname">
+
+					<h:outputText value="#{athlete.firstName}" />
+					<p:tooltip
+						for="@(.athletesListPseudoClass tr[role=row][data-ri=#{rowIndex}])"
+						value="#{athlete.displaySummary()}" />
 				</p:column>
-				<p:column styleClass="col-md-3 col-xs-3" headerText="Nachname" sortBy="#{athlete.lastName}">
-					<h:outputText value="#{athlete.lastName}">
-					</h:outputText>
+				<p:column headerText="Nachname" filterBy="#{athlete.lastName}" filterStyle="display:none">
+					<h:outputText value="#{athlete.lastName}" />
 				</p:column>
-				<p:column styleClass="col-md-1 col-xs-1" headerText="Geburtsjahr">
-					<h:outputText value="#{athlete.yearOfBirth}">
-					</h:outputText>
+				<p:column headerText="Jahrgang" priority="1">
+					<h:outputText value="#{athlete.yearOfBirth}"
+						title="#{athlete.yearOfBirth}" />
 				</p:column>
-				<p:column styleClass="col-md-3 col-xs-3" headerText="Verein" sortBy="#{athlete.club}">
-					<h:outputText value="#{athlete.club}" >
-					</h:outputText>
+				<p:column headerText="Verein" filterBy="#{athlete.club}"
+					filterStyle="display:none">
+					<h:outputText value="#{athlete.club}" />
 				</p:column>
-				<p:column styleClass="col-md-2 col-xs-2">
-					<b:commandButton title="Löschen" value="" iconAwesome="trash"
-						action="#{athleteController.removeAthlete(athlete)}"
-						update="@form" />
+				<p:column>
+					<ul class="list-inline">
+						<li><p:commandLink event="onclick"
+								actionListener="#{athleteController.removeAthlete(athlete)}"
+								update="athleteslist">
+								<b:iconAwesome size="lg" name="trash" tooltip="Löschen" />
+							</p:commandLink></li>
+					</ul>
 				</p:column>
 			</p:dataTable>
 		</h:form>

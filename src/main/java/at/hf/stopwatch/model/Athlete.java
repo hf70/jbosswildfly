@@ -7,6 +7,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.apache.commons.lang3.StringUtils;
 
 @Entity
 @Table(name = "athlete")
@@ -58,6 +61,15 @@ public class Athlete extends BaseEntity {
 		this.yearOfBirth = yearOfBirth;
 	}
 
+	@Transient	
+	public String displaySummary(){
+		StringBuffer summary=new StringBuffer();
+		summary.append(firstName+" ");
+		summary.append(lastName + " ");
+		summary.append(yearOfBirth + " ");
+		summary.append(club);
+		return summary.toString();
+	}
 	
 
 }
