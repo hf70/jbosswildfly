@@ -6,27 +6,40 @@
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
 	xmlns:hf="http://java.sun.com/jsf/composite/hf">
 
-	<b:modal id="newAthlete" title="Neuer Athlet"
-		styleClass="newAthletePseudoClass">
-		<h:form id="newAthleteForm">
 
+
+	<b:modal id="newAthlete" title="Neuer Athlet"
+		styleClass="newAthletePseudoClass" backdrop="false" closable="false">
+		<h:form id="newAthleteForm">
+			<p:focus context="newAthleteForm" />
 			<b:panel>
-				<p>Neuer Athlet</p>
 				<hf:athleteMetadata
-					athlete="#{newAthleteDialogController.newAthlete}"
-					genderList="#{newAthleteDialogController.genderList}" />
+					athlete="#{newAthleteDialogController.newAthlete}" />
 				<f:facet name="footer">
-					<b:button value="Abbrechen" dismiss="modal" onclick="return false;" />
-					<p:remoteCommand name="saveNewAthlete"
-						actionListener="#{newAthleteDialogController.saveNewAthlete()}" process="@all"/>
-					<b:button value="Ok" look="primary" outcome="athletes"
-						dismiss="modal" onclick="saveNewAthlete();">
-					</b:button>
-					<h:messages styleClass="messages" errorClass="invalid"
-						infoClass="valid" warnClass="warning" globalOnly="true" />
+					<p:commandButton value="Abbrechen"
+						oncomplete=" $('#newAthlete').modal('hide')" ajax="true"
+						immediate="true" styleClass="btn btn-default">
+						<p:ajax update="@form" resetValues="true" />
+					</p:commandButton>
+					<b:commandButton id="save" ajax="true" value="Ok" look="primary"
+						action="#{newAthleteDialogController.saveNewAthlete()}">
+					</b:commandButton>
+					<b:messages globalOnly="true" />
+					<p:defaultCommand target="save" />
+					<h:panelGroup layout="block"
+						rendered="#{ not facesContext.validationFailed and newAthleteDialogController.saved}">
+						<p:remoteCommand name="reset" update="@form content"
+							actionListener="#{newAthleteDialogController.reset()}" />
+						<h:outputScript id="hideModal"> 
+						reset();
+					 	$('#newAthlete').modal('hide'); 
+						</h:outputScript>
+					</h:panelGroup>
 				</f:facet>
 			</b:panel>
+
 		</h:form>
+		
 	</b:modal>
 
 </ui:composition>

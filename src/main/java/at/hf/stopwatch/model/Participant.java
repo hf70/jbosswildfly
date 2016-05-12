@@ -2,23 +2,23 @@ package at.hf.stopwatch.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "participants")
+@Table(name = "participant")
 public class Participant extends BaseEntity {
 
 	private int number;
 
 	@OneToOne()
+	@JoinColumn(name = "athlete_id",nullable=false)
 	private Athlete athlete;
 
 	@ManyToOne()
-	@JoinColumn(name = "competitionid", nullable = false, updatable = false)
+	@JoinColumn(name = "competition_id")
 	private Competition competition;
 
 	public int getNumber() {

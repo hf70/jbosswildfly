@@ -1,10 +1,15 @@
 package jbosswildfly;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import javax.enterprise.inject.Model;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Model
 public class Bean {
@@ -40,4 +45,17 @@ public class Bean {
 	public void setWord(String word) {
 		this.word = word;
 	}
+
+	public void logout() throws ServletException, IOException {
+		FacesContext context = FacesContext.getCurrentInstance();
+		//context.getExternalContext().invalidateSession();
+		HttpServletRequest request = (HttpServletRequest) context
+				.getExternalContext().getRequest();
+		
+		request.logout();
+		request.login("walter", "huber");
+		
+		context.getExternalContext().redirect("/jbosswildfly/protected/anagram.xhtml");
+	}
+
 }

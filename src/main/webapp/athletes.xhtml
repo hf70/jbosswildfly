@@ -33,7 +33,7 @@
 					<h:outputText value="#{athlete.firstName}" />
 					<p:tooltip
 						for="@(.athletesListPseudoClass tr[role=row][data-ri=#{rowIndex}])"
-						value="#{athlete.displaySummary()}" />
+						value="#{athlete.composeSummary()}" showDelay="400" showEffect="clip" hideEffect="explode"/>
 				</p:column>
 				<p:column headerText="Nachname" filterBy="#{athlete.lastName}" filterStyle="display:none">
 					<h:outputText value="#{athlete.lastName}" />
@@ -50,9 +50,10 @@
 					<ul class="list-inline">
 						<li><p:commandLink event="onclick"
 								actionListener="#{athleteController.removeAthlete(athlete)}"
-								update="athleteslist">
-								<b:iconAwesome size="lg" name="trash" tooltip="Löschen" />
+								update="athleteslist growl" title="Löschen">
+								<b:iconAwesome size="lg" name="trash"  />
 							</p:commandLink></li>
+							<li><p:selectBooleanCheckbox disabled="true" value="#{athleteController.isParticipant(athlete)}"></p:selectBooleanCheckbox></li>
 					</ul>
 				</p:column>
 			</p:dataTable>

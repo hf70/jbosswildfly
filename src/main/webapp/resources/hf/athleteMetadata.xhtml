@@ -9,28 +9,38 @@
 <composite:interface>
 	<composite:attribute name="athlete"
 		type="at.hf.stopwatch.model.Athlete" />
-	<composite:attribute name="genderList" type="java.util.Map" />
 </composite:interface>
 
 <composite:implementation>
-
-	<b:panelGrid colSpans="2,10">
-		<h:outputLabel value="Geschlecht" />
-		<b:selectOneMenu value="#{cc.attrs.athlete.gender}">
-			<f:selectItems value="#{cc.attrs.genderList}" />
+	<b:panelGrid colSpans="2,10" >
+	<h:outputLabel value="Geschlecht" />		
+		<b:selectOneMenu id="gender" value="#{cc.attrs.athlete.gender}" required="true">
+			<f:selectItems value="#{athleteMetadataComponent.getGenderList()}" />
+			<p:ajax event="blur" update="@this" />
 		</b:selectOneMenu>
 		<h:outputLabel value="Vorname" />
 		<b:inputText id="firstName" required="true"
-			value="#{cc.attrs.athlete.firstName}"></b:inputText>
+			value="#{cc.attrs.athlete.firstName}">
+			<p:ajax event="blur" update="@this" />
+		</b:inputText>
 		<h:outputLabel value="Nachname" />
 		<b:inputText id="lastName" required="true"
-			value="#{cc.attrs.athlete.lastName}"></b:inputText>
+			value="#{cc.attrs.athlete.lastName}" autofocus="true">
+			<p:ajax event="blur" update="@this" />
+		</b:inputText>
 		<h:outputLabel value="Geburtsjahr" />
-		<b:inputText id="yearOfBirth" required="true"
-			value="#{cc.attrs.athlete.yearOfBirth}"></b:inputText>
-		<h:outputLabel value="Verein" />
+
+		<b:selectOneMenu id="yearOfBirth" required="true"
+			value="#{cc.attrs.athlete.yearOfBirth}">
+			<f:selectItem itemLabel="- Bitte auswählen -" itemValue=""/>
+			<f:selectItems value="#{athleteMetadataComponent.yearOfBirthList}" />
+			<p:ajax event="blur" update="@this" />
+		</b:selectOneMenu>
+		<h:outputLabel value="Ort/Verein" />
 		<b:inputText id="club" required="true"
-			value="#{cc.attrs.athlete.club}"></b:inputText>
+			value="#{cc.attrs.athlete.club}">
+			<p:ajax event="blur" update="@this" />
+		</b:inputText>
 	</b:panelGrid>
 
 </composite:implementation>

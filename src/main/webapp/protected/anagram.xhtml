@@ -5,7 +5,9 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head></h:head>
 <h:body>
-	<h:form id="jsfexample">
+	<h:outputText value="#{request.getUserPrincipal()}" />
+	<p:commandButton action="#{bean.logout()}" value="logout" />
+	<h:form id="jsfexample">/
 		<p:panelGrid columns="2">
 			<f:facet name="header">Anagram maker</f:facet>
 

@@ -22,24 +22,26 @@ import at.hf.stopwatch.service.ParticipantService;
 public class NewParticipantDialogController implements Serializable {
 
 	private Participant newParticipant;
-	private int competitionId;
 
 	@Inject
-	CompetitionService competitionService;
+	private AthleteService athleteService;
 
 	@Inject
-	AthleteService athleteService;
+	private ParticipantService participantService;
 
-	@Inject
-	ParticipantService participantService;
-
-	List<Athlete> athletes;
-
+	private List<Athlete> athletes;
+	private Competition competiton;
+	
 	@PostConstruct
 	public void init() {
+			athletes = athleteService.findAll();
+	}
+	
+	public void beforeOpen(){
+		System.out.println("beforeOpen");
+		init();
 		newParticipant = new Participant();
-		athletes = athleteService.findAll();
-
+		assignCompetition();
 	}
 
 	public Participant getNewParticipant() {
@@ -47,17 +49,10 @@ public class NewParticipantDialogController implements Serializable {
 	}
 
 	public void assignCompetition() {
-		newParticipant.setCompetition(competitionService
-				.findById(competitionId));
+		newParticipant.setCompetition(competiton);
 	}
 
-	public int getCompetitionId() {
-		return competitionId;
-	}
-
-	public void setCompetitionId(int competitionId) {
-		this.competitionId = competitionId;
-	}
+	
 
 	public List<Athlete> getAthletes() {
 		return athletes;
@@ -84,7 +79,15 @@ public class NewParticipantDialogController implements Serializable {
 	@Transactional
 	public void saveNewParticipant() {
 		participantService.save(newParticipant);
-		init();
+	
+	}
+
+	public Competition getCompetiton() {
+		return competiton;
+	}
+
+	public void setCompetiton(Competition competiton) {
+		this.competiton = competiton;
 	}
 
 }

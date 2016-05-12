@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+	<composite:attribute name="actionListener" targets="deleteLink"
+		required="true" />
+	<composite:attribute name="update" />
+</composite:interface>
+
+<composite:implementation>
+	<p:commandLink id="deleteLink" event="onclick" update="#{cc.attrs.update}">
+		<b:iconAwesome size="lg" name="trash" tooltip="Löschen"
+			tooltipDelay="5" />
+	</p:commandLink>
+</composite:implementation>
+</html>

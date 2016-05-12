@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import at.hf.stopwatch.dao.CompetitionDao;
 import at.hf.stopwatch.dao.EntityDao;
+import at.hf.stopwatch.model.Athlete;
 import at.hf.stopwatch.model.Competition;
 
 public class CompetitionService extends EntityService<Competition> {
@@ -21,5 +22,6 @@ public class CompetitionService extends EntityService<Competition> {
 	    public List<Competition> findAll(){
 	    	return competitionDao.findAll();
 	    }
-
+	    
+	   
 }

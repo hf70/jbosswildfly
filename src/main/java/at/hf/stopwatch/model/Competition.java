@@ -9,13 +9,15 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import static javax.persistence.CascadeType.ALL;
 
 
 
 @Entity
-@Table(name = "competitions")
+@Table(name = "competition")
 public class Competition extends BaseEntity {
 
 	public static final String FIND_All = "Competiton.findAll";
@@ -24,7 +26,7 @@ public class Competition extends BaseEntity {
 
 	private String subject;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "competition" ,cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, orphanRemoval=true,mappedBy = "competition", cascade = ALL)
 	private List<Participant> participants = new ArrayList<Participant>();
 	
 	

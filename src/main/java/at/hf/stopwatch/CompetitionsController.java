@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
@@ -15,6 +17,9 @@ import at.hf.stopwatch.service.CompetitionService;
 public class CompetitionsController implements Serializable {
 	@Inject
 	CompetitionService competitionService;
+
+	@Inject
+	FacesContext facesContext;
 
 	private List<Competition> competitions;
 
@@ -34,7 +39,14 @@ public class CompetitionsController implements Serializable {
 	@Transactional
 	public void removeCompetiton(Competition competition) {
 		competitionService.delete(competition);
+		facesContext.addMessage(null, new FacesMessage(
+				"Der Wettkampf wurde gelöscht"));
 		loadCompetitions();
+	}
+
+	@OnlyForTestEnvironment
+	public String test() {
+		return String.valueOf(competitions.size());
 	}
 
 }

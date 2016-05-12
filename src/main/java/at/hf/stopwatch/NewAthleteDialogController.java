@@ -1,11 +1,17 @@
 package at.hf.stopwatch;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Collections;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.event.Event;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
@@ -17,33 +23,58 @@ import at.hf.stopwatch.service.AthleteService;
 public class NewAthleteDialogController implements Serializable {
 	@Inject
 	AthleteService athleteService;
+	@Inject
+	Event<AthleteListModifiedEvent> athleteListModifiedEvent;
+	@Inject
+	FacesContext facesContext;
 
 	private Athlete newAthlete;
- 
-	private Map<String, String> genderList;
-	
+	private boolean saved;
+
 	@PostConstruct
 	public void init() {
+		setSaved(false);
 		newAthlete = new Athlete();
-		genderList = new HashMap<String, String>();
-	        genderList.put("Mann","m");
-	        genderList.put("Frau","w");
+	}
+
+	private boolean athleteIsUnique() {
+		if (athleteService.containsExisting(newAthlete)) {
+			facesContext.addMessage(null, new FacesMessage(
+					FacesMessage.SEVERITY_ERROR,
+					"Der Speichervorgang war nicht erfolgreich",
+					"Es gibt bereits einen Eintrag mit diesen Werten."));
+			facesContext.validationFailed();
+			return false;
+		}
+		return true;
 	}
 
 	@Transactional
 	public void saveNewAthlete() {
+		if (!athleteIsUnique()) {
+			return;
+		}
 		athleteService.save(newAthlete);
-		init();
-	}
+		setSaved(true);
+		athleteListModifiedEvent.fire(new AthleteListModifiedEvent());
 
+	}
 
 	public Athlete getNewAthlete() {
 		return newAthlete;
 	}
 
-	public Map<String, String> getGenderList() {
-		return genderList;
+	public void reset() {
+		newAthlete = new Athlete();
+		setSaved(false);
 	}
 
+	public boolean isSaved() {
+		return saved;
+	}
+
+	public void setSaved(boolean saved) {
+		this.saved = saved;
+	}
 
 }

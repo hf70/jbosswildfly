@@ -32,7 +32,7 @@ public abstract class EntityDao<T extends BaseEntity> implements Serializable {
     @Transactional(TxType.MANDATORY)
     public void delete(T entity) {
         T toDelete = findById(entity.getId());
-        entityManager.remove(toDelete);
+         entityManager.remove(toDelete);
     }
 
     public T findById(int id) {

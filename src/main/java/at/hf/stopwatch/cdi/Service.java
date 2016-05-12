@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Stereotype;
 
+
 @Stereotype
 @ApplicationScoped
 @Retention(RetentionPolicy.RUNTIME)

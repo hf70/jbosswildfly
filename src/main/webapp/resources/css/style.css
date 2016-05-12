@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+
+.ui-growl {
+	top: 55px;
+}
+
+.bf-error {
+	border-color: #dca7a7;
+}
