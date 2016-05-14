@@ -16,8 +16,7 @@
 	<h:outputLabel value="Geschlecht" />		
 		<b:selectOneMenu id="gender" value="#{cc.attrs.athlete.gender}" required="true">
 			<f:selectItems value="#{athleteMetadataComponent.getGenderList()}" />
-			<p:ajax event="blur" update="@this" />
-		</b:selectOneMenu>
+			</b:selectOneMenu>
 		<h:outputLabel value="Vorname" />
 		<b:inputText id="firstName" required="true"
 			value="#{cc.attrs.athlete.firstName}">
