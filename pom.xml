@@ -27,7 +27,6 @@
 			<artifactId>primefaces</artifactId>
 			<version>5.3</version>
 		</dependency>
-		<!-- http://mvnrepository.com/artifact/org.primefaces.extensions/all-themes -->
 		<dependency>
 			<groupId>org.primefaces.extensions</groupId>
 			<artifactId>all-themes</artifactId>
@@ -37,7 +36,7 @@
 		<dependency>
 			<groupId>net.bootsfaces</groupId>
 			<artifactId>bootsfaces</artifactId>
-			<version>0.8.1</version>
+			<version>0.8.5</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>

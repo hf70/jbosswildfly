@@ -12,11 +12,12 @@
 </composite:interface>
 
 <composite:implementation>
-	<b:panelGrid colSpans="2,10" >
-	<h:outputLabel value="Geschlecht" />		
-		<b:selectOneMenu id="gender" value="#{cc.attrs.athlete.gender}" required="true">
+	<b:panelGrid colSpans="2,10">
+		<h:outputLabel value="Geschlecht" />
+		<b:selectOneMenu id="gender" value="#{cc.attrs.athlete.gender}"
+			required="true">
 			<f:selectItems value="#{athleteMetadataComponent.getGenderList()}" />
-			</b:selectOneMenu>
+		</b:selectOneMenu>
 		<h:outputLabel value="Vorname" />
 		<b:inputText id="firstName" required="true"
 			value="#{cc.attrs.athlete.firstName}">
@@ -25,14 +26,14 @@
 		<h:outputLabel value="Nachname" />
 		<b:inputText id="lastName" required="true"
 			value="#{cc.attrs.athlete.lastName}" autofocus="true">
+			<p:ajax event="blur" update="@this" />
 		</b:inputText>
 		<h:outputLabel value="Geburtsjahr" />
 
 		<b:selectOneMenu id="yearOfBirth" required="true"
 			value="#{cc.attrs.athlete.yearOfBirth}">
-			<f:selectItem itemLabel="- Bitte auswählen -" itemValue=""/>
+			<f:selectItem itemLabel="- Bitte auswählen -" itemValue="" />
 			<f:selectItems value="#{athleteMetadataComponent.yearOfBirthList}" />
-			<p:ajax event="blur" update="@this" />
 		</b:selectOneMenu>
 		<h:outputLabel value="Ort/Verein" />
 		<b:inputText id="club" required="true"
