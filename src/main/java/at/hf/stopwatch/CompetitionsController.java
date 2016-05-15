@@ -43,10 +43,6 @@ public class CompetitionsController implements Serializable {
 				"Der Wettkampf wurde gelöscht"));
 		loadCompetitions();
 	}
-
-	@OnlyForTestEnvironment
-	public String test() {
-		return String.valueOf(competitions.size());
-	}
+	
 
 }

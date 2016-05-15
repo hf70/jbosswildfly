@@ -8,22 +8,23 @@
 	<ui:define name="content">
 		<ui:include src="/dialogs/NewParticipantDialog.xhtml" />
 
-		<f:metadata>	
+		<f:metadata>
 			<f:viewParam name="id" value="#{competitionController.id}" />
 			<f:event type="preRenderComponent"
 				listener="#{competitionController.loadCompetition()}" />
 		</f:metadata>
-			<b:well size="sm">
-				<h4>
-					<h:outputText value="#{competitionController.competition.subject}" />
-				</h4>
-				<h5>
-					<h:outputText value="#{competitionController.competition.date}">
-						<f:convertDateTime pattern="dd.MM.yyyy" type="date" />
-					</h:outputText>
-				</h5>
-			</b:well>
-			<b:tabView rendered="false" >
+		<b:well size="sm">
+			<h4>
+				<h:outputText value="#{competitionController.competition.subject}" />
+			</h4>
+			<h5>
+				<h:outputText value="#{competitionController.competition.date}">
+					<f:convertDateTime pattern="dd.MM.yyyy" type="date" />
+				</h:outputText>
+			</h5>
+		</b:well>
+		<h:form id="competitionForm">
+			<b:tabView activeIndex="1">
 
 				<b:tab title="Allgemein">
 					<p:spacer height="5" />
@@ -37,23 +38,15 @@
 					</b:commandButton>
 
 				</b:tab>
-				<b:tab title="Teilnehmer" >
-					
-				</b:tab>
-				<b:tab title="Ergebnisse">
-					<p:spacer height="5" />
+				<b:tab title="Teilnehmer">
 
-					<p>This is the second tab.</p>
-				</b:tab>
-			</b:tabView>
-			<h:form id="competitionForm">
-		
-			<p:spacer height="5" />
+					<p:spacer height="5" />
 					<b:row>
 						<b:column span="10"></b:column>
 						<b:column span="2">
-						 <p:remoteCommand name="initNewParticipant"  actionListener="#{newParticipantDialogController.beforeOpen()}" />
- 
+							<p:remoteCommand name="initNewParticipant"
+								actionListener="#{newParticipantDialogController.beforeOpen()}" />
+
 							<b:commandButton id="addParticipant" value="Neuer Teilnehmer"
 								iconAwesome="plus"
 								onclick="initNewParticipant();$('.newParticipantPseudoClass').modal();return false;" />
@@ -61,11 +54,13 @@
 					</b:row>
 					<b:row>
 						<b:column span="12">
-							<p:dataTable  id="participants" var="participant"
+							<p:dataTable id="participants" var="participant"
 								value="#{competitionController.competition.participants}"
-								style="margin-top:5px" emptyMessage="Es wurden keine Teilnehmer gefunden." >
-								  <p:ajax event="sort" update="participants" process="participants"/>
-      
+								style="margin-top:5px"
+								emptyMessage="Es wurden keine Teilnehmer gefunden.">
+								<p:ajax event="sort" update="participants"
+									process="participants" />
+
 								<p:column styleClass="col-md-3 col-xs-3" headerText="Vorname"
 									priority="2" sortBy="#{participant.athlete.firstName}">
 									<h:outputText value="#{participant.athlete.firstName}" />
@@ -92,6 +87,14 @@
 							</p:dataTable>
 						</b:column>
 					</b:row>
+				</b:tab>
+				<b:tab title="Ergebnisse">
+					<p:spacer height="5" />
+
+					<p>This is the second tab.</p>
+				</b:tab>
+			</b:tabView>
 		</h:form>
+
 	</ui:define>
 </ui:composition>

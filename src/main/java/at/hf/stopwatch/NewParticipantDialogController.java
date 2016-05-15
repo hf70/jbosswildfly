@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
 
 import at.hf.stopwatch.cdi.Controller;
+import at.hf.stopwatch.events.AthleteListModifiedEvent;
+import at.hf.stopwatch.events.ParticipantListModifiedEvent;
 import at.hf.stopwatch.model.Athlete;
 import at.hf.stopwatch.model.Competition;
 import at.hf.stopwatch.model.Participant;
@@ -28,6 +31,9 @@ public class NewParticipantDialogController implements Serializable {
 
 	@Inject
 	private ParticipantService participantService;
+	
+	@Inject
+	Event<ParticipantListModifiedEvent> participantListModifiedEvent;
 
 	private List<Athlete> athletes;
 	private Competition competiton;
@@ -79,6 +85,7 @@ public class NewParticipantDialogController implements Serializable {
 	@Transactional
 	public void saveNewParticipant() {
 		participantService.save(newParticipant);
+		participantListModifiedEvent.fire(new ParticipantListModifiedEvent());
 	
 	}
 

@@ -7,7 +7,7 @@
 	xmlns:hf="http://java.sun.com/jsf/composite/hf">
 	<ui:define name="content">
 		<b:well size="sm">
-			<h3>Wettkämpfe</h3><h:outputText value="#{competitionsController.test()}"/>
+			<h3>Wettkämpfe</h3>
 		</b:well>
 		<h:form id="remove">
 			<p:dataTable id="competitionlist" var="competition"
@@ -24,7 +24,7 @@
 				</p:column>
 				<p:column styleClass="col-md-2 col-xs-4">
 					<ul class="list-inline">
-						<li><h:link  outcome="competition" includeViewParams="true">
+						<li><h:link outcome="competition" includeViewParams="true">
 								<f:param name="id" value="#{competition.id}"></f:param>
 								<b:iconAwesome size="lg" name="edit" tooltip="Bearbeiten" />
 							</h:link></li>

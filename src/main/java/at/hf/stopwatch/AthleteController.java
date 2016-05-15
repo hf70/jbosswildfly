@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import at.hf.stopwatch.cdi.Controller;
+import at.hf.stopwatch.events.AthleteListModifiedEvent;
 import at.hf.stopwatch.model.Athlete;
 import at.hf.stopwatch.service.AthleteService;
 
