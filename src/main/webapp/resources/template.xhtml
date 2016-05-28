@@ -5,28 +5,28 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<h:head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1, maximum-scale=1">
-	</meta>
-	<h:outputStylesheet library="css" name="style.css" position="last" />
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1">
+		</meta>
+		<h:outputStylesheet library="css" name="style.css" position="last" />
 
-	<title><ui:insert name="title">Wettkampfauswertung</ui:insert></title>
-</h:head>
-<h:body style="padding-top: 75px;padding-bottom: 75px;">
-	<b:container id="container">
+		<title><ui:insert name="title">Wettkampfauswertung</ui:insert></title>
+	</h:head>
+	<h:body style="padding-top: 75px;padding-bottom: 75px;">
+		<b:container id="container">
 
-		<ui:include src="/resources/navbar.xhtml" />
-		<ui:include src="/dialogs/NewCompetitionDialog.xhtml" />
-		<ui:include src="/dialogs/NewAthleteDialog.xhtml" />
-		<p:growl id="growl" showDetail="false" sticky="false" />
-		<p:outputPanel id="content">
-			<ui:insert name="content"></ui:insert>
-		</p:outputPanel>
-		<b:navBar fixed="bottom" brand="Heinz Fröhlich" brandAlign="right">
-		</b:navBar>
-	</b:container>
-</h:body>
+			<ui:include src="/resources/navbar.xhtml" />
+			<ui:include src="/dialogs/NewCompetitionDialog.xhtml" />
+			<ui:include src="/dialogs/NewAthleteDialog.xhtml" />
+			<p:growl id="growl" showDetail="false" sticky="false" />
+			<p:outputPanel id="content">
+				<ui:insert name="content"></ui:insert>
+			</p:outputPanel>
+			<b:navBar fixed="bottom" brand="Heinz Fröhlich" brandAlign="right">
+			</b:navBar>
+		</b:container>
+	</h:body>
 </html>

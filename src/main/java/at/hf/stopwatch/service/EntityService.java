@@ -24,7 +24,10 @@ public abstract class EntityService<T extends BaseEntity> implements Serializabl
 
     @Transactional(TxType.MANDATORY)
     public void delete(T entity) {
+    	System.out.println("delete start....");
         getDao().delete(entity);
+     	System.out.println("delete end....");
+        
     }
 
     public T findById(int id) {

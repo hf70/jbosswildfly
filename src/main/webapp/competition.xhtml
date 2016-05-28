@@ -13,7 +13,7 @@
 			<f:event type="preRenderComponent"
 				listener="#{competitionController.loadCompetition()}" />
 		</f:metadata>
-		<b:well size="sm">
+		<b:well size="sm" id="competitionTitle">
 			<h4>
 				<h:outputText value="#{competitionController.competition.subject}" />
 			</h4>
@@ -34,7 +34,7 @@
 
 
 					<b:commandButton id="saveCompetition" value="Ok" look="primary"
-						action="#{competitionController.saveCompetition()}" update="@form">
+						action="#{competitionController.saveCompetition()}" update="competiti	onTitle">
 					</b:commandButton>
 
 				</b:tab>
@@ -91,7 +91,6 @@
 				<b:tab title="Ergebnisse">
 					<p:spacer height="5" />
 
-					<p>This is the second tab.</p>
 				</b:tab>
 			</b:tabView>
 		</h:form>

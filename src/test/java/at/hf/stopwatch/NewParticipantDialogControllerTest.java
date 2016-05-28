@@ -40,7 +40,6 @@ public class NewParticipantDialogControllerTest {
 
 	@Test
 	public void onSaveParticipantModifiedListEventIsFired() {
-
 		newParticipantDialogController.saveNewParticipant();
 		Mockito.verify(participantListModifiedEvent).fire(Mockito.any(ParticipantListModifiedEvent.class));
 	}

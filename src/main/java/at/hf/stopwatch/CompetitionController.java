@@ -2,7 +2,7 @@ package at.hf.stopwatch;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
+import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import at.hf.stopwatch.cdi.Controller;
-import at.hf.stopwatch.events.AthleteListModifiedEvent;
 import at.hf.stopwatch.events.ParticipantListModifiedEvent;
 import at.hf.stopwatch.model.Competition;
 import at.hf.stopwatch.model.Participant;
@@ -28,15 +27,14 @@ public class CompetitionController implements Serializable {
 	NewParticipantDialogController newParticipantDialogController;
 	@Inject
 	ParticipantService participantService;
+	@Inject
+	Event<ParticipantListModifiedEvent> participantListModifiedEvent;
 
 	private int id;
 	private Competition competition;
-	
 
 	public void loadCompetition() {
-		System.out.println("load Competition");
 		competition = competitionService.findById(id);
-
 		newParticipantDialogController.setCompetiton(competition);
 	}
 
@@ -53,13 +51,15 @@ public class CompetitionController implements Serializable {
 	public void removeParticipant(Participant participant) {
 		competition.getParticipants().remove(participant);
 		participantService.delete(participant);
-		//competitionService.save(competition);
-		loadCompetition();
-		facesContext.addMessage(null, new FacesMessage(
-				"Der Teilnehmer wurde gelöscht"));
+
+		competitionService.save(competition);
+
+		facesContext.addMessage(null, new FacesMessage("Der Teilnehmer wurde gelöscht"));
+		participantListModifiedEvent.fire(new ParticipantListModifiedEvent());
+
 	}
-	
-	public void onParticipantListModified(@Observes ParticipantListModifiedEvent participantListModifiedEvent){
+
+	public void onParticipantListModified(@Observes ParticipantListModifiedEvent participantListModifiedEvent) {
 		loadCompetition();
 	}
 
