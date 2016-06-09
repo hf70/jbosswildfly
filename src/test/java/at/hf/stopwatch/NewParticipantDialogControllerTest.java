@@ -26,7 +26,7 @@ public class NewParticipantDialogControllerTest {
 	private ParticipantService participantService;
 	@Mock
 	Event<ParticipantListModifiedEvent> participantListModifiedEvent;
-
+	
 	@InjectMocks
 	NewParticipantDialogController newParticipantDialogController;
 
@@ -43,5 +43,7 @@ public class NewParticipantDialogControllerTest {
 		newParticipantDialogController.saveNewParticipant();
 		Mockito.verify(participantListModifiedEvent).fire(Mockito.any(ParticipantListModifiedEvent.class));
 	}
+	
+	
 
 }

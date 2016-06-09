@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import at.hf.stopwatch.dao.AthleteDao;
 import at.hf.stopwatch.dao.EntityDao;
 import at.hf.stopwatch.model.Athlete;
+import at.hf.stopwatch.model.Competition;
 import at.hf.stopwatch.model.Participant;
 
 public class AthleteService extends EntityService<Athlete> {
@@ -31,9 +32,15 @@ public class AthleteService extends EntityService<Athlete> {
 		}
 		return true;	
 	}
+	
+	public List<Athlete> getSelectableForCompetition(Competition competition){
+		return athleteDao.findSelectableForCompetition(competition);
+	}
 
 	private List<Participant> getParticipants(int id) {
 		return getDao().findById(id).getParticipants();
 	}
+	
+	
 
 }

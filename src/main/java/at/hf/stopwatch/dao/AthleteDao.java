@@ -7,6 +7,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.TypedQuery;
 
 import at.hf.stopwatch.model.Athlete;
+import at.hf.stopwatch.model.Competition;
 
 public class AthleteDao extends EntityDao<Athlete> {
 
@@ -16,22 +17,24 @@ public class AthleteDao extends EntityDao<Athlete> {
 	}
 
 	public List<Athlete> findExisting(Athlete athlete) {
-		
-		System.out.println("findExisting=" + athlete.composeSummary());
-		TypedQuery<Athlete> query = createNamedQuery(Athlete.FIND_EXISTING,
-				Athlete.class);
+
+		TypedQuery<Athlete> query = createNamedQuery(Athlete.FIND_EXISTING, Athlete.class);
 		query.setParameter(Athlete.PARAM_FIRST_NAME, athlete.getFirstName());
 		query.setParameter(Athlete.PARAM_LAST_NAME, athlete.getLastName());
 		query.setParameter(Athlete.PARAM_GENDER, athlete.getGender());
-		query.setParameter(Athlete.PARAM_YEAR_OF_BIRTH,
-				athlete.getYearOfBirth());
+		query.setParameter(Athlete.PARAM_YEAR_OF_BIRTH, athlete.getYearOfBirth());
 		query.setParameter(Athlete.PARAM_CLUB, athlete.getClub());
-		List<Athlete> result=query.getResultList();
-		ListIterator<Athlete> it = result.listIterator();
-		while(it.hasNext()){
-			System.out.println(it.next().composeSummary());
-		}
-		return result;
+		return query.getResultList();
+	}
+
+	public List<Athlete> findSelectableForCompetition(Competition competition) {
+		TypedQuery<Athlete> query = createNamedQuery(Athlete.FIND_SELECTABLE_FOR_COMPETITION, Athlete.class);
+		System.out.println("competiton_id" + competition.getId());
+		query.setParameter(Athlete.PARAM_COMPETITION_ID, competition.getId());
+		System.out.println("found=" +query.getResultList().size());
+		
+		return query.getResultList();
+
 	}
 
 }

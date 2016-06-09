@@ -40,14 +40,14 @@ public class NewParticipantDialogController implements Serializable {
 	
 	@PostConstruct
 	public void init() {
-			athletes = athleteService.findAll();
+			
 	}
 	
 	public void beforeOpen(){
-		System.out.println("beforeOpen");
 		init();
 		newParticipant = new Participant();
 		assignCompetition();
+		athletes = athleteService.getSelectableForCompetition(competiton);
 	}
 
 	public Participant getNewParticipant() {

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -15,23 +16,24 @@ import javax.persistence.UniqueConstraint;
 import org.apache.commons.lang3.StringUtils;
 
 @Entity
-@Table(name = "athlete", uniqueConstraints = @UniqueConstraint(columnNames = {
-		"firstname", "lastname", "gender", "club" }))
-@NamedQuery(name = Athlete.FIND_EXISTING, query = "SELECT a FROM Athlete a  WHERE a.firstName = :"
-		+ Athlete.PARAM_FIRST_NAME
-		+ " AND a.lastName= :"
-		+ Athlete.PARAM_LAST_NAME
-		+ " AND a.yearOfBirth= :"
-		+ Athlete.PARAM_YEAR_OF_BIRTH
-		+ " AND a.gender= :"
-		+ Athlete.PARAM_GENDER + " AND a.club = :" + Athlete.PARAM_CLUB)
+@Table(name = "athlete", uniqueConstraints = @UniqueConstraint(columnNames = { "firstname", "lastname", "gender",
+		"club" }))
+@NamedQueries({ @NamedQuery(name = Athlete.FIND_EXISTING, query = "SELECT a FROM Athlete a  WHERE a.firstName = :"
+		+ Athlete.PARAM_FIRST_NAME + " AND a.lastName= :" + Athlete.PARAM_LAST_NAME + " AND a.yearOfBirth= :"
+		+ Athlete.PARAM_YEAR_OF_BIRTH + " AND a.gender= :" + Athlete.PARAM_GENDER + " AND a.club = :"
+		+ Athlete.PARAM_CLUB),
+	@NamedQuery(name= Athlete.FIND_SELECTABLE_FOR_COMPETITION,query="SELECT a FROM Athlete a Where a.id NOT IN (SELECT p.athlete.id FROM Participant p where p.competition.id = :" + Athlete.PARAM_COMPETITION_ID + ")")
+
+})
 public class Athlete extends BaseEntity {
 	public static final String FIND_EXISTING = "Athlete.findExisting";
+	public static final String FIND_SELECTABLE_FOR_COMPETITION = "Athlete.findSelectableForCompetition";
 	public static final String PARAM_FIRST_NAME = "firstname";
 	public static final String PARAM_LAST_NAME = "lastname";
 	public static final String PARAM_YEAR_OF_BIRTH = "yearofbirth";
 	public static final String PARAM_GENDER = "gender";
 	public static final String PARAM_CLUB = "club";
+	public static final String PARAM_COMPETITION_ID = "competition_id";
 
 	private String gender;
 	private String firstName;

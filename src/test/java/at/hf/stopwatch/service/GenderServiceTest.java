@@ -2,7 +2,6 @@ package at.hf.stopwatch.service;
 
 import static org.junit.Assert.*;
 
-import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,8 +16,7 @@ public class GenderServiceTest {
 
 	@Test
 	public void genderListContainsThreeElements() {
-		// genderService = new GenderService();
-		int expectedListSize = 3;
+			int expectedListSize = 3;
 		genderService.init();
 
 		assertTrue(genderService.getGenderList() != null);

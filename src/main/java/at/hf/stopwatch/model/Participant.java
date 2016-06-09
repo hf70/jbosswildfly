@@ -1,11 +1,7 @@
 package at.hf.stopwatch.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,8 +10,7 @@ public class Participant extends BaseEntity {
 
 	private int number;
 
-	@OneToOne()
-	@JoinColumn(name = "athlete_id", nullable = false)
+	@ManyToOne
 	private Athlete athlete;
 
 	@ManyToOne
