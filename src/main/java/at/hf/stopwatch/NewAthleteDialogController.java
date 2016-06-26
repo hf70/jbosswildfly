@@ -1,12 +1,6 @@
 package at.hf.stopwatch;
 
 import java.io.Serializable;
-import java.time.Clock;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Collections;
-import java.util.Map;
-import java.util.TreeMap;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.event.Event;

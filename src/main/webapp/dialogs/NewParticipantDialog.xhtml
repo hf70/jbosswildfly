@@ -5,49 +5,59 @@
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
 	xmlns:hf="http://java.sun.com/jsf/composite/hf">
 	<b:container>
-		<b:modal id="newParticipant" title="Neuer Teilnehmer"
+		<b:modal id="newParticipant"
+			title="Neuer Teilnehmer - #{newParticipantDialogController.competiton.subject}"
 			styleClass="newParticipantPseudoClass">
 			<h:form id="newParticipantForm">
 				<b:panel>
-				
-					<b:panelGrid colSpans="2,10">
-						<h:outputLabel value="Wettkampf:" />
-						<h:outputLabel
-							value="#{newParticipantDialogController.newParticipant.competition.subject}" />
+					<p:dataTable id="newAthleteSelectTable" filter="true" widgetVar="athletesTable"
+						var="athlete" style="width:auto" converter="#{athleteConverter}"
+						value="#{newParticipantDialogController.athletes}"
+						filteredValue="#{newParticipantDialogController.filteredAthletes}"
+						emptyMessage="Keine Einträge vorhanden"
+						selection="#{newParticipantDialogController.newParticipant.athlete}">
 
-						<h:outputLabel value="Teilnehmer:" />
-						<p:selectOneListbox filter="true" filterMatchMode="contains"
-							var="a" style="width:auto" converter="#{athleteConverter}"
-							value="#{newParticipantDialogController.newParticipant.athlete}" >
-							<f:selectItems value="#{newParticipantDialogController.athletes}"
-								var="athlete"
-								itemLabel="#{athlete.lastName} #{athlete.firstName} #{athlete.yearOfBirth} #{athlete.club}"
-								itemValue="#{athlete}"
-								 />
-							<p:column>
-								<h:outputText value="#{a.firstName}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{a.lastName}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{a.yearOfBirth}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{a.club}" />
-							</p:column>
-						</p:selectOneListbox>
-					</b:panelGrid>
+						<f:facet name="header">
+							<div class="input-group">
+								<p:inputText id="globalFilter"
+									onkeyup="PF('athletesTable').filter()"
+									styleClass="form-control bf-no-message">
+								</p:inputText>
+								<span class="input-group-addon"><b:icon name="search" /></span>
+							</div>
+						</f:facet>
 
+						<p:column filterBy="#{athlete.firstName}" headerText="Vorname"
+							filterMatchMode="contains" filterStyle="display:none">
+							<h:outputText value="#{athlete.firstName}" />
+						</p:column>
+						<p:column filterBy="#{athlete.lastName}" headerText="Nachname"
+							filterMatchMode="contains" filterStyle="display:none">
+							<h:outputText value="#{athlete.lastName}" />
+						</p:column>
+						<p:column filterBy="#{athlete.yearOfBirth}" headerText="Jahrgang"
+							filterMatchMode="contains" filterStyle="display:none">
+							<h:outputText value="#{athlete.yearOfBirth}" />
+						</p:column>
+						<p:column filterBy="#{athlete.club}" headerText="Verein"
+							filterMatchMode="contains" filterStyle="display:none">
+							<h:outputText value="#{athlete.club}" />
+						</p:column>
+						<p:column>
+							<p:commandLink update="competitionForm"
+								action="#{newParticipantDialogController.saveNewParticipant()}"
+								oncomplete="$('#newParticipant').modal('hide'); ">
+								<f:setPropertyActionListener value="#{athlete}"
+									target="#{newParticipantDialogController.newParticipant.athlete}" />
+								<b:iconAwesome size="lg" name="share" tooltip="Übernehmen"
+									tooltipDelay="5" />
+							</p:commandLink>
+						</p:column>
 
+					</p:dataTable>
 					<f:facet name="footer">
 						<b:button value="Abbrechen" dismiss="modal"
 							onclick="return false;" />
-						<b:commandButton id="savenewParticipant" value="Ok" look="primary"
-							dismiss="modal"
-							actionListener="#{newParticipantDialogController.saveNewParticipant()}"
-							>
-							</b:commandButton>
 						<h:messages styleClass="messages" errorClass="invalid"
 							infoClass="valid" warnClass="warning" globalOnly="true" />
 					</f:facet>

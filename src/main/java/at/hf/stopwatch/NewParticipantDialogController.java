@@ -31,20 +31,15 @@ public class NewParticipantDialogController implements Serializable {
 
 	@Inject
 	private ParticipantService participantService;
-	
+
 	@Inject
 	Event<ParticipantListModifiedEvent> participantListModifiedEvent;
 
 	private List<Athlete> athletes;
+	private List<Athlete> filteredAthletes;
 	private Competition competiton;
-	
-	@PostConstruct
-	public void init() {
-			
-	}
-	
-	public void beforeOpen(){
-		init();
+
+	public void beforeOpen() {
 		newParticipant = new Participant();
 		assignCompetition();
 		athletes = athleteService.getSelectableForCompetition(competiton);
@@ -58,14 +53,20 @@ public class NewParticipantDialogController implements Serializable {
 		newParticipant.setCompetition(competiton);
 	}
 
-	
-
 	public List<Athlete> getAthletes() {
 		return athletes;
 	}
 
+	public List<Athlete> getFilteredAthletes() {
+		return filteredAthletes;
+	}
+
+	public void setFilteredAthletes(List<Athlete> filteredAthletes) {
+		this.filteredAthletes = filteredAthletes;
+	}
+
 	public List<Athlete> completeAthlete(String query) {
-		List<Athlete> filteredAthletes = new ArrayList<Athlete>();
+		filteredAthletes = new ArrayList<Athlete>();
 
 		for (Athlete athlete : athletes) {
 			if (athleteMatchesQuery(athlete, query)) {
@@ -77,8 +78,7 @@ public class NewParticipantDialogController implements Serializable {
 	}
 
 	private boolean athleteMatchesQuery(Athlete athlete, String query) {
-		String matchString = athlete.getLastName().concat(" ")
-				.concat(athlete.getFirstName());
+		String matchString = athlete.getLastName().concat(" ").concat(athlete.getFirstName());
 		return matchString.contains(query);
 	}
 
@@ -86,7 +86,6 @@ public class NewParticipantDialogController implements Serializable {
 	public void saveNewParticipant() {
 		participantService.save(newParticipant);
 		participantListModifiedEvent.fire(new ParticipantListModifiedEvent());
-	
 	}
 
 	public Competition getCompetiton() {

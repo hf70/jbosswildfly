@@ -35,7 +35,7 @@ public class NewParticipantDialogControllerTest {
 	@Before
 	public void setup() {
 		Mockito.when(athleteService.findAll()).thenReturn(athletes);
-		newParticipantDialogController.init();
+		newParticipantDialogController.beforeOpen();
 	}
 
 	@Test
