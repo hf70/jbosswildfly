@@ -24,7 +24,7 @@
 			</h5>
 		</b:well>
 		<h:form id="competitionForm">
-			<b:tabView activeIndex="1">
+			<b:tabView activeIndex="2">
 
 				<b:tab title="Allgemein">
 					<p:spacer height="5" />
@@ -34,18 +34,90 @@
 
 
 					<b:commandButton id="saveCompetition" value="Ok" look="primary"
-						action="#{competitionController.saveCompetition()}" update="competitionTitle">
+						action="#{competitionController.saveCompetition()}"
+						update="competitionTitle">
 					</b:commandButton>
 
 				</b:tab>
-				<b:tab title="Teilnehmer">
-
+				<b:tab title="Wertungsklassen">
 					<p:spacer height="5" />
 					<b:row>
 						<b:column span="10"></b:column>
 						<b:column span="2">
 							<p:remoteCommand name="initNewParticipant"
-								actionListener="#{newParticipantDialogController.beforeOpen()}" update="newParticipantForm"/>
+								actionListener="#{newParticipantDialogController.beforeOpen()}"
+								update="newParticipantForm" />
+						</b:column>
+
+					</b:row>
+					<b:row>
+						<b:column span="12">
+							<p:dataTable id="groups" var="group"
+								value="#{competitionController.classificationGroups}"
+								
+								emptyMessage="Es wurden keine Wertungsklassen gefunden.">
+
+
+								<p:columnGroup type="header">
+									<p:row>
+										<p:column  headerText="Klasse" />
+										<p:column  headerText="Bezeichnung" />
+										<p:column  headerText="von Jahrgang"  />
+										<p:column  headerText="bis Jahrgang"  />
+										<p:column  />										
+									</p:row>
+									
+								</p:columnGroup>
+
+								<p:subTable var="classification"
+									value="#{group.classifications}">
+									<f:facet name="header">
+										<b:row>
+											<b:column span="9">
+												<h:outputText value="#{group.name}" />
+											</b:column>
+
+											<b:column span="3">
+												<b:commandButton id="addClassification" styleClass="pull-right"
+													value="Neue Wertungsklasse" iconAwesome="plus"
+													onclick="initNewParticipant();$('.newParticipantPseudoClass').modal();return false;" />
+											</b:column>
+										</b:row>
+									</f:facet>
+									<p:column styleClass="col-md-3 col-xs-3" 
+										priority="1">
+										<h:outputText value="#{classification.shortName}" />
+									</p:column>
+									<p:column styleClass="col-md-3 col-xs-3"
+										 priority="2">
+										<h:outputText value="#{classification.longName}" />
+									</p:column>
+									<p:column styleClass="col-md-1 col-xs-1"
+										 priority="1">
+										<h:outputText value="#{classification.fromYearOfBirth}" />
+									</p:column>
+									<p:column styleClass="col-md-1 col-xs-1"
+										priority="1">
+										<h:outputText value="#{classification.toYearOfBirth}" />
+									</p:column>
+									<p:column styleClass="col-md-1 col-xs-1">
+										<ul class="list-inline">
+											<li></li>
+										</ul>
+									</p:column>
+								</p:subTable>
+							</p:dataTable>
+						</b:column>
+					</b:row>
+				</b:tab>
+				<b:tab title="Teilnehmer">
+					<p:spacer height="5" />
+					<b:row>
+						<b:column span="10"></b:column>
+						<b:column span="2">
+							<p:remoteCommand name="initNewParticipant"
+								actionListener="#{newParticipantDialogController.beforeOpen()}"
+								update="newParticipantForm" />
 
 							<b:commandButton id="addParticipant" value="Neuer Teilnehmer"
 								iconAwesome="plus"
@@ -61,7 +133,7 @@
 								<p:ajax event="sort" update="participants"
 									process="participants" />
 
-								<p:column styleClass="col-md-3 col-xs-3" headerText="Vorname"
+								<p:column styleClass="col-md-3 col-xs-3" 
 									priority="2" sortBy="#{participant.athlete.firstName}">
 									<h:outputText value="#{participant.athlete.firstName}" />
 								</p:column>

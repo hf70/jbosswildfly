@@ -29,10 +29,7 @@ public class AthleteDao extends EntityDao<Athlete> {
 
 	public List<Athlete> findSelectableForCompetition(Competition competition) {
 		TypedQuery<Athlete> query = createNamedQuery(Athlete.FIND_SELECTABLE_FOR_COMPETITION, Athlete.class);
-		System.out.println("competiton_id" + competition.getId());
 		query.setParameter(Athlete.PARAM_COMPETITION_ID, competition.getId());
-		System.out.println("found=" +query.getResultList().size());
-		
 		return query.getResultList();
 
 	}

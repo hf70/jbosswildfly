@@ -1,6 +1,5 @@
 package at.hf.stopwatch.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +20,21 @@ public class Competition extends BaseEntity {
 	
 	@OneToMany(mappedBy="competition", cascade = CascadeType.ALL,fetch=FetchType.EAGER, orphanRemoval = true) 
 	private List<Participant> participants ;
+	
+	@OneToMany(mappedBy="competition", cascade = CascadeType.ALL,fetch=FetchType.EAGER, orphanRemoval = true) 
+	private List<Classification> classifications;
+	
+	
+	public Competition() {
+	}
+	
+	public List<Classification> getClassifications() {
+		return classifications;
+	}
+
+	public void setClassifications(List<Classification> classifications) {
+		this.classifications = classifications;
+	}
 
 	public String getSubject() {
 		return subject;
@@ -30,8 +44,7 @@ public class Competition extends BaseEntity {
 		this.subject = subject;
 	}
 
-	public Competition() {
-	}
+
 
 	public Date getDate() {
 		return this.date;
