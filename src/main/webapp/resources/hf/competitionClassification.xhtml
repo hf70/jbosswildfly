@@ -1,0 +1,113 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+
+<composite:interface>
+	<composite:attribute name="controller" required="true" />
+	<composite:attribute name="classificationList" type="java.util.List"
+		required="true" />
+	<composite:attribute name="actionListener" targets="newClassificationCommand"
+		required="true" />
+	<composite:attribute name="headerTitle" type="java.lang.String"
+		required="true" />
+</composite:interface>
+
+<composite:implementation>
+
+	<p:remoteCommand id ="newClassificationCommand" name="initNewClassification#{cc.attrs.id}"		
+		update="newClassificationForm" />
+	
+
+	<p:dataTable id="classifications" var="classification"
+		value="#{cc.attrs.classificationList}" editable="true"
+		emptyMessage="Es wurden keine Klassen gefunden.	">
+		<p:ajax event="rowEdit" listener="#{cc.attrs.controller.onRowEdit}"
+			update="growl" />
+		<p:ajax event="rowEditCancel"
+			listener="#{cc.attrs.controller.onRowCancel}" update="growl" />
+		<f:facet name="header">
+			<b:row>
+			<h:outputText value="#{cc.attrs.classificationType} "/>
+				<b:column span="9">
+					<h:outputText value="#{cc.attrs.headerTitle}"
+						styleClass="pull-left" />
+				</b:column>
+
+				<b:column span="3">
+					<b:commandButton id="addClassification"
+						styleClass="pull-right" value="Neue Klasse"
+						iconAwesome="plus"
+						onclick="initNewClassification#{cc.attrs.id}();$('.newClassificationPseudoClass').modal();return false;" />
+				
+				</b:column>
+			</b:row>
+		</f:facet>
+
+		<p:columnGroup type="header">
+			<p:row>
+				<p:column headerText="Klasse" />
+				<p:column headerText="Bezeichnung" />
+				<p:column headerText="von Jahrgang" />
+				<p:column headerText="bis Jahrgang" />
+				<p:column />
+			</p:row>
+
+		</p:columnGroup>
+
+
+
+		<p:column styleClass="col-md-2 col-xs-2" priority="1">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{classification.shortName}" />
+				</f:facet>
+				<f:facet name="input">
+					<b:inputText value="#{classification.shortName}" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+
+		<p:column styleClass="col-md-3 col-xs-3" priority="2">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{classification.longName}" />
+				</f:facet>
+				<f:facet name="input">
+					<b:inputText value="#{classification.longName}" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="col-md-1 col-xs-1" priority="1">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{classification.fromYearOfBirth}" />
+				</f:facet>
+				<f:facet name="input">
+					<b:inputText value="#{classification.fromYearOfBirth}" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="col-md-1 col-xs-1" priority="1">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{classification.toYearOfBirth}" />
+				</f:facet>
+				<f:facet name="input">
+					<b:inputText value="#{classification.toYearOfBirth}" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="col-md-1 col-xs-1">
+			<p:rowEditor />
+		</p:column>
+	</p:dataTable>
+
+
+
+</composite:implementation>
+
+</html>

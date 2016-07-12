@@ -13,3 +13,7 @@
 background-color: rgb(255, 255, 255) !important;
 background-image: none !important;
 }
+
+.ui-datatable .ui-row-editing .ui-row-editor {
+	background-color: rgb(0, 129, 194) !important;
+}

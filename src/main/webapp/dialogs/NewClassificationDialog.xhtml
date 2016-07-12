@@ -1,0 +1,56 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:hf="http://java.sun.com/jsf/composite/hf">
+
+
+
+	<b:modal id="newClassification"
+		title="Neue Klasse - #{classificationController.newClassificationType}"
+		styleClass="newClassificationPseudoClass" backdrop="false"
+		closable="false">
+		<h:form id="newClassificationForm">
+			<p:focus context="newClassificationForm" />
+			<b:panel>
+				<b:panelGrid colSpans="5,7">
+					<h:outputLabel value="Klasse" />
+					<b:inputText id="shortName" required="true"
+						value="#{classificationController.newClassification.shortName}">
+						<p:ajax event="blur" update="@this" />
+					</b:inputText>
+					<h:outputLabel value="Bezeichnung" />
+					<b:inputText id="longName" required="true"
+						value="#{classificationController.newClassification.longName}">
+						<p:ajax event="blur" update="@this" />
+					</b:inputText>
+					<h:outputLabel value="von Jahrgang" />
+					<b:inputText id="fromYearOfBirth" required="true"
+						value="#{classificationController.newClassification.fromYearOfBirth}">
+						<p:ajax event="blur" update="@this" />
+					</b:inputText>
+					<h:outputLabel value="bis Jahrgang" />
+					<b:inputText id="toYearOfBirth" required="true"
+						value="#{classificationController.newClassification.toYearOfBirth}">
+						<p:ajax event="blur" update="@this" />
+					</b:inputText>
+
+				</b:panelGrid>
+
+				<f:facet name="footer">
+					<b:button value="Abbrechen" dismiss="modal" onclick="return false;" />
+					<b:commandButton id="save" ajax="true" value="Ok" look="primary"
+						action="#{classificationController.saveClassification()}">
+					</b:commandButton>
+					<h:messages styleClass="messages" errorClass="invalid"
+						infoClass="valid" warnClass="warning" globalOnly="true" />
+
+				</f:facet>
+			</b:panel>
+		</h:form>
+
+	</b:modal>
+
+</ui:composition>
