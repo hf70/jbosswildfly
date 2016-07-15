@@ -1,7 +1,9 @@
 package at.hf.stopwatch;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.enterprise.event.Event;
 import javax.faces.context.FacesContext;
@@ -34,6 +36,9 @@ public class CompetitionControllerTest {
 	Event<ParticipantListModifiedEvent> participantListModifiedEvent;
 	@Mock
 	FacesContext facesContext;
+	@Mock
+	@Inject
+	ClassificationController classificationController;
 
 	@InjectMocks
 	CompetitionController competitionController;
@@ -73,7 +78,7 @@ public class CompetitionControllerTest {
 	}
 
 	private void prepareCompetition() {
-		List<Participant> participants = new ArrayList<Participant>();
+		Set<Participant> participants = new HashSet<Participant>();
 		participants.add(participant);
 		competition.setParticipants(participants);
 
