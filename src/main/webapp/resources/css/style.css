@@ -8,12 +8,67 @@
 	border-color: #dca7a7;
 }
 
-.input-group .form-control{
-	
-background-color: rgb(255, 255, 255) !important;
-background-image: none !important;
+.input-group .form-control {
+	background-color: rgb(255, 255, 255) !important;
+	background-image: none !important;
 }
 
-.ui-datatable .ui-row-editing .ui-row-editor {
-	background-color: rgb(0, 129, 194) !important;
+.ui-cell-editor-input .form-group{
+	margin-bottom:0px;
+
+	}
+
+
+
+.ui-datatable .ui-row-editor span {
+	float: none;
+}
+
+.ui-datatable table tbody tr td .ui-row-editor .ui-icon-pencil {
+	text-indent: initial;
+	font-family: FontAwesome;
+	font-size: 1.33333333em;
+	line-height: 0.75em;
+	vertical-align: -30%;
+	background-image: none;
+}
+
+.ui-datatable table tbody tr td .ui-row-editor .ui-icon-pencil:before {
+	content: "\f044";
+}
+
+.ui-datatable table tbody tr td .ui-row-editor .ui-icon-pencil:hover {
+	font-weight: bold;
+}
+
+.ui-datatable table tbody tr td .ui-row-editor  .ui-icon-check {
+	text-indent: initial;
+	font-family: FontAwesome;
+	font-size: 1.33333333em;
+	line-height: .75em;
+	vertical-align: -30%;
+}
+
+.ui-datatable table tbody tr td .ui-row-editor .ui-icon-check:before {
+	content: "\f00c";
+}
+
+.ui-datatable table tbody tr td .ui-row-editor .ui-icon-check:hover {
+	font-weight: bold;
+}
+
+.ui-datatable table tbody tr td .ui-row-editor  .ui-icon-close {
+	text-indent: initial;
+	font-family: FontAwesome;
+	font-size: 1.33333333em;
+	line-height: .75em;
+	vertical-align: -30%;
+}
+
+.ui-datatable table tbody tr td .ui-row-editor .ui-icon-close:before {
+	content: "\f00d";
+}
+
+.ui-datatable table tbody tr td .ui-row-editor .ui-icon-close:hover {
+	font-weight: bold;
 }

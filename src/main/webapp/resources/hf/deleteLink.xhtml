@@ -9,10 +9,11 @@
 	<composite:attribute name="actionListener" targets="deleteLink"
 		required="true" />
 	<composite:attribute name="update" />
+	<composite:attribute name="styleClass" targets="deleteLink" />
 </composite:interface>
 
 <composite:implementation>
-	<p:commandLink id="deleteLink" event="onclick" update="#{cc.attrs.update}">
+	<p:commandLink  id="deleteLink" event="onclick" update="#{cc.attrs.update}">
 		<b:iconAwesome size="lg" name="trash" tooltip="Löschen"
 			tooltipDelay="5" />
 	</p:commandLink>

@@ -16,7 +16,8 @@
 			<p:focus context="newClassificationForm" />
 			<b:panel>
 				<b:panelGrid colSpans="5,7">
-					<h:outputLabel value="Klasse" />
+					<h:outputLabel
+						value="Klasse - #{classificationController.newClassificationType}" />
 					<b:inputText id="shortName" required="true"
 						value="#{classificationController.newClassification.shortName}">
 						<p:ajax event="blur" update="@this" />
@@ -34,7 +35,7 @@
 					<h:outputLabel value="bis Jahrgang" />
 					<b:inputText id="toYearOfBirth" required="true"
 						value="#{classificationController.newClassification.toYearOfBirth}">
-						<p:ajax event="blur" update="@this" />
+
 					</b:inputText>
 
 				</b:panelGrid>
@@ -42,7 +43,10 @@
 				<f:facet name="footer">
 					<b:button value="Abbrechen" dismiss="modal" onclick="return false;" />
 					<b:commandButton id="save" ajax="true" value="Ok" look="primary"
-						action="#{classificationController.saveClassification()}">
+						action="#{classificationController.saveNewClassification()}"
+						oncomplete=" $('#newClassification').modal('hide')"
+						update="@form competitionForm" >
+
 					</b:commandButton>
 					<h:messages styleClass="messages" errorClass="invalid"
 						infoClass="valid" warnClass="warning" globalOnly="true" />

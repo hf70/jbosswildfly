@@ -31,9 +31,7 @@ public class CompetitionController implements Serializable {
 	Event<ParticipantListModifiedEvent> participantListModifiedEvent;
 	@Inject
 	ClassificationController classificationController;
-	
-	
-	
+
 	private int id;
 	private Competition competition;
 
@@ -62,9 +60,8 @@ public class CompetitionController implements Serializable {
 		facesContext.addMessage(null, new FacesMessage("Der Teilnehmer wurde gelöscht"));
 		participantListModifiedEvent.fire(new ParticipantListModifiedEvent());
 
-	}	
-	
-	
+	}
+
 	public void onParticipantListModified(@Observes ParticipantListModifiedEvent participantListModifiedEvent) {
 		loadCompetition();
 	}
@@ -76,8 +73,5 @@ public class CompetitionController implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-		 
-	 
 
 }
