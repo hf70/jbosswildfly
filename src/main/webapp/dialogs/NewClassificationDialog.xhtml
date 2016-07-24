@@ -28,10 +28,13 @@
 						<p:ajax event="blur" update="@this" />
 					</b:inputText>
 					<h:outputLabel value="von Jahrgang" />
-					<b:inputText id="fromYearOfBirth" required="true"
+					<b:selectOneMenu id="fromYearOfBirth" required="true"
 						value="#{classificationController.newClassification.fromYearOfBirth}">
+						<f:selectItem itemLabel="- Bitte auswählen -" itemValue="" />
+						<f:selectItems value="#{classificationController.yearOfBirthList}" />
 						<p:ajax event="blur" update="@this" />
-					</b:inputText>
+					</b:selectOneMenu>
+
 					<h:outputLabel value="bis Jahrgang" />
 					<b:inputText id="toYearOfBirth" required="true"
 						value="#{classificationController.newClassification.toYearOfBirth}">
@@ -45,7 +48,7 @@
 					<b:commandButton id="save" ajax="true" value="Ok" look="primary"
 						action="#{classificationController.saveNewClassification()}"
 						oncomplete=" $('#newClassification').modal('hide')"
-						update="@form competitionForm" >
+						update="@form competitionForm">
 
 					</b:commandButton>
 					<h:messages styleClass="messages" errorClass="invalid"

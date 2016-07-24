@@ -3,6 +3,8 @@ package at.hf.stopwatch;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -19,6 +21,7 @@ import at.hf.stopwatch.model.FemaleClassification;
 import at.hf.stopwatch.model.MaleClassification;
 import at.hf.stopwatch.service.ClassificationService;
 import at.hf.stopwatch.service.CompetitionService;
+import at.hf.stopwatch.service.YearOfBirthService;
 
 @Controller
 public class ClassificationController implements Serializable {
@@ -28,7 +31,10 @@ public class ClassificationController implements Serializable {
 	@Inject
 	ClassificationService classificationService;
 	@Inject
-	CompetitionService competitionService;
+	CompetitionService competitionService;	
+	@Inject
+	YearOfBirthService yearOfBirthService;
+
 
 	private Competition competition;
 	private Classification newClassification;
@@ -51,6 +57,14 @@ public class ClassificationController implements Serializable {
 			}
 		}
 		return maleClassification;
+	}
+	
+	
+	
+	public TreeMap<String, Integer> getYearOfBirthList() {
+	 return yearOfBirthService
+				.getYearOfBirthList();
+
 	}
 
 	public void addNewFemaleClassification() {
