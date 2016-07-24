@@ -36,10 +36,13 @@
 					</b:selectOneMenu>
 
 					<h:outputLabel value="bis Jahrgang" />
-					<b:inputText id="toYearOfBirth" required="true"
+					<b:selectOneMenu id="toYearOfBirth" required="true"
 						value="#{classificationController.newClassification.toYearOfBirth}">
-
-					</b:inputText>
+						<f:selectItem itemLabel="- Bitte auswählen -" itemValue="" />
+						<f:selectItems
+							value="#{classificationController.yearOfBirthList}" />
+						<p:ajax event="blur" update="@this" />
+					</b:selectOneMenu>
 
 				</b:panelGrid>
 
