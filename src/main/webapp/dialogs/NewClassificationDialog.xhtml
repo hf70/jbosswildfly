@@ -30,27 +30,26 @@
 					<h:outputLabel value="von Jahrgang" />
 					<b:selectOneMenu id="fromYearOfBirth" required="true"
 						value="#{classificationController.newClassification.fromYearOfBirth}">
-						<f:selectItem itemLabel="- Bitte auswählen -" itemValue="" />
+						<f:selectItem itemLabel="- Bitte auswählen -" itemValue="" noSelectionOption="true"/>
 						<f:selectItems value="#{classificationController.yearOfBirthList}" />
-						<p:ajax event="blur" update="@this" />
 					</b:selectOneMenu>
 
 					<h:outputLabel value="bis Jahrgang" />
-					<b:selectOneMenu id="toYearOfBirth" required="true"
-						value="#{classificationController.newClassification.toYearOfBirth}">
-						<f:selectItem itemLabel="- Bitte auswählen -" itemValue="" />
+					<b:selectOneMenu id="toYearOfBirth" required="true" 
+						value="#{classificationController.newClassification.toYearOfBirth}" >
+						<f:selectItem itemLabel="- Bitte auswählen -" itemValue="" noSelectionOption="true" />
 						<f:selectItems
 							value="#{classificationController.yearOfBirthList}" />
-						<p:ajax event="blur" update="@this" />
 					</b:selectOneMenu>
 
 				</b:panelGrid>
 
 				<f:facet name="footer">
+				<b:fetchBeanInfos />
 					<b:button value="Abbrechen" dismiss="modal" onclick="return false;" />
 					<b:commandButton id="save" ajax="true" value="Ok" look="primary"
 						action="#{classificationController.saveNewClassification()}"
-						oncomplete=" $('#newClassification').modal('hide')"
+						oncomplete="if(!validationFailed) $('#newClassification').modal('hide')"
 						update="@form competitionForm">
 
 					</b:commandButton>
