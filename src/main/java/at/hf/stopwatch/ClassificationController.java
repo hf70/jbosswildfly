@@ -38,6 +38,7 @@ public class ClassificationController implements Serializable {
 
 	private Competition competition;
 	private Classification newClassification;
+	private String newClassificationType= StringUtils.EMPTY;
 
 	public List<Classification> filterFemaleClassifications() {
 		List<Classification> femaleClassification = new ArrayList<Classification>();
@@ -70,11 +71,13 @@ public class ClassificationController implements Serializable {
 	public void addNewFemaleClassification() {
 		newClassification = new FemaleClassification();
 		newClassification.setCompetition(competition);
+		newClassificationType ="weiblich";
 	}
 
 	public void addNewMaleClassification() {
 		newClassification = new MaleClassification();
 		newClassification.setCompetition(competition);
+		newClassificationType ="männlich";
 	}
 
 	public Classification getNewClassification() {
@@ -82,14 +85,7 @@ public class ClassificationController implements Serializable {
 	}
 
 	public String getNewClassificationType() {
-		if (newClassification instanceof FemaleClassification) {
-			return "weiblich";
-		}
-		if (newClassification instanceof MaleClassification) {
-			return "männlich";
-		}
-
-		return StringUtils.EMPTY;
+		return newClassificationType;
 
 	}
 

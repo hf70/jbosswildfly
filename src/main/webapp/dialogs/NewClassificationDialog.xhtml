@@ -8,16 +8,14 @@
 
 
 
-	<b:modal id="newClassification"
-		title="Neue Klasse - #{classificationController.newClassificationType}"
+	<b:modal id="newClassification"		
 		styleClass="newClassificationPseudoClass" backdrop="false"
 		closable="false">
 		<h:form id="newClassificationForm">
-			<p:focus context="newClassificationForm" />
-			<b:panel>
+			<b:panel title="Neue Wertungsklasse - #{classificationController.newClassificationType}" collapsible="false">
 				<b:panelGrid colSpans="5,7">
 					<h:outputLabel
-						value="Klasse - #{classificationController.newClassificationType}" />
+						value="Klasse" />
 					<b:inputText id="shortName" required="true"
 						value="#{classificationController.newClassification.shortName}">
 						<p:ajax event="blur" update="@this" />

@@ -42,8 +42,8 @@
 				<b:column span="3">
 					<b:commandButton id="addClassification" styleClass="pull-right"
 						value="Neue Klasse" iconAwesome="plus"
-						onclick="initNewClassification#{cc.attrs.id}();$('.newClassificationPseudoClass').modal();return false;" />
-
+						onclick="initNewClassification#{cc.attrs.id}();$('.newClassificationPseudoClass').modal();return false;"
+						update="content" />
 				</b:column>
 			</b:row>
 		</f:facet>
@@ -54,7 +54,7 @@
 				<p:column headerText="Bezeichnung" />
 				<p:column headerText="von Jahrgang" />
 				<p:column headerText="bis Jahrgang" />
-				<p:column/>
+				<p:column />
 			</p:row>
 
 		</p:columnGroup>
@@ -66,7 +66,7 @@
 				<f:facet name="output">
 					<h:outputText value="#{classification.shortName}" />
 				</f:facet>
-				<f:facet name="input" >
+				<f:facet name="input">
 					<b:inputText value="#{classification.shortName}" />
 				</f:facet>
 			</p:cellEditor>
@@ -88,7 +88,10 @@
 					<h:outputText value="#{classification.fromYearOfBirth}" />
 				</f:facet>
 				<f:facet name="input">
-					<b:inputText value="#{classification.fromYearOfBirth}" />
+					<b:selectOneMenu id="fromYearOfBirth" required="true"
+						value="#{classification.fromYearOfBirth}">
+						<f:selectItems value="#{cc.attrs.controller.yearOfBirthList}" />
+					</b:selectOneMenu>
 				</f:facet>
 			</p:cellEditor>
 		</p:column>
@@ -98,18 +101,21 @@
 					<h:outputText value="#{classification.toYearOfBirth}" />
 				</f:facet>
 				<f:facet name="input">
-					<b:inputText value="#{classification.toYearOfBirth}" />
+					<b:selectOneMenu id="toYearOfBirth" required="true"
+						value="#{classification.toYearOfBirth}">
+						<f:selectItems value="#{cc.attrs.controller.yearOfBirthList}" />
+					</b:selectOneMenu>
 				</f:facet>
 			</p:cellEditor>
 		</p:column>
-		<p:column styleClass="col-md-1 col-xs-1  " >
-			<p:rowEditor styleClass="pull-left" style="padding-right:5px"/>
-	
-			<hf:deleteLink 
+		<p:column styleClass="col-md-1 col-xs-1  ">
+			<p:rowEditor styleClass="pull-left" style="padding-right:5px" />
+
+			<hf:deleteLink
 				actionListener="#{cc.attrs.controller.removeClassification(classification)}"
 				update="competitionForm growl"></hf:deleteLink>
 		</p:column>
-		
+
 	</p:dataTable>
 
 
