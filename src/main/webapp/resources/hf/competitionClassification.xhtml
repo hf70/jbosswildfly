@@ -26,11 +26,11 @@
 
 	<p:dataTable id="classifications" var="classification"
 		value="#{cc.attrs.classificationList}" editable="true"
-		emptyMessage="Es wurden keine Klassen gefunden.	">
+		emptyMessage="Es wurden keine Klassen gefunden.	"  >
 		<p:ajax event="rowEdit" listener="#{cc.attrs.controller.onRowEdit}"
-			update="growl" />
+			update="classifications" />
 		<p:ajax event="rowEditCancel"
-			listener="#{cc.attrs.controller.onRowCancel}" update="growl" />
+			listener="#{cc.attrs.controller.onRowCancel}"  />
 		<f:facet name="header">
 			<b:row>
 				<h:outputText value="#{cc.attrs.classificationType} " />

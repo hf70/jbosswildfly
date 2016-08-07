@@ -1,26 +1,31 @@
 package at.hf.stopwatch.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "classification")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "gender")
+@NamedQuery(name = Classification.FIND_SELECTABLE_FOR_PARTICIPANT, query = "SELECT c FROM Classification c Where c.fromYearOfBirth >= :"
+		+ Classification.PARAM_YEAR_OF_BIRTH + " and   c.toYearOfBirth <= :" + Classification.PARAM_YEAR_OF_BIRTH)
+
 public class Classification extends BaseEntity {
+	public static final String FIND_SELECTABLE_FOR_PARTICIPANT = "Classification.findSelectableForParticipant";
+	public static final String PARAM_YEAR_OF_BIRTH = "yearofbirth";
 
 	private int fromYearOfBirth;
 	private int toYearOfBirth;
 	private String shortName;
 	private String longName;
 	@ManyToOne()
-	 @JoinColumn(name = "competition_id")
+	@JoinColumn(name = "competition_id")
 	private Competition competition;
 
 	public int getFromYearOfBirth() {

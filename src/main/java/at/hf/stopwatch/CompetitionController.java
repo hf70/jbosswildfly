@@ -1,6 +1,8 @@
 package at.hf.stopwatch;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
@@ -34,11 +36,14 @@ public class CompetitionController implements Serializable {
 
 	private int id;
 	private Competition competition;
+	private List<Participant> participants;
 
 	public void loadCompetition() {
 		competition = competitionService.findById(id);
 		newParticipantDialogController.setCompetiton(competition);
 		classificationController.setCompetition(competition);
+		participants= new ArrayList<Participant>();
+		participants.addAll(competition.getParticipants());
 	}
 
 	public Competition getCompetition() {
@@ -72,6 +77,14 @@ public class CompetitionController implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public List<Participant> getParticipants() {
+		return participants;
+	}
+
+	public void setParticipants(List<Participant> participants) {
+		this.participants = participants;
 	}
 
 }

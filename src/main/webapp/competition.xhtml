@@ -73,14 +73,14 @@
 					<b:row>
 						<b:column span="12">
 							<p:dataTable id="participants" var="participant"
-								value="#{competitionController.competition.participants}"
+								value="#{competitionController.participants}"
 								style="margin-top:5px"
 								emptyMessage="Es wurden keine Teilnehmer gefunden.">
 								<p:ajax event="sort" update="participants"
 									process="participants" />
 
 								<p:column styleClass="col-md-3 col-xs-3" priority="2"
-									sortBy="#{participant.athlete.firstName}">
+									sortBy="#{participant.athlete.firstName}" headerText="Vorname">
 									<h:outputText value="#{participant.athlete.firstName}" />
 								</p:column>
 								<p:column styleClass="col-md-3 col-xs-3" headerText="Nachname"

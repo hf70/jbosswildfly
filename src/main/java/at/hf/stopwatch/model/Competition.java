@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +24,7 @@ public class Competition extends BaseEntity {
 	private Set<Participant> participants ;
 	
 	@OneToMany(mappedBy="competition", cascade = CascadeType.ALL, fetch=FetchType.EAGER) 
+	@OrderBy("fromYearOfBirth DESC")
 	private Set<Classification> classifications;
 	
 	
