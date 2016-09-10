@@ -15,31 +15,30 @@
 			<b:panel>
 				<hf:athleteMetadata
 					athlete="#{newAthleteDialogController.newAthlete}" />
+				<b:fetchBeanInfos />
 				<f:facet name="footer">
+					<p:remoteCommand name="resetAndHide"
+						actionListener="#{newAthleteDialogController.reset()}"	
+						update="@(.athletesListPseudoClass) newAthleteForm"
+						oncomplete="$('#newAthlete').modal('hide');"
+						/>
 					<p:commandButton value="Abbrechen"
 						oncomplete=" $('#newAthlete').modal('hide')" ajax="true"
 						immediate="true" styleClass="btn btn-default">
 						<p:ajax update="@form" resetValues="true" />
 					</p:commandButton>
 					<b:commandButton id="save" ajax="true" value="Ok" look="primary"
-						action="#{newAthleteDialogController.saveNewAthlete()}">
+						actionListener="#{newAthleteDialogController.saveNewAthlete()}"
+						oncomplete="if(!validationFailed) resetAndHide()"
+						>
 					</b:commandButton>
 					<b:messages globalOnly="true" />
-					<p:defaultCommand target="save" />
-					<h:panelGroup layout="block"
-						rendered="#{ not facesContext.validationFailed and newAthleteDialogController.saved}">
-						<p:remoteCommand name="reset" update="@form content"
-							actionListener="#{newAthleteDialogController.reset()}" />
-						<h:outputScript id="hideModal"> 
-						reset();
-					 	$('#newAthlete').modal('hide'); 
-						</h:outputScript>
-					</h:panelGroup>
+					<b:defaultCommand target="save" />
 				</f:facet>
 			</b:panel>
 
 		</h:form>
-		
+
 	</b:modal>
 
 </ui:composition>

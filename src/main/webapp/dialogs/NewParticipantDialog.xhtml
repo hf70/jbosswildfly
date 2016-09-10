@@ -10,23 +10,34 @@
 			styleClass="newParticipantPseudoClass">
 			<h:form id="newParticipantForm">
 				<b:panel>
-					<p:dataTable id="newAthleteSelectTable" filter="true" widgetVar="athletesTable"
-						var="athlete" style="width:auto" converter="#{athleteConverter}"
+					<p:dataTable id="newAthleteSelectTable" filter="true"
+						widgetVar="athletesTable" var="athlete" style="width:auto"
+						converter="#{athleteConverter}"
 						value="#{newParticipantDialogController.athletes}"
 						filteredValue="#{newParticipantDialogController.filteredAthletes}"
 						emptyMessage="Keine Einträge vorhanden"
 						selection="#{newParticipantDialogController.newParticipant.athlete}">
 
 						<f:facet name="header">
-							<div class="input-group">
-								<p:inputText id="globalFilter"
-									onkeyup="PF('athletesTable').filter()"
-									styleClass="form-control bf-no-message">
-								</p:inputText>
-								<span class="input-group-addon"><b:icon name="search" /></span>
-							</div>
+							<b:row>
+								<b:column span="8">
+									<div class="input-group">
+										<p:inputText id="globalFilter"
+											onkeyup="PF('athletesTable').filter()"
+											styleClass="form-control bf-no-message">
+										</p:inputText>
+										<span class="input-group-addon"><b:icon name="search" /></span>
+									</div>
+								</b:column>
+								<b:column span="4">
+									<b:commandButton id="addAthlete" value="Neuer Athlet"
+										iconAwesome="plus" styleClass="pull-right"
+										action="#{newAthleteDialogController.setReturnToNewParticipantDialog(true)}"
+										oncomplete="$('#newParticipant').modal('hide');$('.newAthletePseudoClass').modal();return false;"
+										ajax="true" />
+								</b:column>
+							</b:row>
 						</f:facet>
-
 						<p:column filterBy="#{athlete.firstName}" headerText="Vorname"
 							filterMatchMode="contains" filterStyle="display:none">
 							<h:outputText value="#{athlete.firstName}" />
@@ -46,7 +57,7 @@
 						<p:column>
 							<p:commandLink update="competitionForm"
 								action="#{newParticipantDialogController.saveNewParticipant()}"
-								oncomplete="$('#newParticipant').modal('hide'); ">
+								oncomplete="$('#newParticipant').modal('hide'); PF('participantsTable').filter()">
 								<f:setPropertyActionListener value="#{athlete}"
 									target="#{newParticipantDialogController.newParticipant.athlete}" />
 								<b:iconAwesome size="lg" name="share" tooltip="Übernehmen"

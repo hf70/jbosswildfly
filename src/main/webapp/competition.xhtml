@@ -4,8 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
-	xmlns:hf="http://java.sun.com/jsf/composite/hf"
-	xmlns:rvs="http://java.sun.com/jsf/composite/hf">
+	xmlns:hf="http://java.sun.com/jsf/composite/hf">
 	<ui:define name="content">
 		<ui:include src="/dialogs/NewParticipantDialog.xhtml" />
 		<ui:include src="/dialogs/NewClassificationDialog.xhtml" />
@@ -27,7 +26,7 @@
 			</h5>
 		</b:well>
 		<h:form id="competitionForm">
-			<b:tabView activeIndex="2">
+			<b:tabView activeIndex="2" ajax="true">
 
 				<b:tab title="Allgemein">
 					<p:spacer height="5" />
@@ -44,12 +43,12 @@
 				</b:tab>
 				<b:tab title="Wertungsklassen" id="classificationsTab">
 					<p:spacer height="5" />
-					<rvs:competitionClassification
+					<hf:competitionClassification
 						classificationList="#{classificationController.filterFemaleClassifications()}"
 						controller="#{classificationController}"
 						headerTitle="Klassen weiblich"
 						actionListener="#{classificationController.addNewFemaleClassification()}" />
-					<rvs:competitionClassification
+					<hf:competitionClassification
 						classificationList="#{classificationController.filterMaleClassifications()}"
 						controller="#{classificationController}"
 						headerTitle="Klassen männlich"
@@ -58,53 +57,13 @@
 				</b:tab>
 				<b:tab title="Teilnehmer">
 					<p:spacer height="5" />
-					<b:row>
-						<b:column span="10"></b:column>
-						<b:column span="2">
-							<p:remoteCommand name="initNewParticipant"
-								actionListener="#{newParticipantDialogController.beforeOpen()}"
-								update="newParticipantForm" />
+					<ui:include src="/resources/hf/competitionParticipant.xhtml" />
+				</b:tab>
+				<b:tab title="Zeiten">
+					<p:spacer height="5" />
+								<ui:include src="/resources/hf/competitionRuntimes.xhtml" />
+		
 
-							<b:commandButton id="addParticipant" value="Neuer Teilnehmer"
-								iconAwesome="plus"
-								onclick="initNewParticipant();$('.newParticipantPseudoClass').modal();return false;" />
-						</b:column>
-					</b:row>
-					<b:row>
-						<b:column span="12">
-							<p:dataTable id="participants" var="participant"
-								value="#{competitionController.participants}"
-								style="margin-top:5px"
-								emptyMessage="Es wurden keine Teilnehmer gefunden.">
-								<p:ajax event="sort" update="participants"
-									process="participants" />
-
-								<p:column styleClass="col-md-3 col-xs-3" priority="2"
-									sortBy="#{participant.athlete.firstName}" headerText="Vorname">
-									<h:outputText value="#{participant.athlete.firstName}" />
-								</p:column>
-								<p:column styleClass="col-md-3 col-xs-3" headerText="Nachname"
-									priority="1" sortBy="#{participant.athlete.lastName}">
-									<h:outputText value="#{participant.athlete.lastName}" />
-								</p:column>
-								<p:column styleClass="col-md-1 col-xs-1" headerText="Jahrgang"
-									priority="1">
-									<h:outputText value="#{participant.athlete.yearOfBirth}" />
-								</p:column>
-								<p:column styleClass="col-md-4 col-xs-4" headerText="Verein"
-									priority="2">
-									<h:outputText value="#{participant.athlete.club}" />
-								</p:column>
-								<p:column styleClass="col-md-1 col-xs-1">
-									<ul class="list-inline">
-										<li><hf:deleteLink
-												actionListener="#{competitionController.removeParticipant(participant)}"
-												update="competitionForm growl"></hf:deleteLink></li>
-									</ul>
-								</p:column>
-							</p:dataTable>
-						</b:column>
-					</b:row>
 				</b:tab>
 				<b:tab title="Ergebnisse">
 					<p:spacer height="5" />

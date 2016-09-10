@@ -9,12 +9,16 @@ import javax.persistence.Table;
 public class Participant extends BaseEntity {
 
 	private int number;
+	private Long runtime;
 
 	@ManyToOne
 	private Athlete athlete;
 
 	@ManyToOne
 	private Competition competition;
+	
+	@ManyToOne
+	private Classification classification;
 
 	public int getNumber() {
 		return number;
@@ -39,5 +43,25 @@ public class Participant extends BaseEntity {
 	public void setCompetition(Competition competition) {
 		this.competition = competition;
 	}
+
+	public Classification getClassification() {
+		return classification;
+	}
+
+	public void setClassification(Classification classification) {
+		this.classification = classification;
+	}
+
+	public Long getRuntime() {
+		return runtime;
+	}
+
+	public void setRuntime(Long runtime) {
+		this.runtime = runtime;
+	}
+
+	
+
+	
 
 }

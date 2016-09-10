@@ -30,6 +30,7 @@ public class AthleteController implements Serializable {
 	Event <AthleteListModifiedEvent> athleteListModifiedEvent;
 
 	private List<Athlete> athletes;
+	private List<Athlete> filteredAthletes;
 
 	@PostConstruct
 	public void init() {
@@ -59,6 +60,14 @@ public class AthleteController implements Serializable {
 	
 	public void onAthleteListModified(@Observes AthleteListModifiedEvent athleteListModifiedEvent){
 		loadAthletes();
+	}
+
+	public List<Athlete> getFilteredAthletes() {
+		return filteredAthletes;
+	}
+
+	public void setFilteredAthletes(List<Athlete> filteredAthletes) {
+		this.filteredAthletes = filteredAthletes;
 	}
 
 }

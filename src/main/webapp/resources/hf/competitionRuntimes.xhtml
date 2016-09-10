@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:hf="http://java.sun.com/jsf/composite/hf">
+
+	<p:dataTable id="runtimes" var="participant" widgetVar="runtimesTable"
+		filter="true" value="#{runtimesController.participants}"
+		emptyMessage="Es wurden keine Zeiten gefunden.">
+
+
+		<f:facet name="header">
+			<b:row id="runtimeForm">
+				<p:focus context="runtimeForm" />
+				<p:autoComplete id="number" placeholder="Startnummer"
+					value="#{runtimesController.newRuntimeEntry}"
+					completeMethod="#{runtimesController.autocompleteStartnummer}"
+					converter="#{participantConverter}" var="participant"
+					itemValue="#{participant}"
+					itemLabel="#{ empty participant?'': participant.number += ' - ' += participant.athlete.lastName}"
+					forceSelection="true" emptyMessage="kein Eintrag"
+					inputStyleClass="form-control" styleClass="col-md-5"
+					widgetVar="searchNumber"
+					onfocus="PF('searchNumber').input.select()" required="true">
+					<p:ajax event="itemSelect"
+						listener="#{runtimesController.participantSelected}"
+						update="runtime" />
+				</p:autoComplete>
+				<p:inputMask id="runtime" required="true"
+					value="#{runtimesController.newRuntimeEntry.runtime}"
+					placeholder="Zeit" mask="99:99:99.?99"
+					converter="#{runtimeConverter}" styleClass="col-md-5" />
+				<b:column col-md="2">
+					<b:commandButton id="save" ajax="true" value="Ok" look="primary"
+						actionListener="#{runtimesController.saveRuntime()}"
+						update="@form" />
+					<p:defaultCommand target="save" />
+					<b:messages />
+				</b:column>
+			</b:row>
+		</f:facet>
+
+
+		<p:column styleClass="col-md-2 col-xs-2" headerText="StartNr"
+			priority="0">
+			<h:outputText value="#{participant.number}" />
+
+		</p:column>
+
+		<p:column styleClass="col-md-1 col-xs-1" priority="2"
+			filterBy="#{participant.athlete.firstName}" headerText="Vorname"
+			filterMatchMode="contains" filterStyle="display:none">
+			<h:outputText value="#{participant.athlete.firstName}" />
+		</p:column>
+		<p:column styleClass="col-md-2 col-xs-2" headerText="Nachname"
+			priority="0" filterBy="#{participant.athlete.lastName}"
+			filterMatchMode="contains" filterStyle="display:none">
+			<h:outputText value="#{participant.athlete.lastName}" />
+		</p:column>
+		<p:column styleClass="col-md-2 col-xs-2" headerText="Verein"
+			priority="2" filterBy="#{participant.athlete.club}"
+			filterMatchMode="contains" filterStyle="display:none">
+			<h:outputText value="#{participant.athlete.club}" />
+		</p:column>
+		<p:column styleClass="col-md-1 col-xs-1" headerText="JG" priority="0">
+			<h:outputText value="#{participant.athlete.yearOfBirth}" />
+		</p:column>
+		<p:column styleClass="col-md-1 col-xs-1" headerText="Klasse"
+			priority="0">
+			<h:outputText value="#{participant.classification.shortName}" />
+		</p:column>
+		<p:column styleClass="col-md-1 col-xs-1" headerText="Laufzeit"
+			priority="0">
+			<h:outputText value="#{participant.runtime}">
+				<f:convertDateTime pattern="mm:ss,S" type="time" timeZone="UTC" />
+			</h:outputText>
+		</p:column>
+	</p:dataTable>
+</ui:composition>

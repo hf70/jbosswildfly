@@ -3,7 +3,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:hf="http://java.sun.com/jsf/composite/hf">
 
 	<ui:define name="content">
 		<b:well size="sm">
@@ -11,31 +12,46 @@
 		</b:well>
 		<h:form id="athletesoverview">
 
-			<p:dataTable id="athleteslist" var="athlete" widgetVar="athletes"
-				value="#{athleteController.athletes}" sortBy="#{athlete.lastName}"
-				rowIndexVar="rowIndex" rowKey="#{athlete.id}"
+			<p:dataTable id="athleteslist" var="athlete"
+				widgetVar="athletesTable" value="#{athleteController.athletes}"
 				styleClass="athletesListPseudoClass"
-				emptyMessage="Keine Einträge vorhanden" reflow="true">
+				emptyMessage="Keine Einträge vorhanden" filter="true"
+				filteredValue="#{athleteController.filteredAthletes}"
+				rowIndexVar="rowIndex" rowKey="#{athlete.id}">
+
 				<f:facet name="header">
-					<b:panelGrid colSpans="10,2">
-						<b:inputText  id="globalFilter" onkeyup="PF('athletes').filter()" >
-							<f:facet name="append">
-								<b:icon name="search" />
-							</f:facet>
-						</b:inputText>
-						<b:commandButton id="addAthlete" value="Neuer Athlet"
-							iconAwesome="plus"
-							onclick="$('.newAthletePseudoClass').modal();return false;" />
-					</b:panelGrid>
+					<b:row>
+						<b:column span="10">
+							<div class="input-group">
+								<p:inputText id="globalFilter"
+									onkeyup="PF('athletesTable').filter()"
+									styleClass="form-control bf-no-message">
+								</p:inputText>
+								<span class="input-group-addon"><b:icon name="search"
+										onclick="PF('athletesTable').filter()" /></span>
+							</div>
+						</b:column>
+						<b:column span="2">
+							<h:form id="athletesoverview">
+
+								<b:commandButton id="addAthlete" value="Neuer Athlet"
+									iconAwesome="plus"
+									onclick="$('.newAthletePseudoClass').modal();return false;" />
+							</h:form>
+						</b:column>
+					</b:row>
 				</f:facet>
-				<p:column filterBy="#{athlete.firstName}" filterStyle="display:none" headerText="Vorname">
+				<p:column filterBy="#{athlete.firstName}" filterMatchMode="contains"
+					filterStyle="display:none" headerText="Vorname">
 
 					<h:outputText value="#{athlete.firstName}" />
 					<p:tooltip
 						for="@(.athletesListPseudoClass tr[role=row][data-ri=#{rowIndex}])"
-						value="#{athlete.composeSummary()}" showDelay="400" showEffect="clip" hideEffect="explode"/>
+						value="#{athlete.composeSummary()}" showDelay="400"
+						showEffect="clip" hideEffect="explode" />
 				</p:column>
-				<p:column headerText="Nachname" filterBy="#{athlete.lastName}" filterStyle="display:none">
+				<p:column headerText="Nachname" filterBy="#{athlete.lastName}"
+					filterMatchMode="contains" filterStyle="display:none">
 					<h:outputText value="#{athlete.lastName}" />
 				</p:column>
 				<p:column headerText="Jahrgang" priority="1">
@@ -43,17 +59,16 @@
 						title="#{athlete.yearOfBirth}" />
 				</p:column>
 				<p:column headerText="Verein" filterBy="#{athlete.club}"
-					filterStyle="display:none">
+					filterMatchMode="contains" filterStyle="display:none">
 					<h:outputText value="#{athlete.club}" />
 				</p:column>
 				<p:column>
 					<ul class="list-inline">
-						<li><p:commandLink event="onclick"
+						<li><hf:deleteLink
 								actionListener="#{athleteController.removeAthlete(athlete)}"
-								update="athleteslist growl" title="Löschen">
-								<b:iconAwesome size="lg" name="trash"  />
-							</p:commandLink></li>
-							<li><p:selectBooleanCheckbox disabled="true" value="#{athleteController.isParticipant(athlete)}"></p:selectBooleanCheckbox></li>
+								update="athletesoverview:athleteslist growl"></hf:deleteLink></li>
+						<li><p:selectBooleanCheckbox disabled="true"
+								value="#{athleteController.isParticipant(athlete)}"></p:selectBooleanCheckbox></li>
 					</ul>
 				</p:column>
 			</p:dataTable>

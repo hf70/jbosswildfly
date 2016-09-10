@@ -9,16 +9,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+@NamedQuery(name = Classification.FIND_SELECTABLE_FOR_PARTICIPANT, query = "SELECT c FROM Classification c Where c.fromYearOfBirth <= :"
+		+ Classification.PARAM_YEAR_OF_BIRTH + " and  c.toYearOfBirth >= :" + Classification.PARAM_YEAR_OF_BIRTH
+		+ " and c.competition = :" + Classification.PARAM_COMPETITION + " and type(c) =:"+Classification.PARAM_TYPE)
+
+
 @Entity
 @Table(name = "classification")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "gender")
-@NamedQuery(name = Classification.FIND_SELECTABLE_FOR_PARTICIPANT, query = "SELECT c FROM Classification c Where c.fromYearOfBirth >= :"
-		+ Classification.PARAM_YEAR_OF_BIRTH + " and   c.toYearOfBirth <= :" + Classification.PARAM_YEAR_OF_BIRTH)
 
 public class Classification extends BaseEntity {
 	public static final String FIND_SELECTABLE_FOR_PARTICIPANT = "Classification.findSelectableForParticipant";
 	public static final String PARAM_YEAR_OF_BIRTH = "yearofbirth";
+	public static final String PARAM_COMPETITION = "competition";
+	public static final String PARAM_TYPE="class";
 
 	private int fromYearOfBirth;
 	private int toYearOfBirth;

@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -30,21 +29,26 @@ public class CompetitionController implements Serializable {
 	@Inject
 	ParticipantService participantService;
 	@Inject
+	ParticipantsController participantsController;
+	@Inject
+	RuntimesController runtimesController;
+	@Inject
 	Event<ParticipantListModifiedEvent> participantListModifiedEvent;
 	@Inject
 	ClassificationController classificationController;
 
 	private int id;
 	private Competition competition;
-	private List<Participant> participants;
 
-	public void loadCompetition() {
+	public void loadCompetition() {		
 		competition = competitionService.findById(id);
 		newParticipantDialogController.setCompetiton(competition);
+		participantsController.setCompetition(competition);
+		runtimesController.setCompetition(competition);
 		classificationController.setCompetition(competition);
-		participants= new ArrayList<Participant>();
-		participants.addAll(competition.getParticipants());
+		participantsController.setParticipants(convertParticipants());
 	}
+
 
 	public Competition getCompetition() {
 		return competition;
@@ -53,18 +57,6 @@ public class CompetitionController implements Serializable {
 	@Transactional
 	public void saveCompetition() {
 		competitionService.save(competition);
-	}
-
-	@Transactional
-	public void removeParticipant(Participant participant) {
-		competition.getParticipants().remove(participant);
-		participantService.delete(participant);
-
-		competitionService.save(competition);
-
-		facesContext.addMessage(null, new FacesMessage("Der Teilnehmer wurde gelöscht"));
-		participantListModifiedEvent.fire(new ParticipantListModifiedEvent());
-
 	}
 
 	public void onParticipantListModified(@Observes ParticipantListModifiedEvent participantListModifiedEvent) {
@@ -78,13 +70,13 @@ public class CompetitionController implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public List<Participant> getParticipants() {
+	
+	private List<Participant> convertParticipants() {
+		List<Participant> participants = new ArrayList<Participant>();
+		participants.addAll(competition.getParticipants());
 		return participants;
 	}
 
-	public void setParticipants(List<Participant> participants) {
-		this.participants = participants;
-	}
+
 
 }

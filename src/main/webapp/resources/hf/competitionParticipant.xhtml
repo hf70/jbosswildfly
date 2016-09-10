@@ -1,0 +1,119 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:hf="http://java.sun.com/jsf/composite/hf">
+	<p:remoteCommand name="initNewParticipant"
+		actionListener="#{newParticipantDialogController.beforeOpen()}"
+		update="newParticipantForm" />
+
+	<p:dataTable id="participants" var="participant"
+		widgetVar="participantsTable" filter="true"
+		value="#{participantsController.participants}"
+		emptyMessage="Es wurden keine Teilnehmer gefunden." 
+		editable="true"
+		editMode="cell"
+		filteredValue="#{participantsController.filteredParticipants}"
+		filterStyle="display:none" >
+
+		<p:ajax event="cellEdit"
+			listener="#{participantsController.onCellEdit(participant)}"
+			update="participants growl" ignoreAutoUpdate="true" />
+
+		<f:facet name="header">
+			<b:row>
+				<b:column span="10">
+					<p:outputPanel id="filterInput" styleClass="input-group">
+						<p:outputPanel styleClass="input-group-addon">
+							<b:icon id="filterIcon"
+								disabled="#{empty  participantsController.filter}" name="filter"
+								onclick="PF('participantsTable').filter()" />
+						</p:outputPanel>
+						<p:inputText id="globalFilter"
+							styleClass="form-control bf-no-message "
+							value="#{participantsController.filter}">
+							<p:ajax event="keyup" update="filterIcon clearFilter"
+								oncomplete="PF('participantsTable').filter()" />
+						</p:inputText>
+
+						<p:outputPanel id="clearFilter" styleClass="input-group-btn">
+							<b:commandButton
+								rendered="#{not empty participantsController.filter}"
+								ajax="true" icon="remove"
+								oncomplete="PF('participantsTable').clearFilters();"
+								actionListener="#{participantsController.resetFilter()}">
+
+							</b:commandButton>
+						</p:outputPanel>
+					</p:outputPanel>
+
+				</b:column>
+				<b:column span="2">
+					<b:commandButton id="addParticipant" value="Neuer Teilnehmer"
+						iconAwesome="plus" styleClass="pull-right"
+						onclick="initNewParticipant();$('.newParticipantPseudoClass').modal();return false;" />
+				</b:column>
+			</b:row>
+		</f:facet>
+
+		<p:column styleClass="col-md-1 col-xs-1" priority="2"
+			filterBy="#{participant.athlete.firstName}" headerText="Vorname"
+			filterMatchMode="contains" filterStyle="display:none">
+			<h:outputText value="#{participant.athlete.firstName}" />
+		</p:column>
+		<p:column styleClass="col-md-2 col-xs-2" headerText="Nachname"
+			priority="0" filterBy="#{participant.athlete.lastName}"
+			filterMatchMode="contains" filterStyle="display:none">
+			<h:outputText value="#{participant.athlete.lastName}" />
+		</p:column>
+		<p:column styleClass="col-md-1 col-xs-1" headerText="JG" priority="0">
+			<h:outputText value="#{participant.athlete.yearOfBirth}" />
+		</p:column>
+		<p:column styleClass="col-md-2 col-xs-2" headerText="Verein"
+			priority="2" filterBy="#{participant.athlete.club}"
+			filterMatchMode="contains" filterStyle="display:none">
+			<h:outputText value="#{participant.athlete.club}" />
+		</p:column>
+		<p:column styleClass="col-md-1 col-xs-1" headerText="Klasse"
+			priority="0">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{participant.classification.shortName}" />
+				</f:facet>
+				<f:facet name="input">
+					<b:selectOneMenu required="true"
+						value="#{participant.classification}">
+						<f:selectItem itemLabel='- bitte auswählen -'
+							noSelectionOption="true" />
+						<f:selectItems
+							value="#{participantsController.classificationsForParticipant(participant)}"
+							var="classification" itemValue="#{classification}"
+							itemLabel="#{classification.shortName}" />
+					</b:selectOneMenu>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="col-md-2 col-xs-2" headerText="StartNr"
+			priority="0">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{participant.number}" />
+				</f:facet>
+				<f:facet name="input">
+					<b:inputText value="#{participant.number}">
+						<f:convertNumber integerOnly="true" pattern="0000" />
+					</b:inputText>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="col-md-1 col-xs-1">
+			<ul class="list-inline">
+				<li><hf:deleteLink
+						actionListener="#{participantsController.removeParticipant(participant)}"
+						update="competitionForm:participants growl"
+						oncomplete="PF('participantsTable').filter()"></hf:deleteLink></li>
+			</ul>
+		</p:column>
+	</p:dataTable>
+</ui:composition>

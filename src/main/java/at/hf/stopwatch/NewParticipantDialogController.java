@@ -2,6 +2,7 @@ package at.hf.stopwatch;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -24,17 +25,16 @@ import at.hf.stopwatch.service.ParticipantService;
 @Controller
 public class NewParticipantDialogController implements Serializable {
 
-	private Participant newParticipant;
-
 	@Inject
 	private AthleteService athleteService;
-
 	@Inject
 	private ParticipantService participantService;
-
+	@Inject
+	private ParticipantsController participantsController;
 	@Inject
 	Event<ParticipantListModifiedEvent> participantListModifiedEvent;
 
+	private Participant newParticipant;
 	private List<Athlete> athletes;
 	private List<Athlete> filteredAthletes;
 	private Competition competiton;
@@ -85,7 +85,13 @@ public class NewParticipantDialogController implements Serializable {
 	@Transactional
 	public void saveNewParticipant() {
 		participantService.save(newParticipant);
+		filterParticipantsByNewParticipant();
 		participantListModifiedEvent.fire(new ParticipantListModifiedEvent());
+	}
+
+	private void filterParticipantsByNewParticipant() {
+		participantsController.setFilter(newParticipant.getAthlete().getLastName());
+
 	}
 
 	public Competition getCompetiton() {

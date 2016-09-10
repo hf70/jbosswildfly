@@ -10,10 +10,12 @@
 		required="true" />
 	<composite:attribute name="update" />
 	<composite:attribute name="styleClass" targets="deleteLink" />
+	<composite:attribute name="oncomplete" targets="deleteLink" />
 </composite:interface>
 
 <composite:implementation>
-	<p:commandLink  id="deleteLink" event="onclick" update="#{cc.attrs.update}">
+	<p:commandLink id="deleteLink" event="onclick"
+		update="#{cc.attrs.update}" oncomplete="#{cc.attrs.oncomplete}">
 		<b:iconAwesome size="lg" name="trash" tooltip="Löschen"
 			tooltipDelay="5" />
 	</p:commandLink>

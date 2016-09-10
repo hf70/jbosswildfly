@@ -25,6 +25,7 @@ public class NewAthleteDialogController implements Serializable {
 
 	private Athlete newAthlete;
 	private boolean saved;
+	private boolean returnToNewParticipantDialog;
 
 	@PostConstruct
 	public void init() {
@@ -60,8 +61,10 @@ public class NewAthleteDialogController implements Serializable {
 	}
 
 	public void reset() {
+		System.out.println("reset");
 		newAthlete = new Athlete();
 		setSaved(false);
+		setReturnToNewParticipantDialog(false);
 	}
 
 	public boolean isSaved() {
@@ -70,6 +73,17 @@ public class NewAthleteDialogController implements Serializable {
 
 	public void setSaved(boolean saved) {
 		this.saved = saved;
+	}
+
+	public boolean isReturnToNewParticipantDialog() {
+		return returnToNewParticipantDialog;
+	}
+	public void setReturnToNewParticipantDialog(){
+		this.returnToNewParticipantDialog=true;
+	}
+
+	public void setReturnToNewParticipantDialog(boolean returnToNewParticipantDialog) {
+		this.returnToNewParticipantDialog = returnToNewParticipantDialog;
 	}
 
 }

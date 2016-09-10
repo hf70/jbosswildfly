@@ -1,8 +1,6 @@
 package at.hf.stopwatch;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.enterprise.event.Event;
@@ -10,7 +8,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -58,24 +55,8 @@ public class CompetitionControllerTest {
 		competitionController.loadCompetition();
 	}
 
-	@Test
-	public void onRemoveParticipantParticipantModifiedListEventIsFired() {
-		competitionController.removeParticipant(participant);
-		Mockito.verify(participantListModifiedEvent).fire(Mockito.any(ParticipantListModifiedEvent.class));
-	}
 
-	@Test
-	public void onRemoveParticipantServiceIsCalled() {
-		competitionController.removeParticipant(participant);
-		Mockito.verify(participantService).delete(participant);
-	}
-
-	@Test
-	public void onRemoveParticipantCompetitionIsSave() {
-		competitionController.removeParticipant(participant);
-		Mockito.verify(competitionService).save(competition);
-
-	}
+	
 
 	private void prepareCompetition() {
 		Set<Participant> participants = new HashSet<Participant>();

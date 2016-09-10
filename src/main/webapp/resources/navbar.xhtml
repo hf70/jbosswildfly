@@ -11,9 +11,9 @@
 			<b:dropMenu value="Athleten">
 				<b:navLink value="Übersicht" href="athletes.xhtml"></b:navLink>
 				
-				<b:navLink value="Neuen Athleten anlegen"
-					onclick="$('.newAthletePseudoClass').modal(); return false;">
-					</b:navLink>
+				<b:navCommandLink value="Neuen Athleten anlegen"
+					onclick="$('.newAthletePseudoClass').modal(); return false;" ajax="true" update="@none">
+					</b:navCommandLink>
 			</b:dropMenu>
 
 		</b:navbarLinks>
