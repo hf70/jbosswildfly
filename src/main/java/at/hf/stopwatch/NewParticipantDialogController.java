@@ -40,6 +40,7 @@ public class NewParticipantDialogController implements Serializable {
 	private Competition competiton;
 
 	public void beforeOpen() {
+		System.out.println("beforeOpen");
 		newParticipant = new Participant();
 		assignCompetition();
 		athletes = athleteService.getSelectableForCompetition(competiton);

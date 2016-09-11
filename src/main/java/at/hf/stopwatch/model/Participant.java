@@ -10,6 +10,7 @@ public class Participant extends BaseEntity {
 
 	private int number;
 	private Long runtime;
+	private int startblock;
 
 	@ManyToOne
 	private Athlete athlete;
@@ -58,6 +59,14 @@ public class Participant extends BaseEntity {
 
 	public void setRuntime(Long runtime) {
 		this.runtime = runtime;
+	}
+
+	public int getStartblock() {
+		return startblock;
+	}
+
+	public void setStartblock(int startblock) {
+		this.startblock = startblock;
 	}
 
 	

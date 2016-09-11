@@ -1,7 +1,6 @@
 package at.hf.stopwatch.model;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -19,6 +18,8 @@ public class Competition extends BaseEntity {
 	private Date date;
 
 	private String subject;
+	
+	private int startBlocks;
 	
 	@OneToMany(mappedBy="competition", cascade = CascadeType.ALL,fetch=FetchType.EAGER, orphanRemoval = true) 
 	private Set<Participant> participants ;
@@ -63,6 +64,14 @@ public class Competition extends BaseEntity {
 
 	public void setParticipants(Set<Participant> participants) {
 		this.participants = participants;
+	}
+
+	public int getStartBlocks() {
+		return startBlocks;
+	}
+
+	public void setStartBlocks(int startBlocks) {
+		this.startBlocks = startBlocks;
 	}
 
 }

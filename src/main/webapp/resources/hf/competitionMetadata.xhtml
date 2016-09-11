@@ -15,12 +15,16 @@
 
 	<b:panelGrid colSpans="2,10">
 		<h:outputLabel value="Datum" />
-		<b:datepicker id="date" mode="popup-icon" required="true" showOn="button" pattern="dd.MM.yyyy"
-			value="#{cc.attrs.competition.date}" >
-			</b:datepicker>
+		<b:datepicker id="date" mode="popup-icon" required="true"
+			showOn="button" pattern="dd.MM.yyyy"
+			value="#{cc.attrs.competition.date}">
+		</b:datepicker>
 		<h:outputLabel value="Bezeichnung" />
 		<b:inputText id="name" required="true"
 			value="#{cc.attrs.competition.subject}"></b:inputText>
+		<h:outputLabel value="Startblocks" />
+		<b:inputText id="startblocks" required="true"
+			value="#{cc.attrs.competition.startBlocks}"></b:inputText>
 
 	</b:panelGrid>
 

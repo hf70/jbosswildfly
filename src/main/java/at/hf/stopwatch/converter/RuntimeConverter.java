@@ -8,6 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Named;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 
 @Named
@@ -17,7 +18,10 @@ public class RuntimeConverter implements Converter {
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-			return Duration.parse(formatAsDuration(value)).toMillis();
+		if (StringUtils.isEmpty(value)){
+			return null;
+		}
+		return Duration.parse(formatAsDuration(value)).toMillis();
 	}
 	
 	@Override

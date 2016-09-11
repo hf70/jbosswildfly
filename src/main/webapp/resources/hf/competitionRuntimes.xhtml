@@ -17,24 +17,26 @@
 					value="#{runtimesController.newRuntimeEntry}"
 					completeMethod="#{runtimesController.autocompleteStartnummer}"
 					converter="#{participantConverter}" var="participant"
-					itemValue="#{participant}"
+					itemValue="#{participant}" forceSelection="true"
 					itemLabel="#{ empty participant?'': participant.number += ' - ' += participant.athlete.lastName}"
-					forceSelection="true" emptyMessage="kein Eintrag"
-					inputStyleClass="form-control" styleClass="col-md-5"
-					widgetVar="searchNumber"
-					onfocus="PF('searchNumber').input.select()" required="true">
+					emptyMessage="kein Eintrag" inputStyleClass="form-control"
+					styleClass="col-md-5" widgetVar="searchNumber"
+					onfocus="PF('searchNumber').input.select()">
 					<p:ajax event="itemSelect"
 						listener="#{runtimesController.participantSelected}"
-						update="runtime" />
+						update="runtimeForm" />
+					<p:ajax event="keyup" update="runtime" />
 				</p:autoComplete>
-				<p:inputMask id="runtime" required="true"
+				<p:inputMask id="runtime"
 					value="#{runtimesController.newRuntimeEntry.runtime}"
 					placeholder="Zeit" mask="99:99:99.?99"
+					disabled="#{empty runtimesController.newRuntimeEntry}"
 					converter="#{runtimeConverter}" styleClass="col-md-5" />
 				<b:column col-md="2">
 					<b:commandButton id="save" ajax="true" value="Ok" look="primary"
+						disabled="#{empty runtimesController.newRuntimeEntry}"
 						actionListener="#{runtimesController.saveRuntime()}"
-						update="@form" />
+						update="runtimes" />
 					<p:defaultCommand target="save" />
 					<b:messages />
 				</b:column>

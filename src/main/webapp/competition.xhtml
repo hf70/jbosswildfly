@@ -30,14 +30,14 @@
 
 				<b:tab title="Allgemein">
 					<p:spacer height="5" />
-					<hf:competitionMetadata
+					<hf:competitionMetadata id="metadata"
 						competition="#{competitionController.competition}">
 					</hf:competitionMetadata>
 
 
-					<b:commandButton id="saveCompetition" value="Ok" look="primary"
-						action="#{competitionController.saveCompetition()}"
-						update="competitionTitle">
+					<b:commandButton id="saveCompetition" ajax="true" value="Ok" look="primary"
+						actionListener="#{competitionController.saveCompetition()}"
+						update="competitionTitle" process="metadata">
 					</b:commandButton>
 
 				</b:tab>

@@ -4,18 +4,15 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
 	xmlns:hf="http://java.sun.com/jsf/composite/hf">
-	<p:remoteCommand name="initNewParticipant"
-		actionListener="#{newParticipantDialogController.beforeOpen()}"
-		update="newParticipantForm" />
+
 
 	<p:dataTable id="participants" var="participant"
 		widgetVar="participantsTable" filter="true"
 		value="#{participantsController.participants}"
-		emptyMessage="Es wurden keine Teilnehmer gefunden." 
-		editable="true"
+		emptyMessage="Es wurden keine Teilnehmer gefunden." editable="true"
 		editMode="cell"
 		filteredValue="#{participantsController.filteredParticipants}"
-		filterStyle="display:none" >
+		filterStyle="display:none">
 
 		<p:ajax event="cellEdit"
 			listener="#{participantsController.onCellEdit(participant)}"
@@ -50,9 +47,13 @@
 
 				</b:column>
 				<b:column span="2">
-					<b:commandButton id="addParticipant" value="Neuer Teilnehmer"
-						iconAwesome="plus" styleClass="pull-right"
-						onclick="initNewParticipant();$('.newParticipantPseudoClass').modal();return false;" />
+					<p:remoteCommand name="initNewParticipant"
+						actionListener="#{newParticipantDialogController.beforeOpen()}"
+						update="newParticipantForm" />
+					<b:commandButton ajax="true" id="addParticipant"
+						value="Neuer Teilnehmer" iconAwesome="plus"
+						styleClass="pull-right"
+						onclick="initNewParticipant();$('.newParticipantPseudoClass').modal();return false" />
 				</b:column>
 			</b:row>
 		</f:facet>
@@ -94,7 +95,7 @@
 				</f:facet>
 			</p:cellEditor>
 		</p:column>
-		<p:column styleClass="col-md-2 col-xs-2" headerText="StartNr"
+		<p:column styleClass="col-md-1 col-xs-1" headerText="StartNr"
 			priority="0">
 			<p:cellEditor>
 				<f:facet name="output">
@@ -104,6 +105,19 @@
 					<b:inputText value="#{participant.number}">
 						<f:convertNumber integerOnly="true" pattern="0000" />
 					</b:inputText>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="col-md-1 col-xs-1" headerText="Start"
+			priority="0">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{participant.startblock}" />
+				</f:facet>
+				<f:facet name="input">
+					<b:selectOneMenu id="startblock" value="#{participant.startblock}">
+						<f:selectItems value="#{participantsController.startblockList}" />
+					</b:selectOneMenu>
 				</f:facet>
 			</p:cellEditor>
 		</p:column>
