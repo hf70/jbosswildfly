@@ -14,6 +14,7 @@ public class ParticipantService extends EntityService<Participant> {
 
 	@Inject
 	private ParticipantDao participantDao;
+	private List<Participant> filtered;
 
 	@Override
 	protected EntityDao<Participant> getDao() {
@@ -21,7 +22,7 @@ public class ParticipantService extends EntityService<Participant> {
 	}
 
 	public List<Participant> filterParticipantsWithNumber(Competition competition) {
-		List<Participant> filtered = new ArrayList<Participant>();
+		filtered = new ArrayList<Participant>();
 		if (competition == null) {
 			return filtered;
 		}

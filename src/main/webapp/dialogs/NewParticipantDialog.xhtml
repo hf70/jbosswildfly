@@ -56,7 +56,7 @@
 						</p:column>
 						<p:column>
 							<p:commandLink update="competitionForm:participants"
-								oncomplete="$('#newParticipant').modal('hide'); PF('participantsTable').filter()" action="#{newParticipantDialogController.saveNewParticipant()}">
+								oncomplete="$('#newParticipant').modal('hide'); PF('participantsTable').filter()" action="#{newParticipantDialogController.saveNewParticipant()}" title="übernehmen">
 								<f:setPropertyActionListener value="#{athlete}"
 									target="#{newParticipantDialogController.newParticipant.athlete}" />
 								<b:iconAwesome size="lg" name="share" tooltip="Übernehmen"
