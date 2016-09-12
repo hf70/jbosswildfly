@@ -44,9 +44,10 @@ public class CompetitionController implements Serializable {
 		competition = competitionService.findById(id);
 		newParticipantDialogController.setCompetiton(competition);
 		participantsController.setCompetition(competition);
+		participantsController.setParticipants(convertParticipants());
 		runtimesController.setCompetition(competition);
 		classificationController.setCompetition(competition);
-		participantsController.setParticipants(convertParticipants());
+		
 	}
 
 

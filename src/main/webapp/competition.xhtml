@@ -8,6 +8,7 @@
 	<ui:define name="content">
 		<ui:include src="/dialogs/NewParticipantDialog.xhtml" />
 		<ui:include src="/dialogs/NewClassificationDialog.xhtml" />
+		<ui:include src="/dialogs/StartList.xhtml" />
 
 
 		<f:metadata>
@@ -57,6 +58,7 @@
 				</b:tab>
 				<b:tab title="Teilnehmer">
 					<p:spacer height="5" />
+					<p:commandLink value="Startliste" onclick="$('.startListPseudoClass').modal();return false" styleClass="pull-right"/>
 					<ui:include src="/resources/hf/competitionParticipant.xhtml" />
 				</b:tab>
 				<b:tab title="Zeiten">
