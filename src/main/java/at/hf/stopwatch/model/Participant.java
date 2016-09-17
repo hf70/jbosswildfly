@@ -2,11 +2,21 @@ package at.hf.stopwatch.model;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "participant")
+
+@NamedQueries({
+		@NamedQuery(name = Participant.FIND_STARTERS, query = "SELECT p FROM Participant p  WHERE p.competition = :"
+				+ Participant.PARAM_COMPETITION + " AND p.startblock = :" + Participant.PARAM_START_BLOCK) })
 public class Participant extends BaseEntity {
+
+	public static final String FIND_STARTERS = "Participant.findStarters";
+	public static final String PARAM_COMPETITION = "competition";
+	public static final String PARAM_START_BLOCK = "startblock";
 
 	private int number;
 	private Long runtime;
@@ -17,7 +27,7 @@ public class Participant extends BaseEntity {
 
 	@ManyToOne
 	private Competition competition;
-	
+
 	@ManyToOne
 	private Classification classification;
 
@@ -68,9 +78,5 @@ public class Participant extends BaseEntity {
 	public void setStartblock(int startblock) {
 		this.startblock = startblock;
 	}
-
-	
-
-	
 
 }

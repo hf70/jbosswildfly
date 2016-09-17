@@ -58,7 +58,8 @@
 				</b:tab>
 				<b:tab title="Teilnehmer">
 					<p:spacer height="5" />
-					<p:commandLink value="Startliste" onclick="$('.startListPseudoClass').modal();return false" styleClass="pull-right"/>
+					<p:remoteCommand actionListener="#{startListController.updateStartList()}" name="updateStartList" update="startListForm"/>
+					<p:commandLink value="Startliste" onclick="updateStartList();$('.startListPseudoClass').modal();return false" styleClass="pull-right"/>
 					<ui:include src="/resources/hf/competitionParticipant.xhtml" />
 				</b:tab>
 				<b:tab title="Zeiten">

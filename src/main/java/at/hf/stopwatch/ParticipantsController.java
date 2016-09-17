@@ -39,13 +39,11 @@ public class ParticipantsController implements Serializable {
 	private Competition competition;
 	private List<Participant> participants;
 	private List<Participant> filteredParticipants;
-	private Map<String, Integer> startBlockList;
 	private String filter;
 
 	@PostConstruct
 	public void setup(){
 		participants= new ArrayList<Participant>();
-		startBlockList = new HashMap<String,Integer>();
 	}
 
 	public Competition getCompetition() {
@@ -60,15 +58,7 @@ public class ParticipantsController implements Serializable {
 		return classificationService.getSelectableForParticipant(participant);
 	}
 	
-	public Map<String, Integer> getStartblockList() {
-		startBlockList.clear();
-		if (competition!=null){
-			for(int i=1; i<= competition.getStartBlocks();i++){
-				startBlockList.put("Block " + String.valueOf(i),i);
-			}
-		}
-		return startBlockList;
-	}
+	
 	
 	public List<Participant> getParticipants() {
 		return participants;

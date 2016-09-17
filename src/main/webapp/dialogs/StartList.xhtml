@@ -3,27 +3,53 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
-	xmlns:hf="http://java.sun.com/jsf/composite/hf">
+	xmlns:hf="http://java.sun.com/jsf/composite/hf"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
 	<b:modal id="startListDialog" title="Startliste"
 		styleClass="startListPseudoClass" backdrop="false" closable="true">
 
-		<h:form>
-			<p:dataTable id="startList" var="participant" 
-				value="#{participantsController.participants}"
-				emptyMessage="Es wurden keine Starter gefunden." sortBy="#{participant.athlete.lastName}">
-				<f:facet name="header">
-					<b:commandButton >
-						<b:iconAwesome	 name="file-excel-o" />
+
+
+		<h:form id="startListForm">
+
+			<b:row>
+				<b:column span="2">
+					<h:outputLabel value="Startblock " />
+				</b:column>
+				<b:column span="6">
+					<h:selectOneMenu id="startblock"
+						value="#{startListController.startBlock}" ajax="true"
+						styleClass="form-control bf-no-message">
+						<f:selectItems value="#{competitionController.startBlockList}" />
+						<p:ajax event="change"
+							listener="#{startListController.updateStartList()}"
+							update="startList"></p:ajax>
+					</h:selectOneMenu>
+				</b:column>
+				<b:column span="4">
+					<b:commandButton styleClass="pull-right">
+						<b:iconAwesome name="file-pdf-o" />
+						<pe:exporter type="pdf" target="startList" fileName="startliste"
+							encoding="iso-8859-1"
+							preProcessor="#{startListController.preProcessPDF}"
+							tableTitle="Startliste für Start #{startListController.startBlock} " cellFontSize="12"/>
+					</b:commandButton>
+					<b:commandButton styleClass="pull-right">
+						<b:iconAwesome name="file-excel-o" />
 						<p:dataExporter type="xls" target="startList"
 							fileName="startliste" />
 					</b:commandButton>
-					<b:commandButton >
-						<b:iconAwesome	 name="file-pdf-o" />
-						<p:dataExporter type="pdf" target="startList"
-							fileName="startliste" encoding="iso-8859-1"/>
-					</b:commandButton>
-				</f:facet>
+
+				</b:column>
+			</b:row>
+			<p:spacer height="5"></p:spacer>
+
+			<p:dataTable id="startList" var="participant"
+				value="#{startListController.startList}"
+				emptyMessage="Es wurden keine Starter gefunden."
+				sortBy="#{participant.athlete.lastName}">
+
 
 
 
@@ -32,11 +58,12 @@
 					<h:outputText
 						value="#{participant.athlete.lastName} #{participant.athlete.firstName}" />
 				</p:column>
-				<p:column styleClass="col-md-1 col-xs-1" headerText="Startnummer" sortBy="#{participant.number}">
-					<h:outputText value="#{participant.number}" styleClass="pull-right" />
+				<p:column styleClass="col-md-1 col-xs-1" headerText="Startnummer"
+					sortBy="#{participant.number}">
+					<h:outputText value="#{participant.number}" style="float:right"
+						styleClass="pull-right" />
 				</p:column>
-				<p:column styleClass="col-md-1 col-xs-1" headerText="Notizen"
-					priority="0">
+				<p:column styleClass="col-md-1 col-xs-1" headerText="Notizen">
 				</p:column>
 			</p:dataTable>
 		</h:form>

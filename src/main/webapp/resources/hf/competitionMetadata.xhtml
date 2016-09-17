@@ -16,8 +16,9 @@
 	<b:panelGrid colSpans="2,10">
 		<h:outputLabel value="Datum" />
 		<b:datepicker id="date" mode="popup-icon" required="true"
-			showOn="button" pattern="dd.MM.yyyy"
+			showOn="button" 
 			value="#{cc.attrs.competition.date}">
+			<f:convertDateTime type="date" pattern="dd.MM.yy"  />
 		</b:datepicker>
 		<h:outputLabel value="Bezeichnung" />
 		<b:inputText id="name" required="true"

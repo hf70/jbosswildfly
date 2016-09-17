@@ -2,8 +2,12 @@ package at.hf.stopwatch;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.faces.context.FacesContext;
@@ -36,9 +40,18 @@ public class CompetitionController implements Serializable {
 	Event<ParticipantListModifiedEvent> participantListModifiedEvent;
 	@Inject
 	ClassificationController classificationController;
+	@Inject
+	StartListController startListController;
 
 	private int id;
 	private Competition competition;
+	private Map<String, Integer> startBlockList = new TreeMap<String,Integer> ();
+ 	
+	
+
+	public Map<String, Integer> getStartBlockList() {
+		return startBlockList;
+	}
 
 	public void loadCompetition() {		
 		competition = competitionService.findById(id);
@@ -47,9 +60,11 @@ public class CompetitionController implements Serializable {
 		participantsController.setParticipants(convertParticipants());
 		runtimesController.setCompetition(competition);
 		classificationController.setCompetition(competition);
+		startListController.setCompetition(competition);
+		updateStartBlockList();
+
 		
 	}
-
 
 	public Competition getCompetition() {
 		return competition;
@@ -71,13 +86,21 @@ public class CompetitionController implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	private List<Participant> convertParticipants() {
 		List<Participant> participants = new ArrayList<Participant>();
 		participants.addAll(competition.getParticipants());
 		return participants;
 	}
 
+	private void updateStartBlockList() {
+		startBlockList.clear();
 
+		for (int i = 1; i <= competition.getStartBlocks(); i++) {
+			startBlockList.put("Block " + String.valueOf(i), i);
+		}
+	}
+
+	
 
 }

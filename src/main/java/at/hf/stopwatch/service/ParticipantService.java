@@ -35,4 +35,8 @@ public class ParticipantService extends EntityService<Participant> {
 		return filtered;
 	}
 
+	public List<Participant> findStartersForStartBlock(Competition competition, Integer startBlock) {
+		return participantDao.findStartersForBlock(competition, startBlock);
+	}
+
 }

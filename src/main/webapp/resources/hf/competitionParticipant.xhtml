@@ -116,7 +116,8 @@
 				</f:facet>
 				<f:facet name="input">
 					<b:selectOneMenu id="startblock" value="#{participant.startblock}">
-						<f:selectItems value="#{participantsController.startblockList}" />
+					<f:selectItem itemValue="0" itemLabel="-kein-"/>
+						<f:selectItems value="#{competitionController.startBlockList}" />
 					</b:selectOneMenu>
 				</f:facet>
 			</p:cellEditor>
