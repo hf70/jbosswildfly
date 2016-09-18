@@ -15,7 +15,7 @@
 
 	<b:panelGrid colSpans="2,10">
 		<h:outputLabel value="Datum" />
-		<b:datepicker id="date" mode="popup-icon" required="true"
+		<b:datepicker format = "DD.MM.YYYY" id="date" mode="popup-icon" required="true"
 			showOn="button" 
 			value="#{cc.attrs.competition.date}">
 			<f:convertDateTime dateStyle="short" type="date" />
