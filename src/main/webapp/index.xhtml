@@ -12,7 +12,7 @@
 		<h:form id="remove">
 			<p:dataTable id="competitionlist" var="competition"
 				value="#{competitionsController.competitions}"
-				sortBy="#{competition.date}" sortOrder="descending" reflow="true">
+				sortBy="#{competition.date}" sortOrder="descending" reflow="true" emptyMessage="Kein Wettkampf gefunden">
 				<p:column styleClass="col-md-2 col-xs-4" headerText="Datum">
 					<h:outputText value="#{competition.date}">
 						<f:convertDateTime pattern="dd.MM.yyyy" locale="de" />
@@ -26,7 +26,7 @@
 					<ul class="list-inline">
 						<li><h:link outcome="competition" includeViewParams="true">
 								<f:param name="id" value="#{competition.id}"></f:param>
-								<b:iconAwesome size="lg" name="edit" tooltip="Bearbeiten" tooltip-delay="5"/>
+								<b:iconAwesome size="lg" name="edit" tooltip-delay="5" />
 							</h:link></li>
 						<li><hf:deleteLink
 								actionListener="#{competitionsController.removeCompetiton(competition)}"

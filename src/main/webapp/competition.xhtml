@@ -10,7 +10,6 @@
 		<ui:include src="/dialogs/NewClassificationDialog.xhtml" />
 		<ui:include src="/dialogs/StartList.xhtml" />
 
-
 		<f:metadata>
 			<f:viewParam name="id" value="#{competitionController.id}" />
 			<f:event type="preRenderComponent"
@@ -22,7 +21,7 @@
 			</h4>
 			<h5>
 				<h:outputText value="#{competitionController.competition.date}">
-					<f:convertDateTime pattern="dd.MM.yyyy" type="date" />
+					<f:convertDateTime dateStyle="short" type="date" />
 				</h:outputText>
 			</h5>
 		</b:well>
