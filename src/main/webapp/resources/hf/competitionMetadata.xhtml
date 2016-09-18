@@ -18,7 +18,7 @@
 		<b:datepicker id="date" mode="popup-icon" required="true"
 			showOn="button" 
 			value="#{cc.attrs.competition.date}">
-			<f:convertDateTime type="date" pattern="dd.MM.yy"  />
+			<f:convertDateTime dateStyle="short" type="date" />
 		</b:datepicker>
 		<h:outputLabel value="Bezeichnung" />
 		<b:inputText id="name" required="true"
