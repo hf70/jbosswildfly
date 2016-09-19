@@ -6,17 +6,19 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "competition")
+
 public class Competition extends BaseEntity {
 
 	public static final String FIND_All = "Competiton.findAll";
 	private Date date;
-
 	private String subject;
 	
 	private int startBlocks;
@@ -25,7 +27,7 @@ public class Competition extends BaseEntity {
 	private Set<Participant> participants ;
 	
 	@OneToMany(mappedBy="competition", cascade = CascadeType.ALL, fetch=FetchType.EAGER) 
-	@OrderBy("fromYearOfBirth DESC")
+	@OrderBy("longName ASC,fromYearOfBirth DESC")
 	private Set<Classification> classifications;
 	
 	

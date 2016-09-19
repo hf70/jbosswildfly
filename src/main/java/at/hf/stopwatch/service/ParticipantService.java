@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import at.hf.stopwatch.dao.EntityDao;
 import at.hf.stopwatch.dao.ParticipantDao;
+import at.hf.stopwatch.model.Classification;
 import at.hf.stopwatch.model.Competition;
 import at.hf.stopwatch.model.Participant;
 
@@ -37,6 +38,14 @@ public class ParticipantService extends EntityService<Participant> {
 
 	public List<Participant> findStartersForStartBlock(Competition competition, Integer startBlock) {
 		return participantDao.findStartersForBlock(competition, startBlock);
+	}
+
+	public List<Participant> findAllResults(Competition competition) {
+		return participantDao.findAllResults(competition);
+	}
+
+	public List<Participant> findResultsForClassification(Competition competition, Classification classification) {
+		return participantDao.findResultsForClassification(competition, classification);
 	}
 
 }

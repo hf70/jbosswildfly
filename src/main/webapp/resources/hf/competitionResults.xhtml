@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:hf="http://java.sun.com/jsf/composite/hf">
+
+	<b:tabView activeIndex="0" ajax="true">
+		<b:tab title="Gesamtliste" ajax="true"
+			onclick="#{resultController.loadAllResults()}" update="allResults">
+			<p:dataTable id="allResults" var="participant"
+				widgetVar="allResultsTable" value="#{resultController.allResults}"
+				emptyMessage="Es wurden keine Ergebnisse gefunden.">
+
+				<p:column styleClass="col-md-2 col-xs-2" headerText="StartNr"
+					priority="0">
+					<h:outputText value="#{participant.number}" />
+
+				</p:column>
+
+				<p:column styleClass="col-md-1 col-xs-1" headerText="Vorname">
+					<h:outputText value="#{participant.athlete.firstName}" />
+				</p:column>
+				<p:column styleClass="col-md-2 col-xs-2" headerText="Nachname"
+					sortBy="#{participant.athlete.lastName}">
+					<h:outputText value="#{participant.athlete.lastName}" />
+				</p:column>
+				<p:column styleClass="col-md-2 col-xs-2" headerText="Verein">
+					<h:outputText value="#{participant.athlete.club}" />
+				</p:column>
+				<p:column styleClass="col-md-1 col-xs-1" headerText="JG">
+					<h:outputText value="#{participant.athlete.yearOfBirth}" />
+				</p:column>
+				<p:column styleClass="col-md-1 col-xs-1" headerText="Klasse">
+					<h:outputText value="#{participant.classification.shortName}" />
+				</p:column>
+				<p:column styleClass="col-md-1 col-xs-1" headerText="Laufzeit"
+					sortBy="#{participant.runtime}">
+					<h:outputText value="#{participant.runtime}">
+						<f:convertDateTime pattern="mm:ss,S" type="time" timeZone="UTC" />
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+		</b:tab>
+		<b:tab title="Nach Klassen"
+			onclick="#{resultController.populateGroupedResult()}"
+			update="groupedResults">
+			<p:dataTable id="groupedResults" var="resultGroup"
+				value="#{resultController.resultGroups}">
+				<p:subTable var="item" value="#{resultGroup.resultGroupItems}">
+					<f:facet name="header">
+						<h:outputText value="#{resultGroup.classification.longName}" />
+					</f:facet>
+					<p:column headerText="Rang">
+						<h:outputText value="#{item.position}" />
+					</p:column>
+					<p:column styleClass="col-md-2 col-xs-2" headerText="Startnummer">
+						<h:outputText value="#{item.participant.number}" />
+					</p:column>
+					<p:column styleClass="col-md-2 col-xs-2" headerText="Name">
+						<h:outputText
+							value="#{item.participant.athlete.lastName} #{item.participant.athlete.firstName}" />
+					</p:column>
+				</p:subTable>
+			</p:dataTable>
+		</b:tab>
+	</b:tabView>
+
+
+</ui:composition>

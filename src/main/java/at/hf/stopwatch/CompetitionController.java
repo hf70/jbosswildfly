@@ -42,6 +42,8 @@ public class CompetitionController implements Serializable {
 	ClassificationController classificationController;
 	@Inject
 	StartListController startListController;
+	@Inject
+	ResultController resultController;
 
 	private int id;
 	private Competition competition;
@@ -61,9 +63,8 @@ public class CompetitionController implements Serializable {
 		runtimesController.setCompetition(competition);
 		classificationController.setCompetition(competition);
 		startListController.setCompetition(competition);
-		updateStartBlockList();
-
-		
+		resultController.setCompetition(competition);		
+		updateStartBlockList();		
 	}
 
 	public Competition getCompetition() {

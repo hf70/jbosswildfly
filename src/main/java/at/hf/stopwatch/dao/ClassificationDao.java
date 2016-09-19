@@ -4,9 +4,7 @@ import java.util.List;
 
 import javax.persistence.TypedQuery;
 
-import at.hf.stopwatch.model.Athlete;
 import at.hf.stopwatch.model.Classification;
-import at.hf.stopwatch.model.Competition;
 import at.hf.stopwatch.model.FemaleClassification;
 import at.hf.stopwatch.model.MaleClassification;
 import at.hf.stopwatch.model.Participant;
