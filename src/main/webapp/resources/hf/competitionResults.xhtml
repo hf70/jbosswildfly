@@ -3,11 +3,104 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
-	xmlns:hf="http://java.sun.com/jsf/composite/hf">
+	xmlns:hf="http://java.sun.com/jsf/composite/hf"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
 
 	<b:tabView activeIndex="0" ajax="true">
+		<b:tab title="Nach Klassen"
+			onclick="#{resultController.populateGroupedResult()}"
+			update="groupedResults">
+
+			<b:row>
+				<p:autoComplete id="selectClassifications" multiple="true"
+					value="#{resultController.selectedClassifications}"
+					completeMethod="#{resultController.completeClassification}"
+					var="classification" itemLabel="#{classification.longName}"
+					itemValue="#{classification}"
+					converter="#{classificationConverter}" forceSelection="true"
+					styleClass="col-md-6">
+					<p:ajax event="itemSelect"
+						listener="#{resultController.itemSelected}"
+						update="groupedResults" />
+					<p:ajax event="itemUnselect"
+						listener="#{resultController.itemUnSelected}"
+						update="groupedResults" />
+
+				</p:autoComplete>
+				<b:column span="6">
+					<b:commandButton styleClass="pull-right">
+						<b:iconAwesome name="file-pdf-o" />
+						<pe:exporter type="pdf" target="groupedResults"
+							fileName="ergebnis" encoding="iso-8859-1"
+							preProcessor="#{resultController.preProcessPDF}"
+							cellFontSize="10" subTable="true" facetBackground="#FBFBFB" />
+					</b:commandButton>
+					<b:commandButton styleClass="pull-right">
+						<b:iconAwesome name="file-excel-o" />
+						<pe:exporter type="xlsx" target="groupedResults" subTable="true"
+							fileName="ergebnis" />
+					</b:commandButton>
+
+				</b:column>
+			</b:row>
+			<p:dataTable id="groupedResults" var="resultGroup"
+				value="#{resultController.resultGroups}">
+				<f:facet name="header">
+					<h:outputText value="#{resultController.competition.subject}" />
+				</f:facet>
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column headerText="Rang" />
+						<p:column headerText="Startnr." />
+						<p:column headerText="Name" />
+						<p:column headerText="Vorname" />
+						<p:column headerText="Jahrgang" />
+						<p:column headerText="Verein" />
+						<p:column headerText="Laufzeit" />
+					</p:row>
+
+				</p:columnGroup>
+				<p:subTable var="item" value="#{resultGroup.resultGroupItems}">
+					<f:facet name="header">
+						<h:outputText value="#{resultGroup.classification.longName}"
+							style="float:left" />
+					</f:facet>
+
+					<p:column>
+						<h:outputText value="#{item.position}." style="float:right" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.participant.number}"
+							style="float:right" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.participant.athlete.lastName}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.participant.athlete.firstName}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.participant.athlete.yearOfBirth} "
+							style="float:right" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.participant.athlete.club} " />
+					</p:column>
+					<p:column sortBy="#{participant.runtime}">
+						<h:outputText value="#{item.participant.runtime}"
+							style="float:right">
+							<f:convertDateTime pattern="mm:ss,SSS" type="time" timeZone="UTC" />
+						</h:outputText>
+					</p:column>
+				</p:subTable>
+			</p:dataTable>
+		</b:tab>
 		<b:tab title="Gesamtliste" ajax="true"
 			onclick="#{resultController.loadAllResults()}" update="allResults">
+
+
+
 			<p:dataTable id="allResults" var="participant"
 				widgetVar="allResultsTable" value="#{resultController.allResults}"
 				emptyMessage="Es wurden keine Ergebnisse gefunden.">
@@ -42,28 +135,7 @@
 				</p:column>
 			</p:dataTable>
 		</b:tab>
-		<b:tab title="Nach Klassen"
-			onclick="#{resultController.populateGroupedResult()}"
-			update="groupedResults">
-			<p:dataTable id="groupedResults" var="resultGroup"
-				value="#{resultController.resultGroups}">
-				<p:subTable var="item" value="#{resultGroup.resultGroupItems}">
-					<f:facet name="header">
-						<h:outputText value="#{resultGroup.classification.longName}" />
-					</f:facet>
-					<p:column headerText="Rang">
-						<h:outputText value="#{item.position}" />
-					</p:column>
-					<p:column styleClass="col-md-2 col-xs-2" headerText="Startnummer">
-						<h:outputText value="#{item.participant.number}" />
-					</p:column>
-					<p:column styleClass="col-md-2 col-xs-2" headerText="Name">
-						<h:outputText
-							value="#{item.participant.athlete.lastName} #{item.participant.athlete.firstName}" />
-					</p:column>
-				</p:subTable>
-			</p:dataTable>
-		</b:tab>
+
 	</b:tabView>
 
 
