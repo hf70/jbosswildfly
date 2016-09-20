@@ -136,7 +136,7 @@ public class ResultController implements Serializable {
 		content.add(subject);
 
 		content.add(
-				new Chunk(logo, PageSize.A4.getWidth() - PageSize.A4.getBorderWidthRight() - (logo.getWidth() * 2), 0));
+				new Chunk(logo, PageSize.A4.getHeight()- PageSize.A4.getBorderWidthRight() - (logo.getWidth() * 2), 0));
 
 		return content;
 

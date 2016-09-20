@@ -19,7 +19,7 @@
 					var="classification" itemLabel="#{classification.longName}"
 					itemValue="#{classification}"
 					converter="#{classificationConverter}" forceSelection="true"
-					styleClass="col-md-6">
+					styleClass="col-md-8">
 					<p:ajax event="itemSelect"
 						listener="#{resultController.itemSelected}"
 						update="groupedResults" />
@@ -28,13 +28,14 @@
 						update="groupedResults" />
 
 				</p:autoComplete>
-				<b:column span="6">
+				<b:column span="4">
 					<b:commandButton styleClass="pull-right">
 						<b:iconAwesome name="file-pdf-o" />
 						<pe:exporter type="pdf" target="groupedResults"
 							fileName="ergebnis" encoding="iso-8859-1"
 							preProcessor="#{resultController.preProcessPDF}"
-							cellFontSize="10" subTable="true" facetBackground="#FBFBFB" />
+							cellFontSize="10" subTable="true" facetBackground="#FBFBFB"
+							orientation="Landscape" />
 					</b:commandButton>
 					<b:commandButton styleClass="pull-right">
 						<b:iconAwesome name="file-excel-o" />

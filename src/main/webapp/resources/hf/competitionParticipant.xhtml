@@ -116,9 +116,24 @@
 				</f:facet>
 				<f:facet name="input">
 					<b:selectOneMenu id="startblock" value="#{participant.startblock}">
-					<f:selectItem itemValue="0" itemLabel="-kein-"/>
+						<f:selectItem itemValue="0" itemLabel="-kein-" />
 						<f:selectItems value="#{competitionController.startBlockList}" />
 					</b:selectOneMenu>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+		<p:column styleClass="col-md-1 col-xs-1" headerText="bezahlt"
+			priority="0">
+			<p:cellEditor>
+				<f:facet name="output">
+					<p:selectBooleanCheckbox value="#{participant.paid}"/>
+				</f:facet>
+				<f:facet name="input">
+						<b:selectOneMenu id="ispaid" value="#{participant.paid}">
+						<f:selectItem itemValue="true" itemLabel="ja" />
+						<f:selectItem itemValue="false" itemLabel="nein" />
+					</b:selectOneMenu>		
+					
 				</f:facet>
 			</p:cellEditor>
 		</p:column>
