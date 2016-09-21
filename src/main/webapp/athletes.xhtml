@@ -7,18 +7,20 @@
 	xmlns:hf="http://java.sun.com/jsf/composite/hf">
 
 	<ui:define name="content">
+	<ui:include src="/dialogs/EditAthleteDialog.xhtml" />
+	
 		<b:well size="sm">
 			<h3>Athleten</h3>
 		</b:well>
 		<h:form id="athletesoverview">
+			
 
 			<p:dataTable id="athleteslist" var="athlete"
 				widgetVar="athletesTable" value="#{athleteController.athletes}"
 				styleClass="athletesListPseudoClass"
 				emptyMessage="Keine Einträge vorhanden" filter="true"
 				filteredValue="#{athleteController.filteredAthletes}"
-				rowIndexVar="rowIndex" rowKey="#{athlete.id}"
-				editable="true" editmode="cell">
+				rowIndexVar="rowIndex" rowKey="#{athlete.id}">
 
 				<f:facet name="header">
 					<b:row>
@@ -65,6 +67,13 @@
 				</p:column>
 				<p:column>
 					<ul class="list-inline">
+						<li><b:commandButton ajax="true" update="editAthleteForm"
+								oncomplete="$('.editAthletePseudoClass').modal()">
+										<b:iconAwesome  name="edit"  />
+						
+								<f:setPropertyActionListener value="#{athlete}"
+									target="#{athleteController.selectedAthlete}" />
+							</b:commandButton></li>
 						<li><hf:deleteLink
 								actionListener="#{athleteController.removeAthlete(athlete)}"
 								update="athletesoverview:athleteslist growl"></hf:deleteLink></li>

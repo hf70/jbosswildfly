@@ -32,8 +32,9 @@
 
 		<b:selectOneMenu id="yearOfBirth" required="true"
 			value="#{cc.attrs.athlete.yearOfBirth}">
-			<f:selectItem itemLabel="- Bitte auswählen -" itemValue="" />
+			<f:selectItem rendered="#{empty cc.attrs.athlete.yearOfBirth}" itemLabel="- Bitte auswählen -" itemValue="" />
 			<f:selectItems value="#{athleteMetadataComponent.yearOfBirthList}" />
+			<p:ajax event="blur" update="@this" />
 		</b:selectOneMenu>
 		<h:outputLabel value="Ort/Verein" />
 		<b:inputText id="club" required="true"

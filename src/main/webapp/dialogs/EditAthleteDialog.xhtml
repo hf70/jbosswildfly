@@ -1,0 +1,41 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:hf="http://java.sun.com/jsf/composite/hf">
+
+
+
+	<b:modal id="editAthlete" title="Athleten bearbeiten"
+		styleClass="editAthletePseudoClass" backdrop="false" closable="false">
+		<h:form id="editAthleteForm">
+			<p:focus context="editAthleteForm" />
+			<b:panel>
+				<hf:athleteMetadata athlete="#{athleteController.selectedAthlete}" />
+				<b:fetchBeanInfos />
+				<f:facet name="footer">
+
+					<p:commandButton value="Abbrechen"
+						oncomplete=" $('#editAthlete').modal('hide')" ajax="true"
+						immediate="true" styleClass="btn btn-default">
+
+					</p:commandButton>
+					<b:commandButton id="save" ajax="true" value="Ok" look="primary"
+						actionListener="#{athleteController.saveAthlete()}"
+						oncomplete="$('#editAthlete').modal('hide')" 
+						>
+						<p:ajax update="athletesoverview"/>
+						
+					</b:commandButton>
+					<b:messages globalOnly="true" />
+					<b:defaultCommand target="save" />
+				</f:facet>
+			</b:panel>
+
+		</h:form>
+
+	</b:modal>
+
+</ui:composition>

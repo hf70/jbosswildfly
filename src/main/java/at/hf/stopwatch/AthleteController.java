@@ -25,12 +25,13 @@ public class AthleteController implements Serializable {
 
 	@Inject
 	AthleteService athleteService;
-	
+
 	@Inject
-	Event <AthleteListModifiedEvent> athleteListModifiedEvent;
+	Event<AthleteListModifiedEvent> athleteListModifiedEvent;
 
 	private List<Athlete> athletes;
 	private List<Athlete> filteredAthletes;
+	private Athlete selectedAthlete;
 
 	@PostConstruct
 	public void init() {
@@ -45,20 +46,20 @@ public class AthleteController implements Serializable {
 	public void removeAthlete(Athlete athlete) {
 		String summary = athlete.composeSummary();
 		athleteService.delete(athlete);
-		
-		facesContext.addMessage(null, new FacesMessage(summary + " wurde gelöscht"));	
+
+		facesContext.addMessage(null, new FacesMessage(summary + " wurde gelöscht"));
 		athleteListModifiedEvent.fire(new AthleteListModifiedEvent());
 	}
-	
-	public boolean isParticipant(Athlete athlete){
+
+	public boolean isParticipant(Athlete athlete) {
 		return athleteService.isParticipant(athlete.getId());
 	}
 
 	public List<Athlete> getAthletes() {
 		return athletes;
 	}
-	
-	public void onAthleteListModified(@Observes AthleteListModifiedEvent athleteListModifiedEvent){
+
+	public void onAthleteListModified(@Observes AthleteListModifiedEvent athleteListModifiedEvent) {
 		loadAthletes();
 	}
 
@@ -68,6 +69,22 @@ public class AthleteController implements Serializable {
 
 	public void setFilteredAthletes(List<Athlete> filteredAthletes) {
 		this.filteredAthletes = filteredAthletes;
+	}
+
+	public Athlete getSelectedAthlete() {
+		return selectedAthlete;
+	}
+
+	public void setSelectedAthlete(Athlete selectedAthlete) {
+		this.selectedAthlete = selectedAthlete;
+	}
+
+	@Transactional
+	public void saveAthlete() {
+
+		athleteService.save(selectedAthlete);
+		athleteListModifiedEvent.fire(new AthleteListModifiedEvent());
+
 	}
 
 }
