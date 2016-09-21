@@ -17,7 +17,8 @@
 				styleClass="athletesListPseudoClass"
 				emptyMessage="Keine Einträge vorhanden" filter="true"
 				filteredValue="#{athleteController.filteredAthletes}"
-				rowIndexVar="rowIndex" rowKey="#{athlete.id}">
+				rowIndexVar="rowIndex" rowKey="#{athlete.id}"
+				editable="true" editmode="cell">
 
 				<f:facet name="header">
 					<b:row>

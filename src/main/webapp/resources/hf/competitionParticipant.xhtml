@@ -124,18 +124,11 @@
 		</p:column>
 		<p:column styleClass="col-md-1 col-xs-1" headerText="bezahlt"
 			priority="0">
-			<p:cellEditor>
-				<f:facet name="output">
-					<p:selectBooleanCheckbox value="#{participant.paid}"/>
-				</f:facet>
-				<f:facet name="input">
-						<b:selectOneMenu id="ispaid" value="#{participant.paid}">
-						<f:selectItem itemValue="true" itemLabel="ja" />
-						<f:selectItem itemValue="false" itemLabel="nein" />
-					</b:selectOneMenu>		
-					
-				</f:facet>
-			</p:cellEditor>
+			<p:selectBooleanCheckbox value="#{participant.paid}" onLabel="ja"
+				offLabel="nein">
+				 <p:ajax update="growl" listener="#{participantsController.onCellEdit(participant)}" />
+			</p:selectBooleanCheckbox>
+
 		</p:column>
 		<p:column styleClass="col-md-1 col-xs-1">
 			<ul class="list-inline">
