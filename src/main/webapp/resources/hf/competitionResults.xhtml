@@ -88,14 +88,24 @@
 					<p:column>
 						<h:outputText value="#{item.participant.athlete.club} " />
 					</p:column>
-					<p:column sortBy="#{participant.runtime}">
+					<p:column>
 						<h:outputText value="#{item.participant.runtime}"
 							style="float:right">
 							<f:convertDateTime pattern="mm:ss,SSS" type="time" timeZone="UTC" />
 						</h:outputText>
 					</p:column>
+					<p:column exportable="false">
+						
+						<b:commandButton>
+							<b:iconAwesome name="file-pdf-o" />
+							<f:setPropertyActionListener value="#{item}"
+								target="#{pdfController.itemToPrint}" />
+							<p:fileDownload value="#{pdfController.createPDF()}" />
+						</b:commandButton>
+					</p:column>
 				</p:subTable>
 			</p:dataTable>
+			
 		</b:tab>
 		<b:tab title="Gesamtliste" ajax="true"
 			onclick="#{resultController.loadAllResults()}" update="allResults">
@@ -134,7 +144,10 @@
 						<f:convertDateTime pattern="mm:ss,S" type="time" timeZone="UTC" />
 					</h:outputText>
 				</p:column>
+
 			</p:dataTable>
+
+
 		</b:tab>
 
 	</b:tabView>

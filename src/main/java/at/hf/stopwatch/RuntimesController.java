@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.primefaces.event.SelectEvent;
 
 import at.hf.stopwatch.cdi.Controller;
+import at.hf.stopwatch.model.Classification;
 import at.hf.stopwatch.model.Competition;
 import at.hf.stopwatch.model.Participant;
 import at.hf.stopwatch.service.CompetitionService;
@@ -26,6 +27,16 @@ public class RuntimesController implements Serializable {
 	private String newRuntime;
 
 	
+	private List<Participant> participants;
+	
+	
+	
+	
+
+	public void filterParticipantsWithNumber() {
+		participants=participantService.filterParticipantsWithNumber(competition);		
+	}
+
 
 	public List<Participant> autocompleteStartnummer(String input) {
 
@@ -50,7 +61,7 @@ public class RuntimesController implements Serializable {
 	}
 
 	public List<Participant> getParticipants() {
-		return participantService.filterParticipantsWithNumber(competition);
+		return participants;
 	}
 
 	public Participant getNewRuntimeEntry() {

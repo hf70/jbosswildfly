@@ -54,7 +54,7 @@ public class ResultController implements Serializable {
 	private List<Participant> allResults;
 	private List<ResultGroup> resultGroups;
 	private List<Classification> selectedClassifications;
-
+	
 	private Image logo;
 
 	@PostConstruct
@@ -77,7 +77,6 @@ public class ResultController implements Serializable {
 	}
 
 	public List<Classification> completeClassification(String query) {
-		System.out.println("complete");
 		List<Classification> filteredClassifications = new ArrayList<Classification>();
 		for (Classification classification : getCompetition().getClassifications()) {
 			if (classification.getLongName().startsWith(query) || classification.getShortName().startsWith(query)) {
@@ -86,11 +85,12 @@ public class ResultController implements Serializable {
 		}
 		return filteredClassifications;
 	}
-	
-	public void itemSelected(SelectEvent event){
+
+	public void itemSelected(SelectEvent event) {
 		populateGroupedResult();
 	}
-	public void itemUnSelected(UnselectEvent event){
+
+	public void itemUnSelected(UnselectEvent event) {
 		populateGroupedResult();
 	}
 
@@ -135,8 +135,8 @@ public class ResultController implements Serializable {
 		Paragraph subject = new Paragraph(competition.getSubject(), font);
 		content.add(subject);
 
-		content.add(
-				new Chunk(logo, PageSize.A4.getHeight()- PageSize.A4.getBorderWidthRight() - (logo.getWidth() * 2), 0));
+		content.add(new Chunk(logo, PageSize.A4.getHeight() - PageSize.A4.getBorderWidthRight() - (logo.getWidth() * 2),
+				0));
 
 		return content;
 
@@ -175,6 +175,8 @@ public class ResultController implements Serializable {
 		}
 	}
 
+
+	
 	public List<Participant> getAllResults() {
 		return allResults;
 	}
@@ -190,5 +192,7 @@ public class ResultController implements Serializable {
 	public void setSelectedClassifications(List<Classification> selectedClassifications) {
 		this.selectedClassifications = selectedClassifications;
 	}
+
+	
 
 }

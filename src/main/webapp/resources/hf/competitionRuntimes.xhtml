@@ -34,10 +34,12 @@
 					disabled="#{empty runtimesController.newRuntimeEntry}"
 					converter="#{runtimeConverter}" styleClass="col-md-5" />
 				<b:column col-md="2">
-					<b:commandButton id="save" ajax="true" value="Ok" look="primary"
+				<p:remoteCommand name="refreshList"  actionListener="#{runtimesController.filterParticipantsWithNumber()}" update="runtimes"/>
+ 					<b:commandButton id="save" ajax="true" value="Ok" look="primary"
 						disabled="#{empty runtimesController.newRuntimeEntry}"
 						actionListener="#{runtimesController.saveRuntime()}"
-						update="runtimes" />
+						update="runtimes"
+						oncomplete="refreshList();" />
 					<p:defaultCommand target="save" />
 					<b:messages />
 				</b:column>
@@ -46,7 +48,7 @@
 
 
 		<p:column styleClass="col-md-2 col-xs-2" headerText="StartNr"
-			priority="0">
+			sortBy="#{participant.number}">
 			<h:outputText value="#{participant.number}" />
 
 		</p:column>
@@ -61,7 +63,7 @@
 		<p:column styleClass="col-md-2 col-xs-2" headerText="Verein">
 			<h:outputText value="#{participant.athlete.club}" />
 		</p:column>
-		<p:column styleClass="col-md-1 col-xs-1" headerText="JG" >
+		<p:column styleClass="col-md-1 col-xs-1" headerText="JG">
 			<h:outputText value="#{participant.athlete.yearOfBirth}" />
 		</p:column>
 		<p:column styleClass="col-md-1 col-xs-1" headerText="Klasse">
