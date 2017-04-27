@@ -1,0 +1,38 @@
+<ui:composition template="/resources/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:hf="http://java.sun.com/jsf/composite/hf">
+
+	<ui:define name="content">
+	
+		<b:well size="sm">
+			<h3>Autoren</h3>
+		</b:well>
+			
+
+			<p:dataTable id="authorslist" var="author"
+				widgetVar="authorsTable" value="#{authorController.authors}"
+				
+				emptyMessage="Keine Einträge vorhanden" >
+			
+				<p:column headerText="Id">
+					<h:outputText value="#{author.id}" />
+				</p:column>
+			
+				<p:column headerText="Name">
+					<h:outputText value="#{author.name}" />
+				</p:column>
+				
+				<p:column headerText="Datum">
+					<h:outputText value="#{author.createdDate}" >
+					<f:convertDateTime dateStyle="medium"/>
+					</h:outputText>
+				</p:column>
+			
+			
+			</p:dataTable>
+	</ui:define>
+</ui:composition>

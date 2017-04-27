@@ -9,6 +9,16 @@
 	<version>1.0</version>
 	<name>jbosswildfly</name>
 
+
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>Prime Repo</name>
+			<url>http://repository.primefaces.org</url>
+		</repository>
+	</repositories>
+
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -64,6 +74,11 @@
 			<version>8.2.0.Final</version>
 		</dependency>
 		<dependency>
+			<groupId>org.mongojack</groupId>
+			<artifactId>mongojack</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>4.3.1.Final</version>
@@ -85,6 +100,7 @@
 			<artifactId>junit</artifactId>
 			<version>4.4</version>
 		</dependency>
+		
 
 	</dependencies>
 
